@@ -1,0 +1,409 @@
+name: svi_like
+version: "0.2-quebec-2021"
+source: CDC/ATSDR SVI-inspired implementation adapted to Québec 2021 census tracts
+source_reference:
+  citation: Flanagan et al. 2011, A Social Vulnerability Index for Disaster Management
+  doi: 10.2202/1547-7355.1792
+method_reference: CDC/ATSDR SVI rank-based domain methodology
+construct_measured: social_vulnerability
+score_direction: higher_is_more_vulnerable
+
+# This run is not strict_original_like because several variables are Canadian/Québec
+# local proxies, and three canonical variables are currently exact-missing placeholders:
+# pct_disability, pct_no_vehicle, pct_group_quarters.
+reproduction_level: partial_svi_like
+
+spatial_id_column: zone_id
+population_column: population
+
+comparison:
+  scopes:
+    - name: global
+      group_column: null
+  default_scope: global
+  grouped_scope_status: designed_not_default
+
+partial:
+  allow_missing_required_variables: true
+  reason: >
+    The clean Québec SVI input table contains all 15 canonical columns, but
+    pct_disability, pct_no_vehicle, and pct_group_quarters are currently
+    exact-missing placeholders. The run is therefore partial_svi_like.
+
+zero_population:
+  action: exclude
+  threshold: 0
+  status: paper_explicit
+  reason: Original SVI excludes census tracts with zero population before ranking.
+
+ranking:
+  method: percentile_rank
+  formula: "(rank - 1) / (N - 1)"
+  tie_method: min
+  n_equals_one: zero
+  higher_percentile_means: higher_vulnerability
+  status: paper_explicit
+
+flags:
+  variable_flag_threshold: 0.90
+  status: paper_explicit
+
+domains:
+  socioeconomic:
+    label: Socioeconomic status
+    variables:
+      - pct_below_poverty
+      - pct_unemployed
+      - per_capita_income
+      - pct_no_high_school
+
+  household_disability:
+    label: Household composition / disability
+    variables:
+      - pct_age_65_plus
+      - pct_age_17_or_younger
+      - pct_disability
+      - pct_single_parent_households
+
+  minority_language:
+    label: Minority status / language
+    variables:
+      - pct_minority
+      - pct_limited_language
+
+  housing_transportation:
+    label: Housing / transportation
+    variables:
+      - pct_multiunit_structures
+      - pct_mobile_homes
+      - pct_crowding
+      - pct_no_vehicle
+      - pct_group_quarters
+
+variables:
+  pct_below_poverty:
+    canonical_name: pct_below_poverty
+    required: true
+    domain: socioeconomic
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: percent individuals below poverty
+    source_column_in_clean_table: pct_below_poverty
+    source_original_column: pct_low_income_lim_at
+    proxy_used: pct_low_income_lim_at
+    proxy_quality: high
+    status: local_adaptation
+    conceptual_risk: >
+      The original SVI uses percent individuals below poverty. This Québec
+      adaptation uses LIM-AT low-income prevalence as the Canadian low-income
+      proxy.
+
+  pct_unemployed:
+    canonical_name: pct_unemployed
+    required: true
+    domain: socioeconomic
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: percent civilian unemployed
+    source_column_in_clean_table: pct_unemployed
+    proxy_used: false
+    proxy_quality: high
+    status: direct_or_strong_proxy
+    conceptual_risk: >
+      Closest available unemployment measure from the cleaned Census Profile
+      unemployment table.
+
+  per_capita_income:
+    canonical_name: per_capita_income
+    required: true
+    domain: socioeconomic
+    direction: negative
+    unit: currency
+    scale: currency
+    numeric: true
+    nonnegative: true
+    original_variable: per_capita_income
+    source_column_in_clean_table: per_capita_income
+    source_original_column: income_measure_default
+    proxy_used: income_measure_default
+    proxy_quality: medium
+    status: local_adaptation
+    conceptual_risk: >
+      Original SVI uses per-capita income. This Québec adaptation uses the
+      cleaned income default proxy. Direction is negative, so lower income
+      receives higher vulnerability percentile.
+
+  pct_no_high_school:
+    canonical_name: pct_no_high_school
+    required: true
+    domain: socioeconomic
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: percent persons with no high school diploma
+    source_column_in_clean_table: pct_no_high_school
+    source_original_column: education_measure_default
+    proxy_used: education_measure_default
+    proxy_quality: medium_high
+    status: local_adaptation
+    conceptual_risk: >
+      Canadian no certificate, diploma, or degree is used as a proxy for the
+      original no-high-school-diploma variable.
+
+  pct_age_65_plus:
+    canonical_name: pct_age_65_plus
+    required: true
+    domain: household_disability
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: percent persons 65 years and older
+    source_column_in_clean_table: pct_age_65_plus
+    proxy_used: false
+    proxy_quality: high
+    status: direct_or_strong_proxy
+    conceptual_risk: Direct age 65+ measure.
+
+  pct_age_17_or_younger:
+    canonical_name: pct_age_17_or_younger
+    required: true
+    domain: household_disability
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: percent persons 17 years and younger
+    source_column_in_clean_table: pct_age_17_or_younger
+    source_original_column: pct_age_0_14
+    proxy_used: pct_age_0_14
+    proxy_quality: medium
+    status: local_adaptation
+    conceptual_risk: >
+      Original SVI uses persons age 17 or younger. Current Canadian proxy is
+      persons age 0 to 14.
+
+  pct_disability:
+    canonical_name: pct_disability
+    required: true
+    domain: household_disability
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: percent persons age 5+ with a disability
+    source_column_in_clean_table: pct_disability
+    proxy_used: false
+    proxy_quality: missing
+    status: missing_no_current_proxy
+    conceptual_risk: >
+      Exact disability/activity-limitation variable is currently missing from
+      the cleaned census-tract feature tables. This column is an all-NA
+      placeholder in the clean SVI input table.
+
+  pct_single_parent_households:
+    canonical_name: pct_single_parent_households
+    required: true
+    domain: household_disability
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: percent single-parent households with children under 18
+    source_column_in_clean_table: pct_single_parent_households
+    source_original_column: single_parent_measure_default
+    proxy_used: single_parent_measure_default
+    proxy_quality: medium
+    status: local_adaptation
+    conceptual_risk: >
+      Current Canadian proxy is one-parent-family households. It may not match
+      the original under-18 child restriction exactly.
+
+  pct_minority:
+    canonical_name: pct_minority
+    required: true
+    domain: minority_language
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: percent minority
+    source_column_in_clean_table: pct_minority
+    source_original_column: ethnocultural_measure_default
+    proxy_used: ethnocultural_measure_default
+    proxy_quality: medium
+    status: local_adaptation
+    conceptual_risk: >
+      Canadian/Québec ethnocultural and visible-minority concepts are not
+      identical to the U.S. SVI minority-status variable and require careful
+      interpretation.
+
+  pct_limited_language:
+    canonical_name: pct_limited_language
+    required: true
+    domain: minority_language
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: percent persons age 5+ who speak English less than well
+    source_column_in_clean_table: pct_limited_language
+    source_original_column: language_barrier_measure_default
+    proxy_used: language_barrier_measure_default
+    proxy_quality: medium
+    status: local_adaptation
+    conceptual_risk: >
+      Canadian/Québec language-barrier proxy is not identical to the U.S.
+      English-less-than-well variable.
+
+  pct_multiunit_structures:
+    canonical_name: pct_multiunit_structures
+    required: true
+    domain: housing_transportation
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: percent multi-unit structures
+    source_column_in_clean_table: pct_multiunit_structures
+    source_original_column: multiunit_measure_default
+    proxy_used: multiunit_measure_default
+    proxy_quality: high
+    status: direct_or_strong_proxy
+    conceptual_risk: >
+      Strong Canadian housing-type proxy for multi-unit structures.
+
+  pct_mobile_homes:
+    canonical_name: pct_mobile_homes
+    required: true
+    domain: housing_transportation
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: percent mobile homes
+    source_column_in_clean_table: pct_mobile_homes
+    source_original_column: mobile_home_measure_default
+    proxy_used: mobile_home_measure_default
+    proxy_quality: high
+    status: direct_or_strong_proxy
+    conceptual_risk: >
+      Canadian movable-dwelling proxy for mobile homes. Local relevance may be
+      low in some urban Québec contexts.
+
+  pct_crowding:
+    canonical_name: pct_crowding
+    required: true
+    domain: housing_transportation
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: occupied housing units with more than one person per room
+    source_column_in_clean_table: pct_crowding
+    source_original_column: crowding_measure_default
+    proxy_used: crowding_measure_default
+    proxy_quality: high
+    status: direct_or_strong_proxy
+    conceptual_risk: >
+      More than one person per room is used as the crowding measure.
+
+  pct_no_vehicle:
+    canonical_name: pct_no_vehicle
+    required: true
+    domain: housing_transportation
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: households with no vehicle available
+    source_column_in_clean_table: pct_no_vehicle
+    proxy_used: false
+    proxy_quality: missing_exact
+    status: missing_exact_weak_proxy_available
+    weak_proxy_candidate_column: pct_no_vehicle_weak_proxy_candidate
+    weak_proxy_candidate_source: pct_commute_non_car_modes
+    conceptual_risk: >
+      Exact household no-vehicle availability is currently missing. A weak
+      commuting-based proxy candidate exists in the clean table but is not
+      mapped into this canonical variable.
+
+  pct_group_quarters:
+    canonical_name: pct_group_quarters
+    required: true
+    domain: housing_transportation
+    direction: positive
+    unit: proportion
+    scale: proportion_0_1
+    numeric: true
+    nonnegative: true
+    original_variable: percent persons in group quarters
+    source_column_in_clean_table: pct_group_quarters
+    proxy_used: false
+    proxy_quality: missing
+    status: missing_no_current_proxy
+    conceptual_risk: >
+      Need census-tract population in group quarters or collective dwellings.
+      ODHF facility counts are not an acceptable proxy. This column is an
+      all-NA placeholder in the clean SVI input table.
+
+missing_data:
+  strategy: keep_missing_with_flags
+  add_missing_flags: true
+  status: local_adaptation
+  reason: >
+    The Québec SVI input table intentionally preserves missing values and
+    exact-missing placeholders. Missingness is reported and the SVI output
+    quality_flag should identify partial_svi_like rows.
+
+aggregation:
+  method: svi_domain_sum_then_domain_percentile_then_overall_percentile
+  status: paper_explicit
+
+classification:
+  method: quantile
+  n_classes: 5
+
+outputs:
+  include_intermediate_columns: true
+  include_metadata: true
+  include_variable_flags: true
+  include_domain_scores: true
+
+assumptions:
+  - status: method_family_default
+    description: Percentile ranks use min tie handling and the formula (rank - 1) / (N - 1).
+  - status: paper_explicit
+    description: SVI is an area-level social vulnerability index, not an individual-level classification.
+  - status: implementation_assumption
+    description: N=1 comparison scopes receive percentile 0.0 and this behavior is reported in metadata.
+  - status: local_adaptation
+    description: The Québec 2021 run uses a Canadian census-tract feature table with documented local proxies.
+  - status: local_adaptation
+    description: pct_disability, pct_no_vehicle, and pct_group_quarters are preserved as missing canonical placeholders in the input table.
+
+decisions:
+  - status: local_adaptation
+    description: This recipe preserves the SVI methodology while allowing Canadian municipal feature tables and documented proxies.
+  - status: partial_svi_like
+    description: This run is not a full strict SVI reproduction because three canonical SVI variables are exact-missing in the current cleaned data table.
+  - status: methodological_caution
+    description: pct_no_vehicle_weak_proxy_candidate is intentionally not mapped into pct_no_vehicle in this first run.

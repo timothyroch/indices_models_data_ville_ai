@@ -1,0 +1,453 @@
+name: sovi_like
+version: "0.1"
+source: Cutter, Boruff & Shirley SoVI-inspired implementation
+source_reference:
+  citation: Cutter, Boruff & Shirley 2003, Social Vulnerability to Environmental Hazards
+  journal: Social Science Quarterly
+method_reference: SoVI PCA/factor-analysis methodology with varimax rotation
+construct_measured: social_vulnerability
+score_direction: higher_is_more_vulnerable
+reproduction_level: local_adaptation
+spatial_id_column: zone_id
+
+original_reference_variables:
+  - MED_AGE90
+  - PERCAP89
+  - MVALOO90
+  - MEDRENT90
+  - PHYSICN90
+  - PCTVOTE92
+  - BRATE90
+  - MIGRA_97
+  - PCTFARMS92
+  - PCTBLACK90
+  - PCTINDIAN90
+  - PCTASIAN90
+  - PCTHISPANIC90
+  - PCTKIDS90
+  - PCTOLD90
+  - PCTVLUN91
+  - AVGPERHH
+  - PCTHH7589
+  - PCTPOV90
+  - PCTRENTER90
+  - PCTRFRM90
+  - DEBREV92
+  - PCTMOBL90
+  - PCTNOHS90
+  - HODENUT90
+  - HUPTDEN90
+  - MAESDEN92
+  - EARNDEN90
+  - COMDEVDN92
+  - RPROPDEN92
+  - CVBRPC91
+  - FEMLBR90
+  - AGRIPC90
+  - TRANPC90
+  - SERVPC90
+  - NRRESPC91
+  - HOSPTPC91
+  - PCCHGPOP90
+  - PCTURB90
+  - PCTFEM90
+  - PCTF_HH90
+  - SSBENPC90
+
+variables:
+  med_age:
+    canonical_name: med_age
+    required: true
+    original_variable: MED_AGE90
+    description: Median age
+    unit: years
+    status: local_adaptation
+  per_capita_income:
+    canonical_name: per_capita_income
+    required: true
+    original_variable: PERCAP89
+    description: Per capita income
+    unit: currency
+    status: local_adaptation
+    vulnerability_direction_hint: negative
+  median_home_value:
+    canonical_name: median_home_value
+    required: true
+    original_variable: MVALOO90
+    description: Median dollar value of owner-occupied housing
+    unit: currency
+    status: local_adaptation
+  median_rent:
+    canonical_name: median_rent
+    required: true
+    original_variable: MEDRENT90
+    description: Median rent for renter-occupied housing units
+    unit: currency
+    status: local_adaptation
+  physicians_per_100k:
+    canonical_name: physicians_per_100k
+    required: true
+    original_variable: PHYSICN90
+    description: Physicians per 100,000 population
+    unit: rate_per_100k
+    status: local_adaptation
+  pct_vote_leading_party:
+    canonical_name: pct_vote_leading_party
+    required: true
+    original_variable: PCTVOTE92
+    description: Percent vote cast for president for leading party
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  birth_rate:
+    canonical_name: birth_rate
+    required: true
+    original_variable: BRATE90
+    description: Birth rate
+    unit: rate
+    status: local_adaptation
+  net_international_migration:
+    canonical_name: net_international_migration
+    required: true
+    original_variable: MIGRA_97
+    description: Net international migration
+    unit: count_or_rate
+    status: local_adaptation
+  pct_land_farms:
+    canonical_name: pct_land_farms
+    required: true
+    original_variable: PCTFARMS92
+    description: Land in farms as percent of total land
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_black:
+    canonical_name: pct_black
+    required: true
+    original_variable: PCTBLACK90
+    description: Percent African American
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_indigenous:
+    canonical_name: pct_indigenous
+    required: true
+    original_variable: PCTINDIAN90
+    description: Percent Native American / Indigenous
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_asian:
+    canonical_name: pct_asian
+    required: true
+    original_variable: PCTASIAN90
+    description: Percent Asian
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_hispanic:
+    canonical_name: pct_hispanic
+    required: true
+    original_variable: PCTHISPANIC90
+    description: Percent Hispanic
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_under_5:
+    canonical_name: pct_under_5
+    required: true
+    original_variable: PCTKIDS90
+    description: Percent population under five
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_over_65:
+    canonical_name: pct_over_65
+    required: true
+    original_variable: PCTOLD90
+    description: Percent population over 65
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_unemployed:
+    canonical_name: pct_unemployed
+    required: true
+    original_variable: PCTVLUN91
+    description: Percent civilian labor force unemployed
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  avg_people_per_household:
+    canonical_name: avg_people_per_household
+    required: true
+    original_variable: AVGPERHH
+    description: Average people per household
+    unit: persons
+    status: local_adaptation
+  pct_high_income_households:
+    canonical_name: pct_high_income_households
+    required: true
+    original_variable: PCTHH7589
+    description: Percent households earning more than original high-income threshold
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_poverty:
+    canonical_name: pct_poverty
+    required: true
+    original_variable: PCTPOV90
+    description: Percent living in poverty
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+    vulnerability_direction_hint: positive
+  pct_renter:
+    canonical_name: pct_renter
+    required: true
+    original_variable: PCTRENTER90
+    description: Percent renter-occupied housing units
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_rural_farm:
+    canonical_name: pct_rural_farm
+    required: true
+    original_variable: PCTRFRM90
+    description: Percent rural farm population
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  debt_revenue_ratio:
+    canonical_name: debt_revenue_ratio
+    required: true
+    original_variable: DEBREV92
+    description: Local government debt-to-revenue ratio
+    unit: ratio
+    status: local_adaptation
+  pct_mobile_homes:
+    canonical_name: pct_mobile_homes
+    required: true
+    original_variable: PCTMOBL90
+    description: Percent housing units that are mobile homes
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_no_high_school:
+    canonical_name: pct_no_high_school
+    required: true
+    original_variable: PCTNOHS90
+    description: Percent age 25+ with no high school diploma
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  housing_unit_density:
+    canonical_name: housing_unit_density
+    required: true
+    original_variable: HODENUT90
+    description: Housing units per square mile
+    unit: density
+    status: local_adaptation
+  housing_permit_density:
+    canonical_name: housing_permit_density
+    required: true
+    original_variable: HUPTDEN90
+    description: Housing permits / residential construction density
+    unit: density
+    status: local_adaptation
+  manufacturing_density:
+    canonical_name: manufacturing_density
+    required: true
+    original_variable: MAESDEN92
+    description: Manufacturing establishments per square mile
+    unit: density
+    status: local_adaptation
+  earnings_density:
+    canonical_name: earnings_density
+    required: true
+    original_variable: EARNDEN90
+    description: Earnings in all industries per square mile
+    unit: density
+    status: local_adaptation
+  commercial_density:
+    canonical_name: commercial_density
+    required: true
+    original_variable: COMDEVDN92
+    description: Commercial establishments per square mile
+    unit: density
+    status: local_adaptation
+  property_value_density:
+    canonical_name: property_value_density
+    required: true
+    original_variable: RPROPDEN92
+    description: Value of property and farm products sold per square mile
+    unit: density
+    status: local_adaptation
+  labor_force_participation:
+    canonical_name: labor_force_participation
+    required: true
+    original_variable: CVBRPC91
+    description: Labor-force participation
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  female_labor_force_participation:
+    canonical_name: female_labor_force_participation
+    required: true
+    original_variable: FEMLBR90
+    description: Female labor-force participation
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_extractive_employment:
+    canonical_name: pct_extractive_employment
+    required: true
+    original_variable: AGRIPC90
+    description: Employment in extractive industries
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_transport_utility_employment:
+    canonical_name: pct_transport_utility_employment
+    required: true
+    original_variable: TRANPC90
+    description: Employment in transportation / communications / utilities
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_service_employment:
+    canonical_name: pct_service_employment
+    required: true
+    original_variable: SERVPC90
+    description: Employment in service occupations
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  nursing_home_residents_per_capita:
+    canonical_name: nursing_home_residents_per_capita
+    required: true
+    original_variable: NRRESPC91
+    description: Nursing-home residents per capita
+    unit: per_capita
+    status: local_adaptation
+  hospitals_per_capita:
+    canonical_name: hospitals_per_capita
+    required: true
+    original_variable: HOSPTPC91
+    description: Community hospitals per capita
+    unit: per_capita
+    status: local_adaptation
+  pct_population_change:
+    canonical_name: pct_population_change
+    required: true
+    original_variable: PCCHGPOP90
+    description: Percent population change
+    unit: proportion
+    status: local_adaptation
+  pct_urban:
+    canonical_name: pct_urban
+    required: true
+    original_variable: PCTURB90
+    description: Percent urban population
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_female:
+    canonical_name: pct_female
+    required: true
+    original_variable: PCTFEM90
+    description: Percent female
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_female_headed_households:
+    canonical_name: pct_female_headed_households
+    required: true
+    original_variable: PCTF_HH90
+    description: Percent female-headed households, no spouse present
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  social_security_recipients_per_capita:
+    canonical_name: social_security_recipients_per_capita
+    required: true
+    original_variable: SSBENPC90
+    description: Social Security recipients per capita
+    unit: per_capita
+    status: local_adaptation
+
+missing_data:
+  strategy: zero_imputation
+  add_missing_flags: true
+  status: paper_explicit_original_method
+  warning: Zero imputation can distort factor structure when zero is not substantively meaningful.
+
+standardization:
+  method: zscore
+  center: true
+  scale: true
+  ddof: 0
+  zero_variance_behavior: drop
+  status: statistically_required_for_pca
+
+factor_analysis:
+  method: pca
+  input_matrix: standardized_variables
+
+factor_retention:
+  method: eigenvalue_gt
+  threshold: 1.0
+
+rotation:
+  method: varimax
+  normalize: true
+  max_iter: 500
+  tol: 1.0e-6
+
+factor_scores:
+  method: rotated_projection
+  save_unrotated_scores: true
+  save_rotated_scores: true
+
+factor_orientation:
+  mode: manual_config
+  default_unconfigured_behavior: warn
+  note: Factor signs are arbitrary; these are placeholders requiring researcher validation for a real dataset.
+  factors:
+    factor_1: {method: positive, rationale: "Placeholder orientation; researcher must inspect rotated loadings."}
+    factor_2: {method: positive, rationale: "Placeholder orientation; researcher must inspect rotated loadings."}
+    factor_3: {method: positive, rationale: "Placeholder orientation; researcher must inspect rotated loadings."}
+    factor_4: {method: positive, rationale: "Placeholder orientation; researcher must inspect rotated loadings."}
+    factor_5: {method: positive, rationale: "Placeholder orientation; researcher must inspect rotated loadings."}
+    factor_6: {method: positive, rationale: "Placeholder orientation; researcher must inspect rotated loadings."}
+    factor_7: {method: positive, rationale: "Placeholder orientation; researcher must inspect rotated loadings."}
+    factor_8: {method: positive, rationale: "Placeholder orientation; researcher must inspect rotated loadings."}
+    factor_9: {method: positive, rationale: "Placeholder orientation; researcher must inspect rotated loadings."}
+    factor_10: {method: positive, rationale: "Placeholder orientation; researcher must inspect rotated loadings."}
+    factor_11: {method: positive, rationale: "Placeholder orientation; researcher must inspect rotated loadings."}
+    factor_12: {method: positive, rationale: "Placeholder orientation; researcher must inspect rotated loadings."}
+
+aggregation:
+  method: additive_factor_sum
+  weights: equal
+
+classification:
+  method: standard_deviation_bands
+
+outputs:
+  include_standardized_variables: true
+  include_loadings: true
+  include_rotated_loadings: true
+  include_factor_scores: true
+  include_oriented_factor_scores: true
+  include_metadata: true
+  include_validation_report: true
+
+assumptions:
+  - status: implementation_assumption
+    description: PCA is run on z-scored variables, equivalent to using a correlation-style input matrix.
+  - status: paper_explicit_original_method
+    description: Missing values are zero-imputed in the original SoVI workflow.
+  - status: researcher_decision_required
+    description: Factor names and factor orientations require human interpretation of rotated loadings.
+  - status: local_adaptation
+    description: This recipe represents the 42-variable target structure but uses local canonical column names.

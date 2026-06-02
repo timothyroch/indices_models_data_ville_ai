@@ -1,0 +1,49 @@
+# Source mappings for SoVI employment-sector variables.
+#
+# Scope:
+#   - Québec census divisions
+#   - 2021 SoVI-like input table
+#
+# Source block:
+#   census_division_employment_sector_2021/
+#
+# Clean output:
+#   census_division_employment_sector_2021/output/
+#   clean_census_division_employment_sector_2021.csv
+#
+# Method:
+#   Variables are derived from selected 2021 Census Profile employment
+#   industry / occupation rows at census-division geography.
+
+pct_extractive_employment:
+  source_folder: census_division_employment_sector_2021
+  file_candidates:
+    - output/clean_census_division_employment_sector_2021.csv
+  column_candidates:
+    - pct_extractive_employment
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: derived_primary_extractive_industry_proxy
+  allow_partial_coverage: false
+  note: "Maps AGRIPC90 to a derived Census Profile industry proxy: Agriculture, forestry, fishing and hunting plus Mining, quarrying, and oil and gas extraction. Uses CHARACTERISTIC_ID 2262 + 2263."
+
+pct_transport_utility_employment:
+  source_folder: census_division_employment_sector_2021
+  file_candidates:
+    - output/clean_census_division_employment_sector_2021.csv
+  column_candidates:
+    - pct_transport_utility_employment
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: derived_transportation_utility_communication_industry_proxy
+  allow_partial_coverage: false
+  note: "Maps TRANPC90 to a derived Census Profile industry proxy: Transportation and warehousing plus Information and cultural industries plus Utilities. Uses CHARACTERISTIC_ID 2269 + 2270 + 2264. The cleaner intentionally uses the Utilities industry row 2264 rather than occupation row 2258."
+
+pct_service_employment:
+  source_folder: census_division_employment_sector_2021
+  file_candidates:
+    - output/clean_census_division_employment_sector_2021.csv
+  column_candidates:
+    - pct_service_employment
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: sales_and_service_occupation_proxy
+  allow_partial_coverage: false
+  note: "Maps SERVPC90 to the Census Profile Sales and service occupations row, CHARACTERISTIC_ID 2255. This preserves the service-occupation interpretation instead of using a derived service-industry sum."

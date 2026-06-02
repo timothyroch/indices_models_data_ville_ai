@@ -1,0 +1,36 @@
+# Source mappings for SoVI agriculture variables.
+#
+# Scope:
+#   - Québec census divisions
+#   - 2021 SoVI-like input table
+#
+# Source block:
+#   census_division_agriculture_2021/
+#
+# Clean output:
+#   census_division_agriculture_2021/output/
+#   clean_census_division_agriculture_2021.csv
+#
+# Source dataset:
+#   Statistics Canada Census of Agriculture, 2021
+#   Table 32-10-0249-01
+#   Land use, Census of Agriculture, 2021
+#
+# Variables:
+#   PCTFARMS92 -> pct_land_farms
+#
+# Note:
+#   PCTRFRM90 / pct_rural_farm is intentionally not mapped here.
+#   The land-use table does not contain rural farm population.
+
+pct_land_farms:
+  source_folder: census_division_agriculture_2021
+  file_candidates:
+    - output/clean_census_division_agriculture_2021.csv
+  column_candidates:
+    - pct_land_farms
+  status_class: partial_documented_suppression_or_unavailability
+  proxy_quality: strong_canadian_land_in_farms_adaptation_partial_coverage
+  allow_partial_coverage: true
+  minimum_non_missing_rows: 94
+  note: "Maps PCTFARMS92 to total farm area as a percentage of census-division land area. The numerator comes from Census of Agriculture table 32-10-0249-01, Land use = Total farm area, Unit of measure = Hectares, converted to km2. Coverage is 94/98 Québec census divisions. Four census divisions have positive farms reporting but suppressed or unavailable total-farm-area values with STATUS = F, so pct_land_farms is left missing rather than imputed to zero."

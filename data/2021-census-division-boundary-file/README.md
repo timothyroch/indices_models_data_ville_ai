@@ -1,0 +1,2 @@
+Download: https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/index2021-eng.cfm?year=21
+Specification: English, Cartographic Boundary Files (CBF), Census divisions, Shapefile (.shp)

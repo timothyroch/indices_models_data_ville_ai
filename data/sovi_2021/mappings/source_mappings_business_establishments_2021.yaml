@@ -1,0 +1,52 @@
+# Source mappings for SoVI business-establishment-density variables.
+#
+# Scope:
+#   - Québec census divisions
+#   - 2021 SoVI-like input table
+#
+# Source block:
+#   census_division_business_establishments_2021/
+#
+# Clean output:
+#   census_division_business_establishments_2021/output/
+#   clean_census_division_business_establishments_2021.csv
+#
+# Source dataset:
+#   Business Counts in Rural and Small Town Canada dashboard extract.
+#
+# Variables:
+#   MAESDEN92  -> manufacturing_density
+#   COMDEVDN92 -> commercial_density
+#
+# Method:
+#   The source file is at 2021 census-subdivision geography. The cleaner filters
+#   to Québec, total businesses with employees, selected NAICS sectors, and the
+#   2022-01 time period. CSD counts are aggregated to census divisions and then
+#   divided by census-division land_area_km2.
+#
+# Temporal note:
+#   2022-01 is used because it is the earliest available period in the dashboard
+#   extract and the closest available business-count period to the 2021 SoVI-like
+#   table.
+
+manufacturing_density:
+  source_folder: census_division_business_establishments_2021
+  file_candidates:
+    - output/clean_census_division_business_establishments_2021.csv
+  column_candidates:
+    - manufacturing_density
+  status_class: ready_full_coverage_expected
+  proxy_quality: naics_31_33_manufacturing_business_count_density_proxy
+  allow_partial_coverage: false
+  note: "Maps MAESDEN92 to NAICS 31-33 Manufacturing business counts with employees from the Business Counts in Rural and Small Town Canada dashboard extract. The cleaner uses the 2022-01 period, aggregates 2021 Québec census subdivisions to census divisions, and divides manufacturing_business_count by land_area_km2. Coverage is 98/98 Québec census divisions."
+
+commercial_density:
+  source_folder: census_division_business_establishments_2021
+  file_candidates:
+    - output/clean_census_division_business_establishments_2021.csv
+  column_candidates:
+    - commercial_density
+  status_class: ready_full_coverage_expected
+  proxy_quality: constructed_naics_commercial_business_count_density_proxy
+  allow_partial_coverage: false
+  note: "Maps COMDEVDN92 to a constructed commercial business-count density proxy using NAICS 41 Wholesale trade, NAICS 44-45 Retail trade, and NAICS 72 Accommodation and food services. The cleaner uses the 2022-01 period, aggregates 2021 Québec census subdivisions to census divisions, and divides the combined commercial business count by land_area_km2. Coverage is 98/98 Québec census divisions. The clean file also retains commercial_trade_only_density_per_km2 as a narrower audit variable."

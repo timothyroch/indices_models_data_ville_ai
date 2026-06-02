@@ -1,0 +1,76 @@
+name: dummy_additive_index
+version: "0.1"
+source: synthetic architecture validation
+method_reference: internal toy example
+construct_measured: synthetic_vulnerability
+score_direction: higher_is_more_vulnerable
+reproduction_level: toy_validation_only
+spatial_id_column: zone_id
+
+variables:
+  income:
+    canonical_name: median_household_income
+    required: true
+    unit: CAD
+    scale: currency
+    direction: negative
+    numeric: true
+    nonnegative: true
+    normalization:
+      method: minmax
+    weight:
+      value: 0.4
+      source: synthetic
+      status: implementation_example
+
+  age:
+    canonical_name: pct_65_plus
+    required: true
+    unit: proportion
+    scale: proportion_0_1
+    direction: positive
+    numeric: true
+    nonnegative: true
+    normalization:
+      method: minmax
+    weight:
+      value: 0.3
+      source: synthetic
+      status: implementation_example
+
+  flood:
+    canonical_name: floodplain_pct
+    required: true
+    unit: proportion
+    scale: proportion_0_1
+    direction: positive
+    numeric: true
+    nonnegative: true
+    normalization:
+      method: minmax
+    weight:
+      value: 0.3
+      source: synthetic
+      status: implementation_example
+
+missing_data:
+  strategy: error
+  add_missing_flags: true
+  status: implementation_assumption
+  reason: dummy validation recipe requires complete synthetic data
+
+aggregation:
+  method: weighted_sum
+  status: implementation_example
+
+classification:
+  method: quantile
+  n_classes: 5
+
+outputs:
+  include_intermediate_columns: true
+  include_metadata: true
+
+assumptions:
+  - status: implementation_assumption
+    description: This dummy recipe is a toy validation example and has no scientific interpretation.

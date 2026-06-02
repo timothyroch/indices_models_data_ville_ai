@@ -1,0 +1,143 @@
+index_name: dummy_additive_index
+index_version: '0.1'
+run_id: dummy_additive_index-5a2566a75e94
+created_at: '2026-05-18T15:20:11.344926+00:00'
+code_version: null
+recipe_path: recipes/dummy_index.yaml
+recipe_hash: d3ccf360deaf71d79761cd11bf6d12936bca27043f1916ce79006fc9d49b34e0
+input_feature_table_path: data/example/synthetic_feature_table.csv
+spatial_id_column: zone_id
+number_input_units: 5
+number_output_units: 5
+variables_requested:
+- median_household_income
+- pct_65_plus
+- floodplain_pct
+variables_used:
+- median_household_income
+- pct_65_plus
+- floodplain_pct
+variables_missing: []
+optional_variables_missing: []
+missing_data_strategy: error
+missing_data_report:
+  strategy: error
+  missing_count_per_variable:
+    median_household_income: 0
+    pct_65_plus: 0
+    floodplain_pct: 0
+  missing_pct_per_variable:
+    median_household_income: 0.0
+    pct_65_plus: 0.0
+    floodplain_pct: 0.0
+  affected_spatial_units_count: 0
+  affected_spatial_units: []
+  add_missing_flags: true
+  imputation_values: {}
+  variables_dropped: []
+  units_dropped: []
+  row_missing_counts:
+    A: 0
+    B: 0
+    C: 0
+    D: 0
+    E: 0
+normalization:
+  income:
+    method: minmax
+    min: 30000.0
+    max: 90000.0
+    constant_column_behavior: zeros
+    scope: series
+    canonical_name: median_household_income
+    recipe_key: income
+  age:
+    method: minmax
+    min: 0.05
+    max: 0.3
+    constant_column_behavior: zeros
+    scope: series
+    canonical_name: pct_65_plus
+    recipe_key: age
+  flood:
+    method: minmax
+    min: 0.0
+    max: 0.8
+    constant_column_behavior: zeros
+    scope: series
+    canonical_name: floodplain_pct
+    recipe_key: flood
+orientation:
+  income:
+    original_direction: negative
+    transformation_applied: 1 - value
+    orientation_phase: after_normalization
+    negative_mode: invert_0_1
+    canonical_name: median_household_income
+    recipe_key: income
+  age:
+    original_direction: positive
+    transformation_applied: identity
+    orientation_phase: after_normalization
+    negative_mode: null
+    canonical_name: pct_65_plus
+    recipe_key: age
+  flood:
+    original_direction: positive
+    transformation_applied: identity
+    orientation_phase: after_normalization
+    negative_mode: null
+    canonical_name: floodplain_pct
+    recipe_key: flood
+weighting_method: variable_weights_from_recipe
+aggregation_method: weighted_sum
+classification_method: quantile
+score_direction: higher_is_more_vulnerable
+construct_measured: synthetic_vulnerability
+reproduction_level: toy_validation_only
+assumptions:
+- status: implementation_assumption
+  description: This dummy recipe is a toy validation example and has no scientific
+    interpretation.
+decisions: []
+warnings: []
+validation_summary:
+  is_valid: true
+  error_count: 0
+  warning_count: 0
+  missingness:
+    median_household_income:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_65_plus:
+      missing_count: 0
+      missing_pct: 0.0
+    floodplain_pct:
+      missing_count: 0
+      missing_pct: 0.0
+output_files:
+  standard_output: outputs/dummy_run/standard_output.csv
+  intermediate_output: outputs/dummy_run/intermediate_output.csv
+  metadata_json: outputs/dummy_run/metadata.json
+  metadata_yaml: outputs/dummy_run/metadata.yaml
+  validation_report_json: outputs/dummy_run/validation_report.json
+  validation_report_yaml: outputs/dummy_run/validation_report.yaml
+  missing_data_report_json: outputs/dummy_run/missing_data_report.json
+  run_report: outputs/dummy_run/run_report.md
+extra:
+  aggregation:
+    method: weighted_sum
+    columns:
+    - income__oriented
+    - age__oriented
+    - flood__oriented
+    weights:
+      income__oriented: 0.4
+      age__oriented: 0.3
+      flood__oriented: 0.3
+    weight_sum: 1.0
+  classification:
+    method: quantile
+    n_classes_requested: 5
+    n_classes_created: 5
+    class_order: higher_score_higher_class

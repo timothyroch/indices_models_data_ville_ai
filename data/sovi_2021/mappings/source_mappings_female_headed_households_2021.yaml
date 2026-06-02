@@ -1,0 +1,29 @@
+# Source mappings for SoVI female-headed household variable.
+#
+# Scope:
+#   - Québec census divisions
+#   - 2021 SoVI-like input table
+#
+# Source block:
+#   census_division_female_headed_households_2021/
+#
+# Clean output:
+#   census_division_female_headed_households_2021/output/
+#   clean_census_division_female_headed_households_2021.csv
+#
+# Source dataset:
+#   2021 Census Profile, census divisions
+#
+# Variables:
+#   PCTF_HH90 -> pct_female_headed_households
+
+pct_female_headed_households:
+  source_folder: census_division_female_headed_households_2021
+  file_candidates:
+    - output/clean_census_division_female_headed_households_2021.csv
+  column_candidates:
+    - pct_female_headed_households
+  status_class: ready_full_coverage_expected
+  proxy_quality: female_parent_one_parent_census_family_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTF_HH90 to Census Profile characteristic ID 87, 'in which the parent is a woman+', using C10_RATE_TOTAL. This is a Canadian census-family proxy for female-headed households with no spouse present. It measures female-parent one-parent census families as a percentage of the Census Profile family universe, not all private households. Coverage is 98/98 Québec census divisions."

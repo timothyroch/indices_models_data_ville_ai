@@ -1,0 +1,48 @@
+# Source mapping for SoVI earnings-density variable.
+#
+# Scope:
+#   - Québec census divisions
+#   - 2021 SoVI-like input table
+#
+# Source block:
+#   census_division_earnings_density_2021/
+#
+# Clean output:
+#   census_division_earnings_density_2021/output/
+#   clean_census_division_earnings_density_2021.csv
+#
+# Source dataset:
+#   2021 Census Profile, census divisions
+#
+# Variable:
+#   EARNDEN90 -> earnings_density
+#
+# Method:
+#   Uses a derived Canadian employment-income-density proxy.
+#   The 2021 Census Profile did not provide a direct aggregate employment-income
+#   row in the inspected census-division file, so aggregate employment income is
+#   reconstructed as:
+#
+#     ID 133 employment income recipients, 2020, 25% sample
+#     *
+#     ID 134 average employment income among recipients, 2020
+#
+#   The result is divided by census-division land area in km2.
+#
+# Note:
+#   Original SoVI EARNDEN90 is earnings in $1,000 per square mile.
+#   The clean file retains an original-style audit variable:
+#   earnings_density_thousands_per_square_mile.
+#   The mapped default column is earnings_density in dollars per km2.
+#   This differs only by a constant positive scale transformation.
+
+earnings_density:
+  source_folder: census_division_earnings_density_2021
+  file_candidates:
+    - output/clean_census_division_earnings_density_2021.csv
+  column_candidates:
+    - earnings_density
+  status_class: ready_full_coverage_expected
+  proxy_quality: derived_canadian_employment_income_density_proxy
+  allow_partial_coverage: false
+  note: "Maps EARNDEN90 to a derived Canadian employment-income-density proxy. The numerator is reconstructed from Census Profile characteristic ID 133, number of employment income recipients aged 15 years and over in private households in 2020 - 25% sample data, multiplied by characteristic ID 134, average employment income in 2020 among recipients. The mapped column divides this estimated aggregate employment income by land_area_km2. Coverage is 98/98 Québec census divisions. The clean output also retains earnings_density_thousands_per_square_mile as an original-style audit variable."

@@ -1,0 +1,40 @@
+# Source mappings for SoVI social-security-recipient proxy.
+#
+# Scope:
+#   - Québec census divisions
+#   - 2021 SoVI-like input table
+#
+# Source block:
+#   census_division_social_security_recipients_2021/
+#
+# Clean output:
+#   census_division_social_security_recipients_2021/output/
+#   clean_census_division_social_security_recipients_2021.csv
+#
+# Source dataset:
+#   2021 Census Profile, census divisions
+#
+# Variables:
+#   SSBENPC90 -> social_security_recipients_per_capita
+#
+# Method:
+#   Uses a broad Canadian government-transfer-recipient proxy:
+#   CHARACTERISTIC_ID = 213
+#   Number of government transfers recipients aged 15 years and over
+#   in private households in 2019 - 100% data.
+#
+# Note:
+#   This is not a direct U.S. Social Security equivalent. It is a broader
+#   Canadian income-transfer-recipient proxy. The 2019 row is used as the
+#   default to reduce COVID-era emergency/recovery benefit contamination.
+
+social_security_recipients_per_capita:
+  source_folder: census_division_social_security_recipients_2021
+  file_candidates:
+    - output/clean_census_division_social_security_recipients_2021.csv
+  column_candidates:
+    - social_security_recipients_per_capita
+  status_class: ready_full_coverage_expected
+  proxy_quality: broad_canadian_government_transfer_recipient_proxy
+  allow_partial_coverage: false
+  note: "Maps SSBENPC90 to a broad Canadian government-transfer-recipient proxy. The numerator is Census Profile characteristic ID 213, 'Number of government transfers recipients aged 15 years and over in private households in 2019 - 100% data', divided by total 2021 census-division population. This is not a direct U.S. Social Security equivalent; it captures broader government-transfer receipt. Coverage is 98/98 Québec census divisions."

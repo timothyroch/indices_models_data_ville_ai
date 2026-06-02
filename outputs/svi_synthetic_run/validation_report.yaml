@@ -1,0 +1,86 @@
+is_valid: true
+issues: []
+row_count: 6
+column_count: 17
+spatial_id_column: zone_id
+required_variables:
+- pct_below_poverty
+- pct_unemployed
+- per_capita_income
+- pct_no_high_school
+- pct_age_65_plus
+- pct_age_17_or_younger
+- pct_disability
+- pct_single_parent_households
+- pct_minority
+- pct_limited_language
+- pct_multiunit_structures
+- pct_mobile_homes
+- pct_crowding
+- pct_no_vehicle
+- pct_group_quarters
+optional_variables: []
+variables_present:
+- pct_below_poverty
+- pct_unemployed
+- per_capita_income
+- pct_no_high_school
+- pct_age_65_plus
+- pct_age_17_or_younger
+- pct_disability
+- pct_single_parent_households
+- pct_minority
+- pct_limited_language
+- pct_multiunit_structures
+- pct_mobile_homes
+- pct_crowding
+- pct_no_vehicle
+- pct_group_quarters
+variables_missing: []
+optional_variables_missing: []
+missingness:
+  pct_below_poverty:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_unemployed:
+    missing_count: 0
+    missing_pct: 0.0
+  per_capita_income:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_no_high_school:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_age_65_plus:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_age_17_or_younger:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_disability:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_single_parent_households:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_minority:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_limited_language:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_multiunit_structures:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_mobile_homes:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_crowding:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_no_vehicle:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_group_quarters:
+    missing_count: 0
+    missing_pct: 0.0

@@ -1,0 +1,44 @@
+# Source mappings for SoVI demographic-estimate variables.
+#
+# Scope:
+#   - Québec census divisions
+#   - 2021 SoVI-like input table
+#
+# Source block:
+#   census_division_demographic_estimates_2021/
+#
+# Clean output:
+#   census_division_demographic_estimates_2021/output/
+#   clean_census_division_demographic_estimates_2021.csv
+#
+# Source dataset:
+#   Statistics Canada Annual Demographic Estimates: Subprovincial Areas
+#   Population and demographic components, total estimates, Canada's census divisions,
+#   2001 to 2021.
+#
+# Variables:
+#   BRATE90  -> birth_rate
+#   MIGRA_97 -> net_international_migration
+
+birth_rate:
+  source_folder: census_division_demographic_estimates_2021
+  file_candidates:
+    - output/clean_census_division_demographic_estimates_2021.csv
+  column_candidates:
+    - birth_rate
+    - birth_rate_per_1000
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: crude_birth_rate_from_demographic_estimates
+  allow_partial_coverage: false
+  note: "Maps BRATE90 to a crude birth rate per 1,000 population, computed as 1000 * births_2020_2021 / population_2021_estimate using Statistics Canada Annual Demographic Estimates for census divisions."
+
+net_international_migration:
+  source_folder: census_division_demographic_estimates_2021
+  file_candidates:
+    - output/clean_census_division_demographic_estimates_2021.csv
+  column_candidates:
+    - net_international_migration
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: net_international_migration_count_from_demographic_components
+  allow_partial_coverage: false
+  note: "Maps MIGRA_97 to net international migration for 2020-2021, computed as immigrants - emigrants + returning emigrants - net temporary emigrants + net non-permanent residents. Negative values are valid and indicate net international-migration loss. The cleaner also preserves net_international_migration_per_1000 as an audit/sensitivity variable, but the default SoVI mapping uses the count."

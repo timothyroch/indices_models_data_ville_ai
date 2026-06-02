@@ -1,0 +1,709 @@
+index_name: svi_like
+index_version: '0.1'
+run_id: svi_like-08ade61aafc3
+created_at: '2026-05-19T14:13:07.860120+00:00'
+code_version: null
+recipe_path: recipes/svi_like.yaml
+recipe_hash: 1f234cc2b8b42821c7b19582702b48f68ffb0ee6b68b9af1ef08edb03d35e689
+input_feature_table_path: data/example/synthetic_svi_feature_table.csv
+spatial_id_column: zone_id
+number_input_units: 6
+number_output_units: 6
+variables_requested:
+- pct_below_poverty
+- pct_unemployed
+- per_capita_income
+- pct_no_high_school
+- pct_age_65_plus
+- pct_age_17_or_younger
+- pct_disability
+- pct_single_parent_households
+- pct_minority
+- pct_limited_language
+- pct_multiunit_structures
+- pct_mobile_homes
+- pct_crowding
+- pct_no_vehicle
+- pct_group_quarters
+variables_used:
+- pct_below_poverty
+- pct_unemployed
+- per_capita_income
+- pct_no_high_school
+- pct_age_65_plus
+- pct_age_17_or_younger
+- pct_disability
+- pct_single_parent_households
+- pct_minority
+- pct_limited_language
+- pct_multiunit_structures
+- pct_mobile_homes
+- pct_crowding
+- pct_no_vehicle
+- pct_group_quarters
+variables_missing: []
+optional_variables_missing: []
+missing_data_strategy: error
+missing_data_report:
+  strategy: error
+  missing_count_per_variable:
+    pct_below_poverty: 0
+    pct_unemployed: 0
+    per_capita_income: 0
+    pct_no_high_school: 0
+    pct_age_65_plus: 0
+    pct_age_17_or_younger: 0
+    pct_disability: 0
+    pct_single_parent_households: 0
+    pct_minority: 0
+    pct_limited_language: 0
+    pct_multiunit_structures: 0
+    pct_mobile_homes: 0
+    pct_crowding: 0
+    pct_no_vehicle: 0
+    pct_group_quarters: 0
+  missing_pct_per_variable:
+    pct_below_poverty: 0.0
+    pct_unemployed: 0.0
+    per_capita_income: 0.0
+    pct_no_high_school: 0.0
+    pct_age_65_plus: 0.0
+    pct_age_17_or_younger: 0.0
+    pct_disability: 0.0
+    pct_single_parent_households: 0.0
+    pct_minority: 0.0
+    pct_limited_language: 0.0
+    pct_multiunit_structures: 0.0
+    pct_mobile_homes: 0.0
+    pct_crowding: 0.0
+    pct_no_vehicle: 0.0
+    pct_group_quarters: 0.0
+  affected_spatial_units_count: 0
+  affected_spatial_units: []
+  add_missing_flags: true
+  imputation_values: {}
+  variables_dropped: []
+  units_dropped: []
+  row_missing_counts:
+    LOW: 0
+    MID1: 0
+    MID2: 0
+    MID3: 0
+    MID4: 0
+    HIGH: 0
+normalization:
+  pct_below_poverty:
+    method: percentile_rank
+    canonical_name: pct_below_poverty
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_unemployed:
+    method: percentile_rank
+    canonical_name: pct_unemployed
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  per_capita_income:
+    method: percentile_rank
+    canonical_name: per_capita_income
+    direction: negative
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_no_high_school:
+    method: percentile_rank
+    canonical_name: pct_no_high_school
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_age_65_plus:
+    method: percentile_rank
+    canonical_name: pct_age_65_plus
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_age_17_or_younger:
+    method: percentile_rank
+    canonical_name: pct_age_17_or_younger
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_disability:
+    method: percentile_rank
+    canonical_name: pct_disability
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_single_parent_households:
+    method: percentile_rank
+    canonical_name: pct_single_parent_households
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_minority:
+    method: percentile_rank
+    canonical_name: pct_minority
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_limited_language:
+    method: percentile_rank
+    canonical_name: pct_limited_language
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_multiunit_structures:
+    method: percentile_rank
+    canonical_name: pct_multiunit_structures
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_mobile_homes:
+    method: percentile_rank
+    canonical_name: pct_mobile_homes
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_crowding:
+    method: percentile_rank
+    canonical_name: pct_crowding
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_no_vehicle:
+    method: percentile_rank
+    canonical_name: pct_no_vehicle
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+  pct_group_quarters:
+    method: percentile_rank
+    canonical_name: pct_group_quarters
+    direction: positive
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+orientation:
+  pct_below_poverty:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_below_poverty
+  pct_unemployed:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_unemployed
+  per_capita_income:
+    direction: negative
+    transformation_applied: ranking_direction
+    canonical_name: per_capita_income
+  pct_no_high_school:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_no_high_school
+  pct_age_65_plus:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_age_65_plus
+  pct_age_17_or_younger:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_age_17_or_younger
+  pct_disability:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_disability
+  pct_single_parent_households:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_single_parent_households
+  pct_minority:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_minority
+  pct_limited_language:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_limited_language
+  pct_multiunit_structures:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_multiunit_structures
+  pct_mobile_homes:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_mobile_homes
+  pct_crowding:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_crowding
+  pct_no_vehicle:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_no_vehicle
+  pct_group_quarters:
+    direction: positive
+    transformation_applied: ranking_direction
+    canonical_name: pct_group_quarters
+weighting_method: SVI equal variable ranks within domains; equal domain percentiles
+  overall
+aggregation_method: svi_domain_sum_then_domain_percentile_then_overall_percentile
+classification_method: quantile
+score_direction: higher_is_more_vulnerable
+construct_measured: social_vulnerability
+reproduction_level: local_adaptation
+assumptions:
+- status: method_family_default
+  description: Percentile ranks use min tie handling and the formula (rank - 1) /
+    (N - 1).
+- status: paper_explicit
+  description: SVI is an area-level social vulnerability index, not an individual-level
+    classification.
+- status: implementation_assumption
+  description: N=1 comparison scopes receive percentile 0.0 and this behavior is reported
+    in metadata.
+decisions:
+- status: local_adaptation
+  description: This recipe preserves the SVI methodology while allowing Canadian municipal
+    feature tables and documented proxies.
+warnings: []
+validation_summary:
+  is_valid: true
+  error_count: 0
+  warning_count: 0
+  missingness:
+    pct_below_poverty:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_unemployed:
+      missing_count: 0
+      missing_pct: 0.0
+    per_capita_income:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_no_high_school:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_age_65_plus:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_age_17_or_younger:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_disability:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_single_parent_households:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_minority:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_limited_language:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_multiunit_structures:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_mobile_homes:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_crowding:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_no_vehicle:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_group_quarters:
+      missing_count: 0
+      missing_pct: 0.0
+output_files:
+  standard_output: outputs/svi_synthetic_run/standard_output.csv
+  intermediate_output: outputs/svi_synthetic_run/intermediate_output.csv
+  metadata_json: outputs/svi_synthetic_run/metadata.json
+  metadata_yaml: outputs/svi_synthetic_run/metadata.yaml
+  validation_report_json: outputs/svi_synthetic_run/validation_report.json
+  validation_report_yaml: outputs/svi_synthetic_run/validation_report.yaml
+  missing_data_report_json: outputs/svi_synthetic_run/missing_data_report.json
+  run_report: outputs/svi_synthetic_run/run_report.md
+extra:
+  aggregation:
+    method: svi_domain_sum_then_domain_percentile_then_overall_percentile
+    not_direct_sum_of_15_variable_percentiles: true
+    domains:
+      socioeconomic:
+      - pct_below_poverty
+      - pct_unemployed
+      - per_capita_income
+      - pct_no_high_school
+      household_disability:
+      - pct_age_65_plus
+      - pct_age_17_or_younger
+      - pct_disability
+      - pct_single_parent_households
+      minority_language:
+      - pct_minority
+      - pct_limited_language
+      housing_transportation:
+      - pct_multiunit_structures
+      - pct_mobile_homes
+      - pct_crowding
+      - pct_no_vehicle
+      - pct_group_quarters
+  classification:
+    method: quantile
+    n_classes_requested: 5
+    n_classes_created: 5
+    class_order: higher_score_higher_class
+  svi:
+    reproduction_level: local_adaptation
+    methodology_note: SVI does not use PCA/factor analysis. It uses percentile ranks
+      and predefined conceptual domains.
+    domain_summary:
+      socioeconomic:
+        mean_sum: 1.9333333333333336
+        mean_percentile: 0.5
+        max_percentile: 1.0
+      household_disability:
+        mean_sum: 2.0
+        mean_percentile: 0.5
+        max_percentile: 1.0
+      minority_language:
+        mean_sum: 1.0
+        mean_percentile: 0.5
+        max_percentile: 1.0
+      housing_transportation:
+        mean_sum: 2.5
+        mean_percentile: 0.5
+        max_percentile: 1.0
+    overall_percentile_summary:
+      min: 0.0
+      mean: 0.5
+      max: 1.0
+    area_level_warning: SVI is an area-level index and should not be interpreted as
+      saying that every person in a high-SVI zone is vulnerable.
+  ranking:
+    method: percentile_rank
+    formula: (rank - 1) / (N - 1)
+    tie_method: min
+    n_equals_one_behavior: zero
+    higher_percentile_means: higher_vulnerability
+    variable_rank_metadata:
+      pct_below_poverty:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_below_poverty
+        recipe_key: pct_below_poverty
+        proxy_used: false
+      pct_unemployed:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_unemployed
+        recipe_key: pct_unemployed
+        proxy_used: false
+      per_capita_income:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: descending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: negative
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: per_capita_income
+        recipe_key: per_capita_income
+        proxy_used: false
+      pct_no_high_school:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_no_high_school
+        recipe_key: pct_no_high_school
+        proxy_used: false
+      pct_age_65_plus:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_age_65_plus
+        recipe_key: pct_age_65_plus
+        proxy_used: false
+      pct_age_17_or_younger:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_age_17_or_younger
+        recipe_key: pct_age_17_or_younger
+        proxy_used: false
+      pct_disability:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_disability
+        recipe_key: pct_disability
+        proxy_used: false
+      pct_single_parent_households:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_single_parent_households
+        recipe_key: pct_single_parent_households
+        proxy_used: false
+      pct_minority:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_minority
+        recipe_key: pct_minority
+        proxy_used: false
+      pct_limited_language:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_limited_language
+        recipe_key: pct_limited_language
+        proxy_used: false
+      pct_multiunit_structures:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_multiunit_structures
+        recipe_key: pct_multiunit_structures
+        proxy_used: false
+      pct_mobile_homes:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_mobile_homes
+        recipe_key: pct_mobile_homes
+        proxy_used: false
+      pct_crowding:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_crowding
+        recipe_key: pct_crowding
+        proxy_used: false
+      pct_no_vehicle:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_no_vehicle
+        recipe_key: pct_no_vehicle
+        proxy_used: false
+      pct_group_quarters:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        direction: positive
+        direction_handling: positive variables rank ascending; negative variables
+          rank descending
+        method: percentile_rank
+        canonical_name: pct_group_quarters
+        recipe_key: pct_group_quarters
+        proxy_used: false
+    domain_rank_metadata:
+      socioeconomic:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        method: percentile_rank
+        source_column: svi_socioeconomic_sum
+        variables:
+        - pct_below_poverty
+        - pct_unemployed
+        - per_capita_income
+        - pct_no_high_school
+      household_disability:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        method: percentile_rank
+        source_column: svi_household_disability_sum
+        variables:
+        - pct_age_65_plus
+        - pct_age_17_or_younger
+        - pct_disability
+        - pct_single_parent_households
+      minority_language:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        method: percentile_rank
+        source_column: svi_minority_language_sum
+        variables:
+        - pct_minority
+        - pct_limited_language
+      housing_transportation:
+        number_of_units: 6
+        tie_method: min
+        ranking_direction: ascending
+        formula: (rank - 1) / (N - 1)
+        n_equals_one_behavior: zero
+        output_range: '0_1'
+        method: percentile_rank
+        source_column: svi_housing_transportation_sum
+        variables:
+        - pct_multiunit_structures
+        - pct_mobile_homes
+        - pct_crowding
+        - pct_no_vehicle
+        - pct_group_quarters
+    overall_rank_metadata:
+      number_of_units: 6
+      tie_method: min
+      ranking_direction: ascending
+      formula: (rank - 1) / (N - 1)
+      n_equals_one_behavior: zero
+      output_range: '0_1'
+      method: percentile_rank
+      source_column: svi_overall_sum
+  flags:
+    variable_flag_threshold: 0.9
+    rule: flag = 1 when variable percentile >= threshold
+  domains:
+    socioeconomic:
+    - pct_below_poverty
+    - pct_unemployed
+    - per_capita_income
+    - pct_no_high_school
+    household_disability:
+    - pct_age_65_plus
+    - pct_age_17_or_younger
+    - pct_disability
+    - pct_single_parent_households
+    minority_language:
+    - pct_minority
+    - pct_limited_language
+    housing_transportation:
+    - pct_multiunit_structures
+    - pct_mobile_homes
+    - pct_crowding
+    - pct_no_vehicle
+    - pct_group_quarters
+  comparison:
+    scopes:
+    - name: global
+      group_column: null
+    default_scope: global
+    grouped_scope_status: designed_not_default
+  population_filter:
+    population_column: population
+    action: exclude
+    threshold: 0.0
+    excluded_units: []
+    excluded_count: 0
+    flagged_units: []
+    flagged_count: 0
+  variables_proxied: []
+  variables_missing: []
+  methodology_note: SVI does not use PCA/factor analysis. It uses percentile ranks
+    and predefined conceptual domains.
+  source_reference:
+    citation: Flanagan et al. 2011, A Social Vulnerability Index for Disaster Management
+    doi: 10.2202/1547-7355.1792
+  population_column: population

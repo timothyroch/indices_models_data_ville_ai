@@ -1,0 +1,79 @@
+is_valid: true
+issues:
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_mobile_homes' contains missing values.
+  variable: pct_mobile_homes
+  details:
+    missing_count: 1
+    missing_pct: 0.041666666666666664
+    strategy: zero_imputation
+row_count: 24
+column_count: 13
+spatial_id_column: zone_id
+required_variables:
+- median_income
+- pct_poverty
+- pct_unemployed
+- pct_no_high_school
+- pct_age_65_plus
+- pct_children
+- pct_renter
+- pct_mobile_homes
+- housing_density
+- commercial_density
+- pct_service_employment
+- pct_female_headed_households
+optional_variables: []
+variables_present:
+- median_income
+- pct_poverty
+- pct_unemployed
+- pct_no_high_school
+- pct_age_65_plus
+- pct_children
+- pct_renter
+- pct_mobile_homes
+- housing_density
+- commercial_density
+- pct_service_employment
+- pct_female_headed_households
+variables_missing: []
+optional_variables_missing: []
+missingness:
+  median_income:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_poverty:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_unemployed:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_no_high_school:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_age_65_plus:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_children:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_renter:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_mobile_homes:
+    missing_count: 1
+    missing_pct: 0.041666666666666664
+  housing_density:
+    missing_count: 0
+    missing_pct: 0.0
+  commercial_density:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_service_employment:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_female_headed_households:
+    missing_count: 0
+    missing_pct: 0.0

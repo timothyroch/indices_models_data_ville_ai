@@ -1,0 +1,1625 @@
+index_name: sovi_like
+index_version: '0.1'
+run_id: sovi_like-c630c585df2c
+created_at: '2026-06-02T19:09:45.590007+00:00'
+code_version: a29940e
+recipe_path: recipes/sovi_like_quebec_cd_2021_38var.yaml
+recipe_hash: 4a50ec9411a977702276c732c8f295af31c1157db28c03a4300c6cb9caf39b45
+input_feature_table_path: data/sovi_2021/output/draft_clean_census_division_sovi_input_2021.csv
+spatial_id_column: zone_id
+number_input_units: 98
+number_output_units: 98
+variables_requested:
+- med_age
+- per_capita_income
+- median_home_value
+- median_rent
+- physicians_per_100k
+- pct_vote_leading_party
+- birth_rate
+- net_international_migration
+- pct_land_farms
+- pct_black
+- pct_indigenous
+- pct_asian
+- pct_hispanic
+- pct_under_5
+- pct_over_65
+- pct_unemployed
+- avg_people_per_household
+- pct_high_income_households
+- pct_poverty
+- pct_renter
+- pct_mobile_homes
+- pct_no_high_school
+- housing_unit_density
+- manufacturing_density
+- earnings_density
+- commercial_density
+- property_value_density
+- labor_force_participation
+- female_labor_force_participation
+- pct_extractive_employment
+- pct_transport_utility_employment
+- pct_service_employment
+- nursing_home_residents_per_capita
+- hospitals_per_capita
+- pct_population_change
+- pct_female
+- pct_female_headed_households
+- social_security_recipients_per_capita
+variables_used:
+- med_age
+- per_capita_income
+- median_home_value
+- median_rent
+- physicians_per_100k
+- pct_vote_leading_party
+- birth_rate
+- net_international_migration
+- pct_land_farms
+- pct_black
+- pct_indigenous
+- pct_asian
+- pct_hispanic
+- pct_under_5
+- pct_over_65
+- pct_unemployed
+- avg_people_per_household
+- pct_high_income_households
+- pct_poverty
+- pct_renter
+- pct_mobile_homes
+- pct_no_high_school
+- housing_unit_density
+- manufacturing_density
+- earnings_density
+- commercial_density
+- property_value_density
+- labor_force_participation
+- female_labor_force_participation
+- pct_extractive_employment
+- pct_transport_utility_employment
+- pct_service_employment
+- nursing_home_residents_per_capita
+- hospitals_per_capita
+- pct_population_change
+- pct_female
+- pct_female_headed_households
+- social_security_recipients_per_capita
+variables_missing: []
+optional_variables_missing: []
+missing_data_strategy: zero_imputation
+missing_data_report:
+  strategy: zero_imputation
+  missing_count_per_variable:
+    med_age: 0
+    per_capita_income: 0
+    median_home_value: 0
+    median_rent: 0
+    physicians_per_100k: 1
+    pct_vote_leading_party: 0
+    birth_rate: 0
+    net_international_migration: 0
+    pct_land_farms: 4
+    pct_black: 0
+    pct_indigenous: 0
+    pct_asian: 0
+    pct_hispanic: 0
+    pct_under_5: 0
+    pct_over_65: 0
+    pct_unemployed: 0
+    avg_people_per_household: 0
+    pct_high_income_households: 0
+    pct_poverty: 0
+    pct_renter: 0
+    pct_mobile_homes: 0
+    pct_no_high_school: 0
+    housing_unit_density: 0
+    manufacturing_density: 0
+    earnings_density: 0
+    commercial_density: 0
+    property_value_density: 0
+    labor_force_participation: 0
+    female_labor_force_participation: 0
+    pct_extractive_employment: 0
+    pct_transport_utility_employment: 0
+    pct_service_employment: 0
+    nursing_home_residents_per_capita: 0
+    hospitals_per_capita: 0
+    pct_population_change: 0
+    pct_female: 0
+    pct_female_headed_households: 0
+    social_security_recipients_per_capita: 0
+  missing_pct_per_variable:
+    med_age: 0.0
+    per_capita_income: 0.0
+    median_home_value: 0.0
+    median_rent: 0.0
+    physicians_per_100k: 0.01020408163265306
+    pct_vote_leading_party: 0.0
+    birth_rate: 0.0
+    net_international_migration: 0.0
+    pct_land_farms: 0.04081632653061224
+    pct_black: 0.0
+    pct_indigenous: 0.0
+    pct_asian: 0.0
+    pct_hispanic: 0.0
+    pct_under_5: 0.0
+    pct_over_65: 0.0
+    pct_unemployed: 0.0
+    avg_people_per_household: 0.0
+    pct_high_income_households: 0.0
+    pct_poverty: 0.0
+    pct_renter: 0.0
+    pct_mobile_homes: 0.0
+    pct_no_high_school: 0.0
+    housing_unit_density: 0.0
+    manufacturing_density: 0.0
+    earnings_density: 0.0
+    commercial_density: 0.0
+    property_value_density: 0.0
+    labor_force_participation: 0.0
+    female_labor_force_participation: 0.0
+    pct_extractive_employment: 0.0
+    pct_transport_utility_employment: 0.0
+    pct_service_employment: 0.0
+    nursing_home_residents_per_capita: 0.0
+    hospitals_per_capita: 0.0
+    pct_population_change: 0.0
+    pct_female: 0.0
+    pct_female_headed_households: 0.0
+    social_security_recipients_per_capita: 0.0
+  affected_spatial_units_count: 5
+  affected_spatial_units:
+  - 2021A00032401
+  - 2021A00032466
+  - 2021A00032497
+  - 2021A00032498
+  - 2021A00032499
+  add_missing_flags: true
+  imputation_values:
+    med_age: 0.0
+    per_capita_income: 0.0
+    median_home_value: 0.0
+    median_rent: 0.0
+    physicians_per_100k: 0.0
+    pct_vote_leading_party: 0.0
+    birth_rate: 0.0
+    net_international_migration: 0.0
+    pct_land_farms: 0.0
+    pct_black: 0.0
+    pct_indigenous: 0.0
+    pct_asian: 0.0
+    pct_hispanic: 0.0
+    pct_under_5: 0.0
+    pct_over_65: 0.0
+    pct_unemployed: 0.0
+    avg_people_per_household: 0.0
+    pct_high_income_households: 0.0
+    pct_poverty: 0.0
+    pct_renter: 0.0
+    pct_mobile_homes: 0.0
+    pct_no_high_school: 0.0
+    housing_unit_density: 0.0
+    manufacturing_density: 0.0
+    earnings_density: 0.0
+    commercial_density: 0.0
+    property_value_density: 0.0
+    labor_force_participation: 0.0
+    female_labor_force_participation: 0.0
+    pct_extractive_employment: 0.0
+    pct_transport_utility_employment: 0.0
+    pct_service_employment: 0.0
+    nursing_home_residents_per_capita: 0.0
+    hospitals_per_capita: 0.0
+    pct_population_change: 0.0
+    pct_female: 0.0
+    pct_female_headed_households: 0.0
+    social_security_recipients_per_capita: 0.0
+  variables_dropped: []
+  units_dropped: []
+  row_missing_counts:
+    2021A00032401: 1
+    2021A00032402: 0
+    2021A00032403: 0
+    2021A00032404: 0
+    2021A00032405: 0
+    2021A00032406: 0
+    2021A00032407: 0
+    2021A00032408: 0
+    2021A00032409: 0
+    2021A00032410: 0
+    2021A00032411: 0
+    2021A00032412: 0
+    2021A00032413: 0
+    2021A00032414: 0
+    2021A00032415: 0
+    2021A00032416: 0
+    2021A00032417: 0
+    2021A00032418: 0
+    2021A00032419: 0
+    2021A00032420: 0
+    2021A00032421: 0
+    2021A00032422: 0
+    2021A00032423: 0
+    2021A00032425: 0
+    2021A00032426: 0
+    2021A00032427: 0
+    2021A00032428: 0
+    2021A00032429: 0
+    2021A00032430: 0
+    2021A00032431: 0
+    2021A00032432: 0
+    2021A00032433: 0
+    2021A00032434: 0
+    2021A00032435: 0
+    2021A00032436: 0
+    2021A00032437: 0
+    2021A00032438: 0
+    2021A00032439: 0
+    2021A00032440: 0
+    2021A00032441: 0
+    2021A00032442: 0
+    2021A00032443: 0
+    2021A00032444: 0
+    2021A00032445: 0
+    2021A00032446: 0
+    2021A00032447: 0
+    2021A00032448: 0
+    2021A00032449: 0
+    2021A00032450: 0
+    2021A00032451: 0
+    2021A00032452: 0
+    2021A00032453: 0
+    2021A00032454: 0
+    2021A00032455: 0
+    2021A00032456: 0
+    2021A00032457: 0
+    2021A00032458: 0
+    2021A00032459: 0
+    2021A00032460: 0
+    2021A00032461: 0
+    2021A00032462: 0
+    2021A00032463: 0
+    2021A00032464: 0
+    2021A00032465: 0
+    2021A00032466: 1
+    2021A00032467: 0
+    2021A00032468: 0
+    2021A00032469: 0
+    2021A00032470: 0
+    2021A00032471: 0
+    2021A00032472: 0
+    2021A00032473: 0
+    2021A00032474: 0
+    2021A00032475: 0
+    2021A00032476: 0
+    2021A00032477: 0
+    2021A00032478: 0
+    2021A00032479: 0
+    2021A00032480: 0
+    2021A00032481: 0
+    2021A00032482: 0
+    2021A00032483: 0
+    2021A00032484: 0
+    2021A00032485: 0
+    2021A00032486: 0
+    2021A00032487: 0
+    2021A00032488: 0
+    2021A00032489: 0
+    2021A00032490: 0
+    2021A00032491: 0
+    2021A00032492: 0
+    2021A00032493: 0
+    2021A00032494: 0
+    2021A00032495: 0
+    2021A00032496: 0
+    2021A00032497: 1
+    2021A00032498: 1
+    2021A00032499: 1
+normalization:
+  med_age:
+    method: zscore
+    canonical_name: med_age
+    mean: 47.52857142857143
+    std: 5.47470994479085
+    output_column: med_age
+    zero_variance: false
+  per_capita_income:
+    method: zscore
+    canonical_name: per_capita_income
+    mean: 47407.142857142855
+    std: 5707.006792585081
+    output_column: per_capita_income
+    zero_variance: false
+  median_home_value:
+    method: zscore
+    canonical_name: median_home_value
+    mean: 238632.6530612245
+    std: 85579.70240886467
+    output_column: median_home_value
+    zero_variance: false
+  median_rent:
+    method: zscore
+    canonical_name: median_rent
+    mean: 670.9285714285714
+    std: 129.23844834495748
+    output_column: median_rent
+    zero_variance: false
+  physicians_per_100k:
+    method: zscore
+    canonical_name: physicians_per_100k
+    mean: 134.0
+    std: 35.75797327955298
+    output_column: physicians_per_100k
+    zero_variance: false
+  pct_vote_leading_party:
+    method: zscore
+    canonical_name: pct_vote_leading_party
+    mean: 47.32568625185904
+    std: 6.094891075094574
+    output_column: pct_vote_leading_party
+    zero_variance: false
+  birth_rate:
+    method: zscore
+    canonical_name: birth_rate
+    mean: 9.150610646556268
+    std: 2.0585487455867435
+    output_column: birth_rate
+    zero_variance: false
+  net_international_migration:
+    method: zscore
+    canonical_name: net_international_migration
+    mean: 153.01020408163265
+    std: 388.8954136435908
+    output_column: net_international_migration
+    zero_variance: false
+  pct_land_farms:
+    method: zscore
+    canonical_name: pct_land_farms
+    mean: 26.049938436623826
+    std: 24.665222520771977
+    output_column: pct_land_farms
+    zero_variance: false
+  pct_black:
+    method: zscore
+    canonical_name: pct_black
+    mean: 1.3928571428571432
+    std: 2.1775407397955586
+    output_column: pct_black
+    zero_variance: false
+  pct_indigenous:
+    method: zscore
+    canonical_name: pct_indigenous
+    mean: 4.593877551020408
+    std: 8.173548879839693
+    output_column: pct_indigenous
+    zero_variance: false
+  pct_asian:
+    method: zscore
+    canonical_name: pct_asian
+    mean: 0.9581632653061225
+    std: 1.9854020036762288
+    output_column: pct_asian
+    zero_variance: false
+  pct_hispanic:
+    method: zscore
+    canonical_name: pct_hispanic
+    mean: 0.689795918367347
+    std: 0.8142217764269327
+    output_column: pct_hispanic
+    zero_variance: false
+  pct_under_5:
+    method: zscore
+    canonical_name: pct_under_5
+    mean: 4.801020408163266
+    std: 0.9711653948083729
+    output_column: pct_under_5
+    zero_variance: false
+  pct_over_65:
+    method: zscore
+    canonical_name: pct_over_65
+    mean: 24.022448979591836
+    std: 5.178360204800573
+    output_column: pct_over_65
+    zero_variance: false
+  pct_unemployed:
+    method: zscore
+    canonical_name: pct_unemployed
+    mean: 6.994897959183674
+    std: 2.132612293331656
+    output_column: pct_unemployed
+    zero_variance: false
+  avg_people_per_household:
+    method: zscore
+    canonical_name: avg_people_per_household
+    mean: 2.205102040816327
+    std: 0.18315402739480532
+    output_column: avg_people_per_household
+    zero_variance: false
+  pct_high_income_households:
+    method: zscore
+    canonical_name: pct_high_income_households
+    mean: 30.98061224489796
+    std: 8.273644634834369
+    output_column: pct_high_income_households
+    zero_variance: false
+  pct_poverty:
+    method: zscore
+    canonical_name: pct_poverty
+    mean: 12.298979591836732
+    std: 3.59627059939506
+    output_column: pct_poverty
+    zero_variance: false
+  pct_renter:
+    method: zscore
+    canonical_name: pct_renter
+    mean: 28.878571428571426
+    std: 7.926811258929651
+    output_column: pct_renter
+    zero_variance: false
+  pct_mobile_homes:
+    method: zscore
+    canonical_name: pct_mobile_homes
+    mean: 1.223469387755102
+    std: 1.5731030701994875
+    output_column: pct_mobile_homes
+    zero_variance: false
+  pct_no_high_school:
+    method: zscore
+    canonical_name: pct_no_high_school
+    mean: 19.629591836734694
+    std: 6.070625311295158
+    output_column: pct_no_high_school
+    zero_variance: false
+  housing_unit_density:
+    method: zscore
+    canonical_name: housing_unit_density
+    mean: 195.40963890906008
+    std: 594.5981038470927
+    output_column: housing_unit_density
+    zero_variance: false
+  manufacturing_density:
+    method: zscore
+    canonical_name: manufacturing_density
+    mean: 0.24660277355393864
+    std: 0.7210581700078547
+    output_column: manufacturing_density
+    zero_variance: false
+  earnings_density:
+    method: zscore
+    canonical_name: earnings_density
+    mean: 4570097.075948458
+    std: 13764631.755988477
+    output_column: earnings_density
+    zero_variance: false
+  commercial_density:
+    method: zscore
+    canonical_name: commercial_density
+    mean: 1.2035955288662403
+    std: 3.9180706127063827
+    output_column: commercial_density
+    zero_variance: false
+  property_value_density:
+    method: zscore
+    canonical_name: property_value_density
+    mean: 15710349.106935453
+    std: 48170250.38697469
+    output_column: property_value_density
+    zero_variance: false
+  labor_force_participation:
+    method: zscore
+    canonical_name: labor_force_participation
+    mean: 60.83469387755103
+    std: 6.051650171998396
+    output_column: labor_force_participation
+    zero_variance: false
+  female_labor_force_participation:
+    method: zscore
+    canonical_name: female_labor_force_participation
+    mean: 57.991836734693884
+    std: 5.8883432663461495
+    output_column: female_labor_force_participation
+    zero_variance: false
+  pct_extractive_employment:
+    method: zscore
+    canonical_name: pct_extractive_employment
+    mean: 6.092857142857143
+    std: 4.334466753917525
+    output_column: pct_extractive_employment
+    zero_variance: false
+  pct_transport_utility_employment:
+    method: zscore
+    canonical_name: pct_transport_utility_employment
+    mean: 6.454081632653061
+    std: 1.4862751940740258
+    output_column: pct_transport_utility_employment
+    zero_variance: false
+  pct_service_employment:
+    method: zscore
+    canonical_name: pct_service_employment
+    mean: 23.316326530612244
+    std: 2.406186494101853
+    output_column: pct_service_employment
+    zero_variance: false
+  nursing_home_residents_per_capita:
+    method: zscore
+    canonical_name: nursing_home_residents_per_capita
+    mean: 8.646607217786466
+    std: 5.420352104382184
+    output_column: nursing_home_residents_per_capita
+    zero_variance: false
+  hospitals_per_capita:
+    method: zscore
+    canonical_name: hospitals_per_capita
+    mean: 5.664043234435821
+    std: 5.703050740857592
+    output_column: hospitals_per_capita
+    zero_variance: false
+  pct_population_change:
+    method: zscore
+    canonical_name: pct_population_change
+    mean: 3.038775510204081
+    std: 4.532999922407137
+    output_column: pct_population_change
+    zero_variance: false
+  pct_female:
+    method: zscore
+    canonical_name: pct_female
+    mean: 49.85631686591654
+    std: 0.9153625200115348
+    output_column: pct_female
+    zero_variance: false
+  pct_female_headed_households:
+    method: zscore
+    canonical_name: pct_female_headed_households
+    mean: 10.355102040816327
+    std: 2.3113350876813286
+    output_column: pct_female_headed_households
+    zero_variance: false
+  social_security_recipients_per_capita:
+    method: zscore
+    canonical_name: social_security_recipients_per_capita
+    mean: 0.6217708524215568
+    std: 0.051793879169053
+    output_column: social_security_recipients_per_capita
+    zero_variance: false
+orientation:
+  factor_1:
+    method: negative
+    rationale: Personal wealth / socioeconomic advantage factor. High income, high
+      labour-force participation, and high-income households load positively, while
+      poverty and government-transfer recipients load negatively. Reversed so poverty/resource
+      disadvantage contributes positively to vulnerability.
+    configured: true
+    multiplier: -1.0
+    anchor_variable: null
+  factor_2:
+    method: negative
+    rationale: Density of built environment / economic activity factor. Housing, earnings,
+      commercial, property, and manufacturing densities load strongly together with
+      negative signs. Reversed so higher built-environment/economic density contributes
+      positively to vulnerability, consistent with the original SoVI density factor.
+    configured: true
+    multiplier: -1.0
+    anchor_variable: null
+  factor_3:
+    method: negative
+    rationale: Social marginalization / Indigenous identity / education / female-headed-household
+      factor. Indigenous identity, female-headed households, and no-high-school load
+      negatively. Reversed so higher values of these vulnerability-relevant indicators
+      increase vulnerability.
+    configured: true
+    multiplier: -1.0
+    anchor_variable: null
+  factor_4:
+    method: absolute
+    rationale: Ambiguous demographic/institutional/rural-economic contrast factor.
+      Population change loads negatively, while physicians, hospitals, extractive
+      employment, and voting proxy load positively. Following original SoVI treatment
+      of ambiguous factors, use absolute value.
+    configured: true
+    multiplier: 1.0
+    anchor_variable: null
+  factor_5:
+    method: positive
+    rationale: Tenancy/service/female-share factor. Female share, service employment,
+      renter share, and female-headed households load positively. Kept positive so
+      higher values increase vulnerability.
+    configured: true
+    multiplier: 1.0
+    anchor_variable: null
+  factor_6:
+    method: absolute
+    rationale: Ambiguous agriculture/unemployment/service-access factor. Land in farms
+      loads negatively, while unemployment, physicians, hospitals, and median age
+      load positively. Following original SoVI treatment of ambiguous factors, use
+      absolute value.
+    configured: true
+    multiplier: 1.0
+    anchor_variable: null
+  factor_7:
+    method: absolute
+    rationale: Weak/ambiguous infrastructure-tenancy contrast factor. Transportation/utility
+      employment and voting proxy load negatively while renter share loads positively.
+      Following original SoVI treatment of ambiguous factors, use absolute value.
+    configured: true
+    multiplier: 1.0
+    anchor_variable: null
+weighting_method: equal additive factor scores
+aggregation_method: additive_factor_sum
+classification_method: standard_deviation_bands
+score_direction: higher_is_more_vulnerable
+construct_measured: social_vulnerability
+reproduction_level: local_adaptation
+assumptions:
+- status: implementation_assumption
+  description: PCA is run on z-scored variables, equivalent to using a correlation-style
+    input matrix.
+- status: paper_explicit_original_method
+  description: Missing values are zero-imputed in the original SoVI workflow.
+- status: researcher_decision_required
+  description: Factor names and factor orientations require human interpretation of
+    rotated loadings.
+- status: local_adaptation
+  description: "This recipe represents a 38-variable Qu\xE9bec census-division SoVI-like\
+    \ adaptation using the available mapped variables."
+- status: unresolved_variables_documented
+  description: PCTRFRM90, DEBREV92, HUPTDEN90, and PCTURB90 are intentionally omitted
+    from the active variable block because no completed defensible full-coverage source
+    mapping is available.
+decisions: []
+warnings:
+- Variable 'physicians_per_100k' contains missing values.
+- Variable 'pct_vote_leading_party' is declared as a 0-1 proportion but falls outside
+  that range.
+- Variable 'pct_vote_leading_party' may be encoded as 0-100 percent instead of 0-1
+  proportion.
+- Variable 'net_international_migration' has negative values but is declared nonnegative.
+- Variable 'pct_land_farms' contains missing values.
+- Variable 'pct_land_farms' is declared as a 0-1 proportion but falls outside that
+  range.
+- Variable 'pct_land_farms' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'pct_black' is declared as a 0-1 proportion but falls outside that range.
+- Variable 'pct_black' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'pct_indigenous' is declared as a 0-1 proportion but falls outside that
+  range.
+- Variable 'pct_indigenous' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'pct_asian' is declared as a 0-1 proportion but falls outside that range.
+- Variable 'pct_asian' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'pct_hispanic' is declared as a 0-1 proportion but falls outside that range.
+- Variable 'pct_hispanic' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'pct_under_5' is declared as a 0-1 proportion but falls outside that range.
+- Variable 'pct_under_5' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'pct_over_65' is declared as a 0-1 proportion but falls outside that range.
+- Variable 'pct_over_65' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'pct_unemployed' is declared as a 0-1 proportion but falls outside that
+  range.
+- Variable 'pct_unemployed' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'pct_high_income_households' is declared as a 0-1 proportion but falls
+  outside that range.
+- Variable 'pct_high_income_households' may be encoded as 0-100 percent instead of
+  0-1 proportion.
+- Variable 'pct_poverty' is declared as a 0-1 proportion but falls outside that range.
+- Variable 'pct_poverty' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'pct_renter' is declared as a 0-1 proportion but falls outside that range.
+- Variable 'pct_renter' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'pct_mobile_homes' is declared as a 0-1 proportion but falls outside that
+  range.
+- Variable 'pct_mobile_homes' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'pct_no_high_school' is declared as a 0-1 proportion but falls outside
+  that range.
+- Variable 'pct_no_high_school' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'labor_force_participation' is declared as a 0-1 proportion but falls outside
+  that range.
+- Variable 'labor_force_participation' may be encoded as 0-100 percent instead of
+  0-1 proportion.
+- Variable 'female_labor_force_participation' is declared as a 0-1 proportion but
+  falls outside that range.
+- Variable 'female_labor_force_participation' may be encoded as 0-100 percent instead
+  of 0-1 proportion.
+- Variable 'pct_extractive_employment' is declared as a 0-1 proportion but falls outside
+  that range.
+- Variable 'pct_extractive_employment' may be encoded as 0-100 percent instead of
+  0-1 proportion.
+- Variable 'pct_transport_utility_employment' is declared as a 0-1 proportion but
+  falls outside that range.
+- Variable 'pct_transport_utility_employment' may be encoded as 0-100 percent instead
+  of 0-1 proportion.
+- Variable 'pct_service_employment' is declared as a 0-1 proportion but falls outside
+  that range.
+- Variable 'pct_service_employment' may be encoded as 0-100 percent instead of 0-1
+  proportion.
+- Variable 'pct_population_change' has negative values but is declared nonnegative.
+- Variable 'pct_population_change' is declared as percent but falls outside 0-100.
+- Variable 'pct_female' is declared as a 0-1 proportion but falls outside that range.
+- Variable 'pct_female' may be encoded as 0-100 percent instead of 0-1 proportion.
+- Variable 'pct_female_headed_households' is declared as a 0-1 proportion but falls
+  outside that range.
+- Variable 'pct_female_headed_households' may be encoded as 0-100 percent instead
+  of 0-1 proportion.
+- Factor signs are arbitrary and require orientation decisions.
+- SoVI is an area-level social vulnerability score and should not be interpreted as
+  an individual-level diagnosis.
+- This run is a SoVI-like local/partial adaptation, not exact original SoVI.
+- Zero imputation was used; this may distort factor structure when zero is not substantively
+  meaningful.
+validation_summary:
+  is_valid: true
+  error_count: 0
+  warning_count: 51
+  missingness:
+    med_age:
+      missing_count: 0
+      missing_pct: 0.0
+    per_capita_income:
+      missing_count: 0
+      missing_pct: 0.0
+    median_home_value:
+      missing_count: 0
+      missing_pct: 0.0
+    median_rent:
+      missing_count: 0
+      missing_pct: 0.0
+    physicians_per_100k:
+      missing_count: 1
+      missing_pct: 0.01020408163265306
+    pct_vote_leading_party:
+      missing_count: 0
+      missing_pct: 0.0
+    birth_rate:
+      missing_count: 0
+      missing_pct: 0.0
+    net_international_migration:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_land_farms:
+      missing_count: 4
+      missing_pct: 0.04081632653061224
+    pct_black:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_indigenous:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_asian:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_hispanic:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_under_5:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_over_65:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_unemployed:
+      missing_count: 0
+      missing_pct: 0.0
+    avg_people_per_household:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_high_income_households:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_poverty:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_renter:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_mobile_homes:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_no_high_school:
+      missing_count: 0
+      missing_pct: 0.0
+    housing_unit_density:
+      missing_count: 0
+      missing_pct: 0.0
+    manufacturing_density:
+      missing_count: 0
+      missing_pct: 0.0
+    earnings_density:
+      missing_count: 0
+      missing_pct: 0.0
+    commercial_density:
+      missing_count: 0
+      missing_pct: 0.0
+    property_value_density:
+      missing_count: 0
+      missing_pct: 0.0
+    labor_force_participation:
+      missing_count: 0
+      missing_pct: 0.0
+    female_labor_force_participation:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_extractive_employment:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_transport_utility_employment:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_service_employment:
+      missing_count: 0
+      missing_pct: 0.0
+    nursing_home_residents_per_capita:
+      missing_count: 0
+      missing_pct: 0.0
+    hospitals_per_capita:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_population_change:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_female:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_female_headed_households:
+      missing_count: 0
+      missing_pct: 0.0
+    social_security_recipients_per_capita:
+      missing_count: 0
+      missing_pct: 0.0
+output_files:
+  standard_output: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/standard_output.csv
+  intermediate_output: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/intermediate_output.csv
+  metadata_json: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/metadata.json
+  metadata_yaml: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/metadata.yaml
+  validation_report_json: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/validation_report.json
+  validation_report_yaml: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/validation_report.yaml
+  missing_data_report_json: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/missing_data_report.json
+  run_report: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/run_report.md
+  sovi_eigenvalues: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/sovi_eigenvalues.csv
+  sovi_explained_variance: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/sovi_explained_variance.csv
+  sovi_loadings_unrotated: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/sovi_loadings_unrotated.csv
+  sovi_loadings_rotated: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/sovi_loadings_rotated.csv
+  sovi_factor_scores: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/sovi_factor_scores.csv
+  sovi_factor_summary: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/sovi_factor_summary.csv
+  sovi_standardized_variables: data/sovi_2021/output/sovi_like_quebec_cd_2021_38var_oriented_run/sovi_standardized_variables.csv
+extra:
+  aggregation:
+    method: additive_factor_sum
+    weights: equal
+    score_column: sovi_score_raw
+  classification:
+    method: standard_deviation_bands
+    score_z:
+      mean: 2.3893957187525188
+      std: 2.192484916812319
+      zero_std_behavior: null
+  sovi:
+    methodology_note: SoVI-like uses standardized variables, PCA/factor analysis,
+      varimax rotation, recipe-driven factor orientation, and an additive sum of oriented
+      factor scores.
+    area_level_warning: SoVI is an area-level social vulnerability score and should
+      not be interpreted as an individual-level diagnosis.
+    n_factors_retained: 7
+    retained_cumulative_explained_variance: 0.8277898764660341
+    score_summary:
+      min: -3.7518151527990415
+      mean: 2.3893957187525188
+      max: 9.645657244538988
+      std: 2.192484916812319
+    dominant_variables_by_factor:
+    - factor: factor_1
+      eigenvalue_before_rotation: 14.00713986392233
+      explained_variance_before_rotation: 0.3648476280344968
+      dominant_variables_by_abs_loading: pct_high_income_households:0.9334; female_labor_force_participation:0.9206;
+        pct_poverty:-0.9153; social_security_recipients_per_capita:-0.9096; labor_force_participation:0.8920
+      top_positive_loadings: pct_high_income_households:0.9334; female_labor_force_participation:0.9206;
+        labor_force_participation:0.8920
+      top_negative_loadings: pct_poverty:-0.9153; social_security_recipients_per_capita:-0.9096;
+        pct_over_65:-0.8883
+      orientation_method: negative
+      orientation_rationale: Personal wealth / socioeconomic advantage factor. High
+        income, high labour-force participation, and high-income households load positively,
+        while poverty and government-transfer recipients load negatively. Reversed
+        so poverty/resource disadvantage contributes positively to vulnerability.
+      orientation_configured: true
+    - factor: factor_2
+      eigenvalue_before_rotation: 7.1413659484257455
+      explained_variance_before_rotation: 0.18601302282419369
+      dominant_variables_by_abs_loading: earnings_density:-0.9902; housing_unit_density:-0.9892;
+        commercial_density:-0.9892; property_value_density:-0.9883; manufacturing_density:-0.9783
+      top_positive_loadings: pct_no_high_school:0.2995; pct_extractive_employment:0.2904;
+        med_age:0.2649
+      top_negative_loadings: earnings_density:-0.9902; housing_unit_density:-0.9892;
+        commercial_density:-0.9892
+      orientation_method: negative
+      orientation_rationale: Density of built environment / economic activity factor.
+        Housing, earnings, commercial, property, and manufacturing densities load
+        strongly together with negative signs. Reversed so higher built-environment/economic
+        density contributes positively to vulnerability, consistent with the original
+        SoVI density factor.
+      orientation_configured: true
+    - factor: factor_3
+      eigenvalue_before_rotation: 3.89834667795682
+      explained_variance_before_rotation: 0.10154125342690966
+      dominant_variables_by_abs_loading: pct_indigenous:-0.8725; pct_female_headed_households:-0.7412;
+        pct_no_high_school:-0.7188; birth_rate:-0.4598; pct_mobile_homes:-0.4463
+      top_positive_loadings: median_home_value:0.2778; physicians_per_100k:0.2545;
+        med_age:0.2404
+      top_negative_loadings: pct_indigenous:-0.8725; pct_female_headed_households:-0.7412;
+        pct_no_high_school:-0.7188
+      orientation_method: negative
+      orientation_rationale: Social marginalization / Indigenous identity / education
+        / female-headed-household factor. Indigenous identity, female-headed households,
+        and no-high-school load negatively. Reversed so higher values of these vulnerability-relevant
+        indicators increase vulnerability.
+      orientation_configured: true
+    - factor: factor_4
+      eigenvalue_before_rotation: 2.3388615944731805
+      explained_variance_before_rotation: 0.06092093841672892
+      dominant_variables_by_abs_loading: pct_population_change:-0.7851; physicians_per_100k:0.6188;
+        pct_extractive_employment:0.6101; hospitals_per_capita:0.5334; pct_vote_leading_party:0.5315
+      top_positive_loadings: physicians_per_100k:0.6188; pct_extractive_employment:0.6101;
+        hospitals_per_capita:0.5334
+      top_negative_loadings: pct_population_change:-0.7851; median_home_value:-0.4372;
+        median_rent:-0.4352
+      orientation_method: absolute
+      orientation_rationale: Ambiguous demographic/institutional/rural-economic contrast
+        factor. Population change loads negatively, while physicians, hospitals, extractive
+        employment, and voting proxy load positively. Following original SoVI treatment
+        of ambiguous factors, use absolute value.
+      orientation_configured: true
+    - factor: factor_5
+      eigenvalue_before_rotation: 2.0306282163162597
+      explained_variance_before_rotation: 0.05289230316398421
+      dominant_variables_by_abs_loading: pct_female:0.8428; pct_service_employment:0.7227;
+        pct_renter:0.5750; pct_extractive_employment:-0.4522; pct_female_headed_households:0.4004
+      top_positive_loadings: pct_female:0.8428; pct_service_employment:0.7227; pct_renter:0.5750
+      top_negative_loadings: pct_extractive_employment:-0.4522; pct_no_high_school:-0.2773;
+        pct_under_5:-0.1934
+      orientation_method: positive
+      orientation_rationale: Tenancy/service/female-share factor. Female share, service
+        employment, renter share, and female-headed households load positively. Kept
+        positive so higher values increase vulnerability.
+      orientation_configured: true
+    - factor: factor_6
+      eigenvalue_before_rotation: 1.2776690062341447
+      explained_variance_before_rotation: 0.033279778089342654
+      dominant_variables_by_abs_loading: pct_land_farms:-0.7842; pct_unemployed:0.6161;
+        physicians_per_100k:0.5247; hospitals_per_capita:0.4057; med_age:0.3245
+      top_positive_loadings: pct_unemployed:0.6161; physicians_per_100k:0.5247; hospitals_per_capita:0.4057
+      top_negative_loadings: pct_land_farms:-0.7842; pct_renter:-0.3200; pct_under_5:-0.3155
+      orientation_method: absolute
+      orientation_rationale: Ambiguous agriculture/unemployment/service-access factor.
+        Land in farms loads negatively, while unemployment, physicians, hospitals,
+        and median age load positively. Following original SoVI treatment of ambiguous
+        factors, use absolute value.
+      orientation_configured: true
+    - factor: factor_7
+      eigenvalue_before_rotation: 1.0862928159654452
+      explained_variance_before_rotation: 0.02829495251037814
+      dominant_variables_by_abs_loading: pct_transport_utility_employment:-0.7557;
+        pct_vote_leading_party:-0.4268; pct_renter:0.3378; pct_mobile_homes:-0.2768;
+        median_rent:-0.2016
+      top_positive_loadings: pct_renter:0.3378; nursing_home_residents_per_capita:0.1869;
+        birth_rate:0.1616
+      top_negative_loadings: pct_transport_utility_employment:-0.7557; pct_vote_leading_party:-0.4268;
+        pct_mobile_homes:-0.2768
+      orientation_method: absolute
+      orientation_rationale: Weak/ambiguous infrastructure-tenancy contrast factor.
+        Transportation/utility employment and voting proxy load negatively while renter
+        share loads positively. Following original SoVI treatment of ambiguous factors,
+        use absolute value.
+      orientation_configured: true
+  standardization:
+    method: zscore
+    center: true
+    scale: true
+    ddof: 0
+    zero_variance_behavior: drop
+    zero_variance_tol: 1.0e-12
+    variables:
+      med_age:
+        mean: 47.52857142857143
+        std: 5.47470994479085
+        output_column: med_age
+        zero_variance: false
+      per_capita_income:
+        mean: 47407.142857142855
+        std: 5707.006792585081
+        output_column: per_capita_income
+        zero_variance: false
+      median_home_value:
+        mean: 238632.6530612245
+        std: 85579.70240886467
+        output_column: median_home_value
+        zero_variance: false
+      median_rent:
+        mean: 670.9285714285714
+        std: 129.23844834495748
+        output_column: median_rent
+        zero_variance: false
+      physicians_per_100k:
+        mean: 134.0
+        std: 35.75797327955298
+        output_column: physicians_per_100k
+        zero_variance: false
+      pct_vote_leading_party:
+        mean: 47.32568625185904
+        std: 6.094891075094574
+        output_column: pct_vote_leading_party
+        zero_variance: false
+      birth_rate:
+        mean: 9.150610646556268
+        std: 2.0585487455867435
+        output_column: birth_rate
+        zero_variance: false
+      net_international_migration:
+        mean: 153.01020408163265
+        std: 388.8954136435908
+        output_column: net_international_migration
+        zero_variance: false
+      pct_land_farms:
+        mean: 26.049938436623826
+        std: 24.665222520771977
+        output_column: pct_land_farms
+        zero_variance: false
+      pct_black:
+        mean: 1.3928571428571432
+        std: 2.1775407397955586
+        output_column: pct_black
+        zero_variance: false
+      pct_indigenous:
+        mean: 4.593877551020408
+        std: 8.173548879839693
+        output_column: pct_indigenous
+        zero_variance: false
+      pct_asian:
+        mean: 0.9581632653061225
+        std: 1.9854020036762288
+        output_column: pct_asian
+        zero_variance: false
+      pct_hispanic:
+        mean: 0.689795918367347
+        std: 0.8142217764269327
+        output_column: pct_hispanic
+        zero_variance: false
+      pct_under_5:
+        mean: 4.801020408163266
+        std: 0.9711653948083729
+        output_column: pct_under_5
+        zero_variance: false
+      pct_over_65:
+        mean: 24.022448979591836
+        std: 5.178360204800573
+        output_column: pct_over_65
+        zero_variance: false
+      pct_unemployed:
+        mean: 6.994897959183674
+        std: 2.132612293331656
+        output_column: pct_unemployed
+        zero_variance: false
+      avg_people_per_household:
+        mean: 2.205102040816327
+        std: 0.18315402739480532
+        output_column: avg_people_per_household
+        zero_variance: false
+      pct_high_income_households:
+        mean: 30.98061224489796
+        std: 8.273644634834369
+        output_column: pct_high_income_households
+        zero_variance: false
+      pct_poverty:
+        mean: 12.298979591836732
+        std: 3.59627059939506
+        output_column: pct_poverty
+        zero_variance: false
+      pct_renter:
+        mean: 28.878571428571426
+        std: 7.926811258929651
+        output_column: pct_renter
+        zero_variance: false
+      pct_mobile_homes:
+        mean: 1.223469387755102
+        std: 1.5731030701994875
+        output_column: pct_mobile_homes
+        zero_variance: false
+      pct_no_high_school:
+        mean: 19.629591836734694
+        std: 6.070625311295158
+        output_column: pct_no_high_school
+        zero_variance: false
+      housing_unit_density:
+        mean: 195.40963890906008
+        std: 594.5981038470927
+        output_column: housing_unit_density
+        zero_variance: false
+      manufacturing_density:
+        mean: 0.24660277355393864
+        std: 0.7210581700078547
+        output_column: manufacturing_density
+        zero_variance: false
+      earnings_density:
+        mean: 4570097.075948458
+        std: 13764631.755988477
+        output_column: earnings_density
+        zero_variance: false
+      commercial_density:
+        mean: 1.2035955288662403
+        std: 3.9180706127063827
+        output_column: commercial_density
+        zero_variance: false
+      property_value_density:
+        mean: 15710349.106935453
+        std: 48170250.38697469
+        output_column: property_value_density
+        zero_variance: false
+      labor_force_participation:
+        mean: 60.83469387755103
+        std: 6.051650171998396
+        output_column: labor_force_participation
+        zero_variance: false
+      female_labor_force_participation:
+        mean: 57.991836734693884
+        std: 5.8883432663461495
+        output_column: female_labor_force_participation
+        zero_variance: false
+      pct_extractive_employment:
+        mean: 6.092857142857143
+        std: 4.334466753917525
+        output_column: pct_extractive_employment
+        zero_variance: false
+      pct_transport_utility_employment:
+        mean: 6.454081632653061
+        std: 1.4862751940740258
+        output_column: pct_transport_utility_employment
+        zero_variance: false
+      pct_service_employment:
+        mean: 23.316326530612244
+        std: 2.406186494101853
+        output_column: pct_service_employment
+        zero_variance: false
+      nursing_home_residents_per_capita:
+        mean: 8.646607217786466
+        std: 5.420352104382184
+        output_column: nursing_home_residents_per_capita
+        zero_variance: false
+      hospitals_per_capita:
+        mean: 5.664043234435821
+        std: 5.703050740857592
+        output_column: hospitals_per_capita
+        zero_variance: false
+      pct_population_change:
+        mean: 3.038775510204081
+        std: 4.532999922407137
+        output_column: pct_population_change
+        zero_variance: false
+      pct_female:
+        mean: 49.85631686591654
+        std: 0.9153625200115348
+        output_column: pct_female
+        zero_variance: false
+      pct_female_headed_households:
+        mean: 10.355102040816327
+        std: 2.3113350876813286
+        output_column: pct_female_headed_households
+        zero_variance: false
+      social_security_recipients_per_capita:
+        mean: 0.6217708524215568
+        std: 0.051793879169053
+        output_column: social_security_recipients_per_capita
+        zero_variance: false
+    dropped_variables: []
+    used_variables:
+    - med_age
+    - per_capita_income
+    - median_home_value
+    - median_rent
+    - physicians_per_100k
+    - pct_vote_leading_party
+    - birth_rate
+    - net_international_migration
+    - pct_land_farms
+    - pct_black
+    - pct_indigenous
+    - pct_asian
+    - pct_hispanic
+    - pct_under_5
+    - pct_over_65
+    - pct_unemployed
+    - avg_people_per_household
+    - pct_high_income_households
+    - pct_poverty
+    - pct_renter
+    - pct_mobile_homes
+    - pct_no_high_school
+    - housing_unit_density
+    - manufacturing_density
+    - earnings_density
+    - commercial_density
+    - property_value_density
+    - labor_force_participation
+    - female_labor_force_participation
+    - pct_extractive_employment
+    - pct_transport_utility_employment
+    - pct_service_employment
+    - nursing_home_residents_per_capita
+    - hospitals_per_capita
+    - pct_population_change
+    - pct_female
+    - pct_female_headed_households
+    - social_security_recipients_per_capita
+  factor_analysis:
+    method: pca
+    n_observations: 98
+    n_variables: 38
+    total_variance: 38.391752577319586
+    eigenvalues:
+    - 14.00713986392233
+    - 7.1413659484257455
+    - 3.89834667795682
+    - 2.3388615944731805
+    - 2.0306282163162597
+    - 1.2776690062341447
+    - 1.0862928159654452
+    - 0.9098179311820359
+    - 0.8155505552309317
+    - 0.7434204916354956
+    - 0.6310984497488036
+    - 0.5653502626397237
+    - 0.5009720096442969
+    - 0.44437231886395484
+    - 0.3085991841495702
+    - 0.29468228684729364
+    - 0.2602765462520937
+    - 0.18734894579911907
+    - 0.17086936660581054
+    - 0.14842444245230954
+    - 0.1304732421682268
+    - 0.08326712797928018
+    - 0.07984399363440724
+    - 0.06601655599021261
+    - 0.057279465696342756
+    - 0.047259186548036985
+    - 0.040751797719346526
+    - 0.035144923550260374
+    - 0.02935457252594305
+    - 0.01836669781347313
+    - 0.014682309980717996
+    - 0.01112106664584957
+    - 0.005340417030007181
+    - 0.004665936656849402
+    - 0.003317789704150744
+    - 0.002591284040294902
+    - 0.001062698954255906
+    - 0.0001265963365715492
+    explained_variance_ratio:
+    - 0.3648476280344968
+    - 0.18601302282419369
+    - 0.10154125342690966
+    - 0.06092093841672892
+    - 0.05289230316398421
+    - 0.033279778089342654
+    - 0.02829495251037814
+    - 0.02369826512477376
+    - 0.02124285817867894
+    - 0.019364067585564738
+    - 0.016438386043403315
+    - 0.014725825852860686
+    - 0.013048948693742428
+    - 0.011574681774920414
+    - 0.008038163496914155
+    - 0.007675666440437026
+    - 0.006779491134922956
+    - 0.004879926891115615
+    - 0.00445067899053803
+    - 0.0038660501927696095
+    - 0.003398470593533298
+    - 0.0021688806160016587
+    - 0.0020797173422495976
+    - 0.001719550464836365
+    - 0.0014919731934869085
+    - 0.0012309723671212643
+    - 0.0010614727118089724
+    - 0.0009154289968784254
+    - 0.0007646062124104393
+    - 0.0004784021718332153
+    - 0.00038243396029260087
+    - 0.000289673325630346
+    - 0.00013910323628106783
+    - 0.00012153486995552954
+    - 8.641933439920037e-05
+    - 6.749585174774584e-05
+    - 2.7680397036203783e-05
+    - 3.2974878215467974e-06
+    cumulative_explained_variance:
+    - 0.3648476280344968
+    - 0.5508606508586904
+    - 0.6524019042856001
+    - 0.713322842702329
+    - 0.7662151458663132
+    - 0.7994949239556559
+    - 0.8277898764660341
+    - 0.8514881415908079
+    - 0.8727309997694869
+    - 0.8920950673550516
+    - 0.9085334533984549
+    - 0.9232592792513156
+    - 0.936308227945058
+    - 0.9478829097199784
+    - 0.9559210732168925
+    - 0.9635967396573295
+    - 0.9703762307922524
+    - 0.975256157683368
+    - 0.9797068366739061
+    - 0.9835728868666758
+    - 0.986971357460209
+    - 0.9891402380762107
+    - 0.9912199554184602
+    - 0.9929395058832966
+    - 0.9944314790767835
+    - 0.9956624514439048
+    - 0.9967239241557138
+    - 0.9976393531525922
+    - 0.9984039593650027
+    - 0.998882361536836
+    - 0.9992647954971285
+    - 0.9995544688227589
+    - 0.99969357205904
+    - 0.9998151069289954
+    - 0.9999015262633947
+    - 0.9999690221151424
+    - 0.9999967025121785
+    - 1.0
+  factor_retention:
+    method: eigenvalue_gt
+    threshold: 1.0
+    n_factors_requested: null
+    n_factors_retained: 7
+  rotation:
+    method: varimax
+    normalize: true
+    gamma: 1.0
+    max_iter: 500
+    tol: 1.0e-06
+    iterations: 56
+    converged: true
+  factor_scores:
+    method: rotated_projection
+    approximation: Scores are computed by projecting standardized variables onto rotated
+      loading-derived coefficients.
+  variables_proxied:
+  - variable: per_capita_income
+    canonical_name: per_capita_income
+    original_variable: PERCAP89
+    proxy_used: income_measure_default
+    proxy_quality: income_proxy_needs_method_note
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: physicians_per_100k
+    canonical_name: physicians_per_100k
+    original_variable: PHYSICN90
+    proxy_used: health_region_physicians_proxy
+    proxy_quality: health_region_proxy_one_documented_missing
+    conceptual_risk: null
+    status: local_adaptation_partial_coverage
+  - variable: pct_vote_leading_party
+    canonical_name: pct_vote_leading_party
+    original_variable: PCTVOTE92
+    proxy_used: area_weighted_federal_election_proxy
+    proxy_quality: area_weighted_federal_election_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: birth_rate
+    canonical_name: birth_rate
+    original_variable: BRATE90
+    proxy_used: demographic_estimates_birth_rate
+    proxy_quality: crude_birth_rate_from_demographic_estimates
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: net_international_migration
+    canonical_name: net_international_migration
+    original_variable: MIGRA_97
+    proxy_used: net_international_migration_from_demographic_components
+    proxy_quality: net_international_migration_count_from_demographic_components
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: pct_land_farms
+    canonical_name: pct_land_farms
+    original_variable: PCTFARMS92
+    proxy_used: census_of_agriculture_total_farm_area_density_proxy
+    proxy_quality: strong_canadian_land_in_farms_adaptation_partial_coverage
+    conceptual_risk: null
+    status: local_adaptation_partial_coverage
+  - variable: pct_black
+    canonical_name: pct_black
+    original_variable: PCTBLACK90
+    proxy_used: visible_minority_black_population_group
+    proxy_quality: visible_minority_population_group_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: pct_indigenous
+    canonical_name: pct_indigenous
+    original_variable: PCTINDIAN90
+    proxy_used: indigenous_identity_population
+    proxy_quality: indigenous_identity_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: pct_asian
+    canonical_name: pct_asian
+    original_variable: PCTASIAN90
+    proxy_used: derived_visible_minority_asian_group
+    proxy_quality: derived_visible_minority_asian_group_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: pct_hispanic
+    canonical_name: pct_hispanic
+    original_variable: PCTHISPANIC90
+    proxy_used: latin_american_population_group
+    proxy_quality: latin_american_proxy_for_hispanic
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: pct_high_income_households
+    canonical_name: pct_high_income_households
+    original_variable: PCTHH7589
+    proxy_used: high_income_household_threshold_proxy
+    proxy_quality: threshold_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: pct_poverty
+    canonical_name: pct_poverty
+    original_variable: PCTPOV90
+    proxy_used: canadian_low_income_measure_proxy
+    proxy_quality: canadian_low_income_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: pct_mobile_homes
+    canonical_name: pct_mobile_homes
+    original_variable: PCTMOBL90
+    proxy_used: movable_dwelling_proxy
+    proxy_quality: movable_dwelling_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: pct_no_high_school
+    canonical_name: pct_no_high_school
+    original_variable: PCTNOHS90
+    proxy_used: no_high_school_diploma_age_universe_proxy
+    proxy_quality: age_universe_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: housing_unit_density
+    canonical_name: housing_unit_density
+    original_variable: HODENUT90
+    proxy_used: derived_density_from_clean_base_frame
+    proxy_quality: derived_density_from_clean_base_frame
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: manufacturing_density
+    canonical_name: manufacturing_density
+    original_variable: MAESDEN92
+    proxy_used: naics_31_33_manufacturing_business_count_density
+    proxy_quality: naics_31_33_manufacturing_business_count_density_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: earnings_density
+    canonical_name: earnings_density
+    original_variable: EARNDEN90
+    proxy_used: derived_canadian_employment_income_density
+    proxy_quality: derived_canadian_employment_income_density_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: commercial_density
+    canonical_name: commercial_density
+    original_variable: COMDEVDN92
+    proxy_used: constructed_naics_commercial_business_count_density
+    proxy_quality: constructed_naics_commercial_business_count_density_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: property_value_density
+    canonical_name: property_value_density
+    original_variable: RPROPDEN92
+    proxy_used: weak_residential_owner_occupied_property_value_density
+    proxy_quality: weak_residential_owner_occupied_property_value_density_proxy
+    conceptual_risk: Does not represent total assessed property value; excludes rental,
+      commercial, industrial, institutional, farm, and land-assessment values.
+    status: local_adaptation
+  - variable: pct_extractive_employment
+    canonical_name: pct_extractive_employment
+    original_variable: AGRIPC90
+    proxy_used: derived_primary_extractive_industry_proxy
+    proxy_quality: derived_primary_extractive_industry_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: pct_transport_utility_employment
+    canonical_name: pct_transport_utility_employment
+    original_variable: TRANPC90
+    proxy_used: derived_transportation_utility_communication_industry_proxy
+    proxy_quality: derived_transportation_utility_communication_industry_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: pct_service_employment
+    canonical_name: pct_service_employment
+    original_variable: SERVPC90
+    proxy_used: sales_and_service_occupation_proxy
+    proxy_quality: sales_and_service_occupation_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: nursing_home_residents_per_capita
+    canonical_name: nursing_home_residents_per_capita
+    original_variable: NRRESPC91
+    proxy_used: residential_care_facilities_per_100k_population_odhf
+    proxy_quality: facility_density_proxy_not_residents
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: hospitals_per_capita
+    canonical_name: hospitals_per_capita
+    original_variable: HOSPTPC91
+    proxy_used: hospitals_per_100k_population_odhf
+    proxy_quality: odhf_hospital_facility_density_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: pct_population_change
+    canonical_name: pct_population_change
+    original_variable: PCCHGPOP90
+    proxy_used: population_change_pct_2016_2021
+    proxy_quality: direct_population_change_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: pct_female_headed_households
+    canonical_name: pct_female_headed_households
+    original_variable: PCTF_HH90
+    proxy_used: female_parent_one_parent_census_family_proxy
+    proxy_quality: female_parent_one_parent_census_family_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  - variable: social_security_recipients_per_capita
+    canonical_name: social_security_recipients_per_capita
+    original_variable: SSBENPC90
+    proxy_used: government_transfer_recipients_per_capita
+    proxy_quality: broad_canadian_government_transfer_recipient_proxy
+    conceptual_risk: null
+    status: local_adaptation
+  methodology_note: SoVI-like uses standardized variables, PCA/factor analysis, varimax
+    rotation, recipe-driven factor orientation, and an additive sum of oriented factor
+    scores.
+  source_reference:
+    citation: Cutter, Boruff & Shirley 2003, Social Vulnerability to Environmental
+      Hazards
+    journal: Social Science Quarterly
+  variables_used:
+  - med_age
+  - per_capita_income
+  - median_home_value
+  - median_rent
+  - physicians_per_100k
+  - pct_vote_leading_party
+  - birth_rate
+  - net_international_migration
+  - pct_land_farms
+  - pct_black
+  - pct_indigenous
+  - pct_asian
+  - pct_hispanic
+  - pct_under_5
+  - pct_over_65
+  - pct_unemployed
+  - avg_people_per_household
+  - pct_high_income_households
+  - pct_poverty
+  - pct_renter
+  - pct_mobile_homes
+  - pct_no_high_school
+  - housing_unit_density
+  - manufacturing_density
+  - earnings_density
+  - commercial_density
+  - property_value_density
+  - labor_force_participation
+  - female_labor_force_participation
+  - pct_extractive_employment
+  - pct_transport_utility_employment
+  - pct_service_employment
+  - nursing_home_residents_per_capita
+  - hospitals_per_capita
+  - pct_population_change
+  - pct_female
+  - pct_female_headed_households
+  - social_security_recipients_per_capita
+  variables_dropped: []

@@ -1,0 +1,26 @@
+# Source mapping for the SoVI population-change variable.
+#
+# Scope:
+#   - Québec census divisions
+#   - 2021 SoVI-like input table
+#
+# Source block:
+#   census_division_spatial_frame_population_2021/
+#
+# Method note:
+#   The population-change variable is already available in the cleaned
+#   census-division spatial/population base frame. No additional raw-data
+#   inspection or cleaner is required here because the base frame is itself
+#   the cleaned geographic/population source used by the SoVI aggregator.
+
+pct_population_change:
+  source_folder: census_division_spatial_frame_population_2021
+  file_candidates:
+    - output/clean_quebec_census_division_spatial_frame_with_population_2021.csv
+    - output/clean_quebec_census_division_spatial_frame_with_population_2021.parquet
+  column_candidates:
+    - population_change_pct_2016_2021
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: direct_population_change_proxy
+  allow_partial_coverage: false
+  note: "Maps PCCHGPOP90 to the 2016–2021 population percent change already computed in the cleaned Québec census-division spatial/population frame. This is a Canadian 2021 census-period population-change proxy, not a historical 1990 U.S. reproduction."

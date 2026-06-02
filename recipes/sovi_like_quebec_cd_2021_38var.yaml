@@ -1,0 +1,592 @@
+name: sovi_like
+version: "0.1"
+source: Cutter, Boruff & Shirley SoVI-inspired implementation
+source_reference:
+  citation: Cutter, Boruff & Shirley 2003, Social Vulnerability to Environmental Hazards
+  journal: Social Science Quarterly
+method_reference: SoVI PCA/factor-analysis methodology with varimax rotation
+construct_measured: social_vulnerability
+score_direction: higher_is_more_vulnerable
+reproduction_level: local_adaptation
+spatial_id_column: zone_id
+
+input_table:
+  path: sovi_2021/output/draft_clean_census_division_sovi_input_2021.csv
+  geography: Quebec census divisions
+  year: 2021
+  row_count_expected: 98
+
+original_reference_variables:
+  - MED_AGE90
+  - PERCAP89
+  - MVALOO90
+  - MEDRENT90
+  - PHYSICN90
+  - PCTVOTE92
+  - BRATE90
+  - MIGRA_97
+  - PCTFARMS92
+  - PCTBLACK90
+  - PCTINDIAN90
+  - PCTASIAN90
+  - PCTHISPANIC90
+  - PCTKIDS90
+  - PCTOLD90
+  - PCTVLUN91
+  - AVGPERHH
+  - PCTHH7589
+  - PCTPOV90
+  - PCTRENTER90
+  - PCTRFRM90
+  - DEBREV92
+  - PCTMOBL90
+  - PCTNOHS90
+  - HODENUT90
+  - HUPTDEN90
+  - MAESDEN92
+  - EARNDEN90
+  - COMDEVDN92
+  - RPROPDEN92
+  - CVBRPC91
+  - FEMLBR90
+  - AGRIPC90
+  - TRANPC90
+  - SERVPC90
+  - NRRESPC91
+  - HOSPTPC91
+  - PCCHGPOP90
+  - PCTURB90
+  - PCTFEM90
+  - PCTF_HH90
+  - SSBENPC90
+
+implemented_original_reference_variables:
+  - MED_AGE90
+  - PERCAP89
+  - MVALOO90
+  - MEDRENT90
+  - PHYSICN90
+  - PCTVOTE92
+  - BRATE90
+  - MIGRA_97
+  - PCTFARMS92
+  - PCTBLACK90
+  - PCTINDIAN90
+  - PCTASIAN90
+  - PCTHISPANIC90
+  - PCTKIDS90
+  - PCTOLD90
+  - PCTVLUN91
+  - AVGPERHH
+  - PCTHH7589
+  - PCTPOV90
+  - PCTRENTER90
+  - PCTMOBL90
+  - PCTNOHS90
+  - HODENUT90
+  - MAESDEN92
+  - EARNDEN90
+  - COMDEVDN92
+  - RPROPDEN92
+  - CVBRPC91
+  - FEMLBR90
+  - AGRIPC90
+  - TRANPC90
+  - SERVPC90
+  - NRRESPC91
+  - HOSPTPC91
+  - PCCHGPOP90
+  - PCTFEM90
+  - PCTF_HH90
+  - SSBENPC90
+
+unresolved_original_reference_variables:
+  pct_rural_farm:
+    original_variable: PCTRFRM90
+    reason: No completed defensible full-coverage rural farm population source.
+  debt_revenue_ratio:
+    original_variable: DEBREV92
+    reason: No completed municipal debt-to-revenue source aggregated to census divisions.
+  housing_permit_density:
+    original_variable: HUPTDEN90
+    reason: Public StatCan building-permit table inspected but lacked CD/CSD geography.
+  pct_urban:
+    original_variable: PCTURB90
+    reason: Census Profile inspection did not find a direct urban/rural population-share row.
+
+variables:
+  med_age:
+    canonical_name: med_age
+    required: true
+    original_variable: MED_AGE90
+    description: Median age
+    unit: years
+    status: local_adaptation
+
+  per_capita_income:
+    canonical_name: per_capita_income
+    required: true
+    original_variable: PERCAP89
+    description: Per capita income
+    unit: dollars
+    status: local_adaptation
+    vulnerability_direction_hint: negative
+    proxy_used: income_measure_default
+    proxy_quality: income_proxy_needs_method_note
+
+  median_home_value:
+    canonical_name: median_home_value
+    required: true
+    original_variable: MVALOO90
+    description: Median dollar value of owner-occupied housing
+    unit: dollars
+    status: local_adaptation
+
+  median_rent:
+    canonical_name: median_rent
+    required: true
+    original_variable: MEDRENT90
+    description: Median rent / median monthly shelter costs for rented dwellings
+    unit: dollars
+    status: local_adaptation
+
+  physicians_per_100k:
+    canonical_name: physicians_per_100k
+    required: true
+    original_variable: PHYSICN90
+    description: Physicians per 100,000 population
+    unit: rate_per_100k
+    status: local_adaptation_partial_coverage
+    proxy_used: health_region_physicians_proxy
+    proxy_quality: health_region_proxy_one_documented_missing
+
+  pct_vote_leading_party:
+    canonical_name: pct_vote_leading_party
+    required: true
+    original_variable: PCTVOTE92
+    description: Percent vote cast for leading party
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    proxy_used: area_weighted_federal_election_proxy
+    proxy_quality: area_weighted_federal_election_proxy
+
+  birth_rate:
+    canonical_name: birth_rate
+    required: true
+    original_variable: BRATE90
+    description: Crude birth rate
+    unit: births_per_1000_population
+    status: local_adaptation
+    proxy_used: demographic_estimates_birth_rate
+    proxy_quality: crude_birth_rate_from_demographic_estimates
+
+  net_international_migration:
+    canonical_name: net_international_migration
+    required: true
+    original_variable: MIGRA_97
+    description: Net international migration count from demographic components
+    unit: count
+    status: local_adaptation
+    proxy_used: net_international_migration_from_demographic_components
+    proxy_quality: net_international_migration_count_from_demographic_components
+
+  pct_land_farms:
+    canonical_name: pct_land_farms
+    required: true
+    original_variable: PCTFARMS92
+    description: Land in farms as percent of total land
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation_partial_coverage
+    proxy_used: census_of_agriculture_total_farm_area_density_proxy
+    proxy_quality: strong_canadian_land_in_farms_adaptation_partial_coverage
+
+  pct_black:
+    canonical_name: pct_black
+    required: true
+    original_variable: PCTBLACK90
+    description: Percent Black population / visible-minority Black proxy
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    proxy_used: visible_minority_black_population_group
+    proxy_quality: visible_minority_population_group_proxy
+
+  pct_indigenous:
+    canonical_name: pct_indigenous
+    required: true
+    original_variable: PCTINDIAN90
+    description: Percent Indigenous identity population
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    proxy_used: indigenous_identity_population
+    proxy_quality: indigenous_identity_proxy
+
+  pct_asian:
+    canonical_name: pct_asian
+    required: true
+    original_variable: PCTASIAN90
+    description: Percent Asian visible-minority groups
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    proxy_used: derived_visible_minority_asian_group
+    proxy_quality: derived_visible_minority_asian_group_proxy
+
+  pct_hispanic:
+    canonical_name: pct_hispanic
+    required: true
+    original_variable: PCTHISPANIC90
+    description: Percent Latin American population group as Hispanic proxy
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    proxy_used: latin_american_population_group
+    proxy_quality: latin_american_proxy_for_hispanic
+
+  pct_under_5:
+    canonical_name: pct_under_5
+    required: true
+    original_variable: PCTKIDS90
+    description: Percent population under five
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+
+  pct_over_65:
+    canonical_name: pct_over_65
+    required: true
+    original_variable: PCTOLD90
+    description: Percent population over 65
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+
+  pct_unemployed:
+    canonical_name: pct_unemployed
+    required: true
+    original_variable: PCTVLUN91
+    description: Percent civilian labour force unemployed
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+
+  avg_people_per_household:
+    canonical_name: avg_people_per_household
+    required: true
+    original_variable: AVGPERHH
+    description: Average people per household
+    unit: persons
+    status: local_adaptation
+
+  pct_high_income_households:
+    canonical_name: pct_high_income_households
+    required: true
+    original_variable: PCTHH7589
+    description: Percent high-income households using Canadian threshold proxy
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    proxy_used: high_income_household_threshold_proxy
+    proxy_quality: threshold_proxy
+
+  pct_poverty:
+    canonical_name: pct_poverty
+    required: true
+    original_variable: PCTPOV90
+    description: Percent living in poverty / Canadian low-income proxy
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    vulnerability_direction_hint: positive
+    proxy_used: canadian_low_income_measure_proxy
+    proxy_quality: canadian_low_income_proxy
+
+  pct_renter:
+    canonical_name: pct_renter
+    required: true
+    original_variable: PCTRENTER90
+    description: Percent renter-occupied households / renter-tenure proxy
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+
+  pct_mobile_homes:
+    canonical_name: pct_mobile_homes
+    required: true
+    original_variable: PCTMOBL90
+    description: Percent movable dwellings / mobile-home proxy
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    proxy_used: movable_dwelling_proxy
+    proxy_quality: movable_dwelling_proxy
+
+  pct_no_high_school:
+    canonical_name: pct_no_high_school
+    required: true
+    original_variable: PCTNOHS90
+    description: Percent with no high school diploma, Canadian age-universe proxy
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    proxy_used: no_high_school_diploma_age_universe_proxy
+    proxy_quality: age_universe_proxy
+
+  housing_unit_density:
+    canonical_name: housing_unit_density
+    required: true
+    original_variable: HODENUT90
+    description: Housing units per unit land area
+    unit: dwellings_per_km2
+    status: local_adaptation
+    proxy_used: derived_density_from_clean_base_frame
+    proxy_quality: derived_density_from_clean_base_frame
+
+  manufacturing_density:
+    canonical_name: manufacturing_density
+    required: true
+    original_variable: MAESDEN92
+    description: Manufacturing business-count density
+    unit: businesses_with_employees_per_km2
+    status: local_adaptation
+    proxy_used: naics_31_33_manufacturing_business_count_density
+    proxy_quality: naics_31_33_manufacturing_business_count_density_proxy
+
+  earnings_density:
+    canonical_name: earnings_density
+    required: true
+    original_variable: EARNDEN90
+    description: Derived estimated employment-income density
+    unit: dollars_per_km2
+    status: local_adaptation
+    proxy_used: derived_canadian_employment_income_density
+    proxy_quality: derived_canadian_employment_income_density_proxy
+
+  commercial_density:
+    canonical_name: commercial_density
+    required: true
+    original_variable: COMDEVDN92
+    description: Constructed commercial business-count density
+    unit: businesses_with_employees_per_km2
+    status: local_adaptation
+    proxy_used: constructed_naics_commercial_business_count_density
+    proxy_quality: constructed_naics_commercial_business_count_density_proxy
+
+  property_value_density:
+    canonical_name: property_value_density
+    required: true
+    original_variable: RPROPDEN92
+    description: Weak residential owner-occupied dwelling-value-density proxy
+    unit: estimated_dollars_per_km2
+    status: local_adaptation
+    proxy_used: weak_residential_owner_occupied_property_value_density
+    proxy_quality: weak_residential_owner_occupied_property_value_density_proxy
+    conceptual_risk: Does not represent total assessed property value; excludes rental, commercial, industrial, institutional, farm, and land-assessment values.
+
+  labor_force_participation:
+    canonical_name: labor_force_participation
+    required: true
+    original_variable: CVBRPC91
+    description: Labour-force participation
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+
+  female_labor_force_participation:
+    canonical_name: female_labor_force_participation
+    required: true
+    original_variable: FEMLBR90
+    description: Female labour-force participation
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+
+  pct_extractive_employment:
+    canonical_name: pct_extractive_employment
+    required: true
+    original_variable: AGRIPC90
+    description: Employment in primary extractive industries
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    proxy_used: derived_primary_extractive_industry_proxy
+    proxy_quality: derived_primary_extractive_industry_proxy
+
+  pct_transport_utility_employment:
+    canonical_name: pct_transport_utility_employment
+    required: true
+    original_variable: TRANPC90
+    description: Employment in transportation, utilities, and communications-adjacent industries
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    proxy_used: derived_transportation_utility_communication_industry_proxy
+    proxy_quality: derived_transportation_utility_communication_industry_proxy
+
+  pct_service_employment:
+    canonical_name: pct_service_employment
+    required: true
+    original_variable: SERVPC90
+    description: Employment in service occupations / sales and service occupation proxy
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    proxy_used: sales_and_service_occupation_proxy
+    proxy_quality: sales_and_service_occupation_proxy
+
+  nursing_home_residents_per_capita:
+    canonical_name: nursing_home_residents_per_capita
+    required: true
+    original_variable: NRRESPC91
+    description: Residential-care facility density proxy, not resident count
+    unit: facilities_per_100k_population
+    status: local_adaptation
+    proxy_used: residential_care_facilities_per_100k_population_odhf
+    proxy_quality: facility_density_proxy_not_residents
+
+  hospitals_per_capita:
+    canonical_name: hospitals_per_capita
+    required: true
+    original_variable: HOSPTPC91
+    description: Hospital facility density proxy
+    unit: hospitals_per_100k_population
+    status: local_adaptation
+    proxy_used: hospitals_per_100k_population_odhf
+    proxy_quality: odhf_hospital_facility_density_proxy
+
+  pct_population_change:
+    canonical_name: pct_population_change
+    required: true
+    original_variable: PCCHGPOP90
+    description: Percent population change from 2016 to 2021
+    unit: percent
+    scale: percent_change
+    status: local_adaptation
+    proxy_used: population_change_pct_2016_2021
+    proxy_quality: direct_population_change_proxy
+
+  pct_female:
+    canonical_name: pct_female
+    required: true
+    original_variable: PCTFEM90
+    description: Percent female population
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+
+  pct_female_headed_households:
+    canonical_name: pct_female_headed_households
+    required: true
+    original_variable: PCTF_HH90
+    description: Female-parent one-parent census-family proxy for female-headed households
+    unit: percent
+    scale: percent_0_100
+    status: local_adaptation
+    proxy_used: female_parent_one_parent_census_family_proxy
+    proxy_quality: female_parent_one_parent_census_family_proxy
+
+  social_security_recipients_per_capita:
+    canonical_name: social_security_recipients_per_capita
+    required: true
+    original_variable: SSBENPC90
+    description: Broad Canadian government-transfer recipient proxy per capita
+    unit: recipients_per_capita
+    status: local_adaptation
+    proxy_used: government_transfer_recipients_per_capita
+    proxy_quality: broad_canadian_government_transfer_recipient_proxy
+
+missing_data:
+  strategy: zero_imputation
+  add_missing_flags: true
+  status: paper_explicit_original_method
+  warning: Zero imputation can distort factor structure when zero is not substantively meaningful. In this 38-variable Québec CD run, it mainly affects documented partial-coverage variables.
+
+standardization:
+  method: zscore
+  center: true
+  scale: true
+  ddof: 0
+  zero_variance_behavior: drop
+  status: statistically_required_for_pca
+
+factor_analysis:
+  method: pca
+  input_matrix: standardized_variables
+
+factor_retention:
+  method: eigenvalue_gt
+  threshold: 1.0
+
+rotation:
+  method: varimax
+  normalize: true
+  max_iter: 500
+  tol: 1.0e-6
+
+factor_scores:
+  method: rotated_projection
+  save_unrotated_scores: true
+  save_rotated_scores: true
+
+factor_orientation:
+  mode: manual_config
+  default_unconfigured_behavior: error
+  factors:
+    factor_1:
+      method: negative
+      rationale: "Personal wealth / socioeconomic advantage factor. High income, high labour-force participation, and high-income households load positively, while poverty and government-transfer recipients load negatively. Reversed so poverty/resource disadvantage contributes positively to vulnerability."
+
+    factor_2:
+      method: negative
+      rationale: "Density of built environment / economic activity factor. Housing, earnings, commercial, property, and manufacturing densities load strongly together with negative signs. Reversed so higher built-environment/economic density contributes positively to vulnerability, consistent with the original SoVI density factor."
+
+    factor_3:
+      method: negative
+      rationale: "Social marginalization / Indigenous identity / education / female-headed-household factor. Indigenous identity, female-headed households, and no-high-school load negatively. Reversed so higher values of these vulnerability-relevant indicators increase vulnerability."
+
+    factor_4:
+      method: absolute
+      rationale: "Ambiguous demographic/institutional/rural-economic contrast factor. Population change loads negatively, while physicians, hospitals, extractive employment, and voting proxy load positively. Following original SoVI treatment of ambiguous factors, use absolute value."
+
+    factor_5:
+      method: positive
+      rationale: "Tenancy/service/female-share factor. Female share, service employment, renter share, and female-headed households load positively. Kept positive so higher values increase vulnerability."
+
+    factor_6:
+      method: absolute
+      rationale: "Ambiguous agriculture/unemployment/service-access factor. Land in farms loads negatively, while unemployment, physicians, hospitals, and median age load positively. Following original SoVI treatment of ambiguous factors, use absolute value."
+
+    factor_7:
+      method: absolute
+      rationale: "Weak/ambiguous infrastructure-tenancy contrast factor. Transportation/utility employment and voting proxy load negatively while renter share loads positively. Following original SoVI treatment of ambiguous factors, use absolute value."
+
+aggregation:
+  method: additive_factor_sum
+  weights: equal
+
+classification:
+  method: standard_deviation_bands
+
+outputs:
+  include_standardized_variables: true
+  include_loadings: true
+  include_rotated_loadings: true
+  include_factor_scores: true
+  include_oriented_factor_scores: true
+  include_metadata: true
+  include_validation_report: true
+
+assumptions:
+  - status: implementation_assumption
+    description: PCA is run on z-scored variables, equivalent to using a correlation-style input matrix.
+  - status: paper_explicit_original_method
+    description: Missing values are zero-imputed in the original SoVI workflow.
+  - status: researcher_decision_required
+    description: Factor names and factor orientations require human interpretation of rotated loadings.
+  - status: local_adaptation
+    description: This recipe represents a 38-variable Québec census-division SoVI-like adaptation using the available mapped variables.
+  - status: unresolved_variables_documented
+    description: PCTRFRM90, DEBREV92, HUPTDEN90, and PCTURB90 are intentionally omitted from the active variable block because no completed defensible full-coverage source mapping is available.

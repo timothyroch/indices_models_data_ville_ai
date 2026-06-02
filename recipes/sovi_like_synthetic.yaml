@@ -1,0 +1,170 @@
+name: sovi_like
+version: "0.1-synthetic"
+source: synthetic SoVI architecture validation
+source_reference: synthetic fixed-factor SoVI-like example
+method_reference: SoVI-like PCA/factor-analysis methodology with varimax rotation
+construct_measured: social_vulnerability
+score_direction: higher_is_more_vulnerable
+reproduction_level: local_adaptation
+spatial_id_column: zone_id
+
+variables:
+  median_income:
+    canonical_name: median_income
+    required: true
+    original_variable: PERCAP89
+    description: Synthetic income proxy
+    unit: currency
+    status: local_adaptation
+    vulnerability_direction_hint: negative
+  pct_poverty:
+    canonical_name: pct_poverty
+    required: true
+    original_variable: PCTPOV90
+    description: Synthetic poverty rate
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_unemployed:
+    canonical_name: pct_unemployed
+    required: true
+    original_variable: PCTVLUN91
+    description: Synthetic unemployment rate
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_no_high_school:
+    canonical_name: pct_no_high_school
+    required: true
+    original_variable: PCTNOHS90
+    description: Synthetic low education rate
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_age_65_plus:
+    canonical_name: pct_age_65_plus
+    required: true
+    original_variable: PCTOLD90
+    description: Synthetic older-adult rate
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_children:
+    canonical_name: pct_children
+    required: true
+    original_variable: PCTKIDS90
+    description: Synthetic child population rate
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_renter:
+    canonical_name: pct_renter
+    required: true
+    original_variable: PCTRENTER90
+    description: Synthetic renter rate
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_mobile_homes:
+    canonical_name: pct_mobile_homes
+    required: true
+    original_variable: PCTMOBL90
+    description: Synthetic mobile-home rate
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  housing_density:
+    canonical_name: housing_density
+    required: true
+    original_variable: HODENUT90
+    description: Synthetic housing density
+    unit: density
+    status: local_adaptation
+  commercial_density:
+    canonical_name: commercial_density
+    required: true
+    original_variable: COMDEVDN92
+    description: Synthetic commercial density
+    unit: density
+    status: local_adaptation
+  pct_service_employment:
+    canonical_name: pct_service_employment
+    required: true
+    original_variable: SERVPC90
+    description: Synthetic service employment rate
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+  pct_female_headed_households:
+    canonical_name: pct_female_headed_households
+    required: true
+    original_variable: PCTF_HH90
+    description: Synthetic female-headed household rate
+    unit: proportion
+    scale: proportion_0_1
+    status: local_adaptation
+
+missing_data:
+  strategy: zero_imputation
+  add_missing_flags: true
+  status: paper_explicit_original_method
+
+standardization:
+  method: zscore
+  center: true
+  scale: true
+  ddof: 0
+  zero_variance_behavior: drop
+
+factor_analysis:
+  method: pca
+  input_matrix: standardized_variables
+
+factor_retention:
+  method: fixed_n
+  n_factors: 3
+
+rotation:
+  method: varimax
+  normalize: true
+  max_iter: 500
+  tol: 1.0e-6
+
+factor_scores:
+  method: rotated_projection
+  save_unrotated_scores: true
+  save_rotated_scores: true
+
+factor_orientation:
+  mode: manual_config
+  default_unconfigured_behavior: error
+  factors:
+    factor_1:
+      method: positive
+      rationale: Synthetic socioeconomic disadvantage factor increases vulnerability.
+    factor_2:
+      method: negative
+      rationale: Synthetic factor is flipped to test negative orientation.
+    factor_3:
+      method: absolute
+      rationale: Synthetic ambiguous density factor uses absolute value.
+
+aggregation:
+  method: additive_factor_sum
+  weights: equal
+
+classification:
+  method: standard_deviation_bands
+
+outputs:
+  include_standardized_variables: true
+  include_loadings: true
+  include_rotated_loadings: true
+  include_factor_scores: true
+  include_oriented_factor_scores: true
+  include_metadata: true
+  include_validation_report: true
+
+assumptions:
+  - status: implementation_example
+    description: Synthetic SoVI data are designed for deterministic testing, not scientific interpretation.

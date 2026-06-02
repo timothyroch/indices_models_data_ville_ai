@@ -1,0 +1,510 @@
+index_name: sovi_like
+index_version: 0.1-synthetic
+run_id: sovi_like-1665ad202680
+created_at: '2026-05-19T15:11:14.007609+00:00'
+code_version: null
+recipe_path: recipes/sovi_like_synthetic.yaml
+recipe_hash: 1b683c5a1161cbc8a0e873ff849d8c8fa1a7432a404d9fcf316a580520fdff77
+input_feature_table_path: data/example/synthetic_sovi_feature_table.csv
+spatial_id_column: zone_id
+number_input_units: 24
+number_output_units: 24
+variables_requested:
+- median_income
+- pct_poverty
+- pct_unemployed
+- pct_no_high_school
+- pct_age_65_plus
+- pct_children
+- pct_renter
+- pct_mobile_homes
+- housing_density
+- commercial_density
+- pct_service_employment
+- pct_female_headed_households
+variables_used:
+- median_income
+- pct_poverty
+- pct_unemployed
+- pct_no_high_school
+- pct_age_65_plus
+- pct_children
+- pct_renter
+- pct_mobile_homes
+- housing_density
+- commercial_density
+- pct_service_employment
+- pct_female_headed_households
+variables_missing: []
+optional_variables_missing: []
+missing_data_strategy: zero_imputation
+missing_data_report:
+  strategy: zero_imputation
+  missing_count_per_variable:
+    median_income: 0
+    pct_poverty: 0
+    pct_unemployed: 0
+    pct_no_high_school: 0
+    pct_age_65_plus: 0
+    pct_children: 0
+    pct_renter: 0
+    pct_mobile_homes: 1
+    housing_density: 0
+    commercial_density: 0
+    pct_service_employment: 0
+    pct_female_headed_households: 0
+  missing_pct_per_variable:
+    median_income: 0.0
+    pct_poverty: 0.0
+    pct_unemployed: 0.0
+    pct_no_high_school: 0.0
+    pct_age_65_plus: 0.0
+    pct_children: 0.0
+    pct_renter: 0.0
+    pct_mobile_homes: 0.041666666666666664
+    housing_density: 0.0
+    commercial_density: 0.0
+    pct_service_employment: 0.0
+    pct_female_headed_households: 0.0
+  affected_spatial_units_count: 1
+  affected_spatial_units:
+  - Z07
+  add_missing_flags: true
+  imputation_values:
+    median_income: 0.0
+    pct_poverty: 0.0
+    pct_unemployed: 0.0
+    pct_no_high_school: 0.0
+    pct_age_65_plus: 0.0
+    pct_children: 0.0
+    pct_renter: 0.0
+    pct_mobile_homes: 0.0
+    housing_density: 0.0
+    commercial_density: 0.0
+    pct_service_employment: 0.0
+    pct_female_headed_households: 0.0
+  variables_dropped: []
+  units_dropped: []
+  row_missing_counts:
+    Z01: 0
+    Z02: 0
+    Z03: 0
+    Z04: 0
+    Z05: 0
+    Z06: 0
+    Z07: 1
+    Z08: 0
+    Z09: 0
+    Z10: 0
+    Z11: 0
+    Z12: 0
+    Z13: 0
+    Z14: 0
+    Z15: 0
+    Z16: 0
+    Z17: 0
+    Z18: 0
+    Z19: 0
+    Z20: 0
+    Z21: 0
+    Z22: 0
+    Z23: 0
+    Z24: 0
+normalization:
+  median_income:
+    method: zscore
+    canonical_name: median_income
+    mean: 53041.666666666664
+    std: 21210.216026455008
+    output_column: median_income
+    zero_variance: false
+  pct_poverty:
+    method: zscore
+    canonical_name: pct_poverty
+    mean: 0.23458333333333334
+    std: 0.1319084015098693
+    output_column: pct_poverty
+    zero_variance: false
+  pct_unemployed:
+    method: zscore
+    canonical_name: pct_unemployed
+    mean: 0.145
+    std: 0.06922186552431729
+    output_column: pct_unemployed
+    zero_variance: false
+  pct_no_high_school:
+    method: zscore
+    canonical_name: pct_no_high_school
+    mean: 0.24458333333333335
+    std: 0.1319084015098693
+    output_column: pct_no_high_school
+    zero_variance: false
+  pct_age_65_plus:
+    method: zscore
+    canonical_name: pct_age_65_plus
+    mean: 0.19499999999999998
+    std: 0.06922186552431729
+    output_column: pct_age_65_plus
+    zero_variance: false
+  pct_children:
+    method: zscore
+    canonical_name: pct_children
+    mean: 0.23500000000000001
+    std: 0.06922186552431729
+    output_column: pct_children
+    zero_variance: false
+  pct_renter:
+    method: zscore
+    canonical_name: pct_renter
+    mean: 0.5191666666666667
+    std: 0.21412450946950365
+    output_column: pct_renter
+    zero_variance: false
+  pct_mobile_homes:
+    method: zscore
+    canonical_name: pct_mobile_homes
+    mean: 0.06333333333333334
+    std: 0.03659083066683358
+    output_column: pct_mobile_homes
+    zero_variance: false
+  housing_density:
+    method: zscore
+    canonical_name: housing_density
+    mean: 758.125
+    std: 647.5704795940491
+    output_column: housing_density
+    zero_variance: false
+  commercial_density:
+    method: zscore
+    canonical_name: commercial_density
+    mean: 119.91666666666667
+    std: 110.14457040130888
+    output_column: commercial_density
+    zero_variance: false
+  pct_service_employment:
+    method: zscore
+    canonical_name: pct_service_employment
+    mean: 0.37458333333333327
+    std: 0.1319084015098693
+    output_column: pct_service_employment
+    zero_variance: false
+  pct_female_headed_households:
+    method: zscore
+    canonical_name: pct_female_headed_households
+    mean: 0.23458333333333334
+    std: 0.1319084015098693
+    output_column: pct_female_headed_households
+    zero_variance: false
+orientation:
+  factor_1:
+    method: positive
+    rationale: Synthetic socioeconomic disadvantage factor increases vulnerability.
+    configured: true
+    multiplier: 1.0
+    anchor_variable: null
+  factor_2:
+    method: negative
+    rationale: Synthetic factor is flipped to test negative orientation.
+    configured: true
+    multiplier: -1.0
+    anchor_variable: null
+  factor_3:
+    method: absolute
+    rationale: Synthetic ambiguous density factor uses absolute value.
+    configured: true
+    multiplier: 1.0
+    anchor_variable: null
+weighting_method: equal additive factor scores
+aggregation_method: additive_factor_sum
+classification_method: standard_deviation_bands
+score_direction: higher_is_more_vulnerable
+construct_measured: social_vulnerability
+reproduction_level: local_adaptation
+assumptions:
+- status: implementation_example
+  description: Synthetic SoVI data are designed for deterministic testing, not scientific
+    interpretation.
+decisions: []
+warnings:
+- Variable 'pct_mobile_homes' contains missing values.
+- Factor signs are arbitrary and require orientation decisions.
+- SoVI is an area-level social vulnerability score and should not be interpreted as
+  an individual-level diagnosis.
+- This run is a SoVI-like local/partial adaptation, not exact original SoVI.
+- Zero imputation was used; this may distort factor structure when zero is not substantively
+  meaningful.
+validation_summary:
+  is_valid: true
+  error_count: 0
+  warning_count: 5
+  missingness:
+    median_income:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_poverty:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_unemployed:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_no_high_school:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_age_65_plus:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_children:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_renter:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_mobile_homes:
+      missing_count: 1
+      missing_pct: 0.041666666666666664
+    housing_density:
+      missing_count: 0
+      missing_pct: 0.0
+    commercial_density:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_service_employment:
+      missing_count: 0
+      missing_pct: 0.0
+    pct_female_headed_households:
+      missing_count: 0
+      missing_pct: 0.0
+output_files:
+  standard_output: outputs/sovi_synthetic_run/standard_output.csv
+  intermediate_output: outputs/sovi_synthetic_run/intermediate_output.csv
+  metadata_json: outputs/sovi_synthetic_run/metadata.json
+  metadata_yaml: outputs/sovi_synthetic_run/metadata.yaml
+  validation_report_json: outputs/sovi_synthetic_run/validation_report.json
+  validation_report_yaml: outputs/sovi_synthetic_run/validation_report.yaml
+  missing_data_report_json: outputs/sovi_synthetic_run/missing_data_report.json
+  run_report: outputs/sovi_synthetic_run/run_report.md
+  sovi_eigenvalues: outputs/sovi_synthetic_run/sovi_eigenvalues.csv
+  sovi_explained_variance: outputs/sovi_synthetic_run/sovi_explained_variance.csv
+  sovi_loadings_unrotated: outputs/sovi_synthetic_run/sovi_loadings_unrotated.csv
+  sovi_loadings_rotated: outputs/sovi_synthetic_run/sovi_loadings_rotated.csv
+  sovi_factor_scores: outputs/sovi_synthetic_run/sovi_factor_scores.csv
+  sovi_factor_summary: outputs/sovi_synthetic_run/sovi_factor_summary.csv
+  sovi_standardized_variables: outputs/sovi_synthetic_run/sovi_standardized_variables.csv
+extra:
+  aggregation:
+    method: additive_factor_sum
+    weights: equal
+    score_column: sovi_score_raw
+  classification:
+    method: standard_deviation_bands
+    score_z:
+      mean: 0.4749416257456353
+      std: 1.6259867149927327
+      zero_std_behavior: null
+  sovi:
+    methodology_note: SoVI-like uses standardized variables, PCA/factor analysis,
+      varimax rotation, recipe-driven factor orientation, and an additive sum of oriented
+      factor scores.
+    area_level_warning: SoVI is an area-level social vulnerability score and should
+      not be interpreted as an individual-level diagnosis.
+    n_factors_retained: 3
+    retained_cumulative_explained_variance: 0.9995834689326782
+    score_summary:
+      min: -2.462350813023899
+      mean: 0.4749416257456353
+      max: 4.405675349634734
+      std: 1.6259867149927327
+    dominant_variables_by_factor:
+    - factor: factor_1
+      eigenvalue_before_rotation: 12.284055650661047
+      explained_variance_before_rotation: 0.9810183332125153
+      dominant_variables_by_abs_loading: median_income:-0.8658; pct_renter:0.8215;
+        pct_age_65_plus:0.8160; pct_children:0.8160; pct_unemployed:0.8160
+      top_positive_loadings: pct_renter:0.8215; pct_age_65_plus:0.8160; pct_children:0.8160
+      top_negative_loadings: median_income:-0.8658; commercial_density:0.5634; housing_density:0.5841
+      orientation_method: positive
+      orientation_rationale: Synthetic socioeconomic disadvantage factor increases
+        vulnerability.
+      orientation_configured: true
+    - factor: factor_2
+      eigenvalue_before_rotation: 0.19201209325620425
+      explained_variance_before_rotation: 0.015334299114210772
+      dominant_variables_by_abs_loading: commercial_density:0.8430; housing_density:0.8290;
+        pct_poverty:0.6367; pct_service_employment:0.6367; pct_female_headed_households:0.6367
+      top_positive_loadings: commercial_density:0.8430; housing_density:0.8290; pct_poverty:0.6367
+      top_negative_loadings: median_income:-0.5314; pct_mobile_homes:0.5755; pct_renter:0.5945
+      orientation_method: negative
+      orientation_rationale: Synthetic factor is flipped to test negative orientation.
+      orientation_configured: true
+    - factor: factor_3
+      eigenvalue_before_rotation: 0.04045569315279259
+      explained_variance_before_rotation: 0.00323083660595219
+      dominant_variables_by_abs_loading: pct_mobile_homes:-0.3242; pct_poverty:-0.1281;
+        pct_female_headed_households:-0.1281; pct_service_employment:-0.1281; pct_no_high_school:-0.1281
+      top_positive_loadings: median_income:0.1018; pct_age_65_plus:-0.1111; pct_children:-0.1111
+      top_negative_loadings: pct_mobile_homes:-0.3242; pct_poverty:-0.1281; pct_female_headed_households:-0.1281
+      orientation_method: absolute
+      orientation_rationale: Synthetic ambiguous density factor uses absolute value.
+      orientation_configured: true
+  standardization:
+    method: zscore
+    center: true
+    scale: true
+    ddof: 0
+    zero_variance_behavior: drop
+    zero_variance_tol: 1.0e-12
+    variables:
+      median_income:
+        mean: 53041.666666666664
+        std: 21210.216026455008
+        output_column: median_income
+        zero_variance: false
+      pct_poverty:
+        mean: 0.23458333333333334
+        std: 0.1319084015098693
+        output_column: pct_poverty
+        zero_variance: false
+      pct_unemployed:
+        mean: 0.145
+        std: 0.06922186552431729
+        output_column: pct_unemployed
+        zero_variance: false
+      pct_no_high_school:
+        mean: 0.24458333333333335
+        std: 0.1319084015098693
+        output_column: pct_no_high_school
+        zero_variance: false
+      pct_age_65_plus:
+        mean: 0.19499999999999998
+        std: 0.06922186552431729
+        output_column: pct_age_65_plus
+        zero_variance: false
+      pct_children:
+        mean: 0.23500000000000001
+        std: 0.06922186552431729
+        output_column: pct_children
+        zero_variance: false
+      pct_renter:
+        mean: 0.5191666666666667
+        std: 0.21412450946950365
+        output_column: pct_renter
+        zero_variance: false
+      pct_mobile_homes:
+        mean: 0.06333333333333334
+        std: 0.03659083066683358
+        output_column: pct_mobile_homes
+        zero_variance: false
+      housing_density:
+        mean: 758.125
+        std: 647.5704795940491
+        output_column: housing_density
+        zero_variance: false
+      commercial_density:
+        mean: 119.91666666666667
+        std: 110.14457040130888
+        output_column: commercial_density
+        zero_variance: false
+      pct_service_employment:
+        mean: 0.37458333333333327
+        std: 0.1319084015098693
+        output_column: pct_service_employment
+        zero_variance: false
+      pct_female_headed_households:
+        mean: 0.23458333333333334
+        std: 0.1319084015098693
+        output_column: pct_female_headed_households
+        zero_variance: false
+    dropped_variables: []
+    used_variables:
+    - median_income
+    - pct_poverty
+    - pct_unemployed
+    - pct_no_high_school
+    - pct_age_65_plus
+    - pct_children
+    - pct_renter
+    - pct_mobile_homes
+    - housing_density
+    - commercial_density
+    - pct_service_employment
+    - pct_female_headed_households
+  factor_analysis:
+    method: pca
+    n_observations: 24
+    n_variables: 12
+    total_variance: 12.521739130434769
+    eigenvalues:
+    - 12.284055650661047
+    - 0.19201209325620425
+    - 0.04045569315279259
+    - 0.004576166088664416
+    - 0.00046364257700405646
+    - 0.00017127608679922128
+    - 4.6086122573353066e-06
+    - 5.288696340305878e-32
+    - 2.3852174470730943e-32
+    - 1.8279644717436898e-32
+    - 5.032114373831707e-33
+    - 8.98866253610306e-36
+    explained_variance_ratio:
+    - 0.9810183332125153
+    - 0.015334299114210772
+    - 0.00323083660595219
+    - 0.00036545770846972805
+    - 3.7027011357962886e-05
+    - 1.3678298598548938e-05
+    - 3.680488955510839e-07
+    - 4.223611660660949e-33
+    - 1.904861155648654e-33
+    - 1.459832737850865e-33
+    - 4.018702451323937e-34
+    - 7.178445775360091e-37
+    cumulative_explained_variance:
+    - 0.9810183332125153
+    - 0.9963526323267261
+    - 0.9995834689326782
+    - 0.999948926641148
+    - 0.999985953652506
+    - 0.9999996319511045
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+  factor_retention:
+    method: fixed_n
+    threshold: null
+    n_factors_requested: 3
+    n_factors_retained: 3
+  rotation:
+    method: varimax
+    normalize: true
+    gamma: 1.0
+    max_iter: 500
+    tol: 1.0e-06
+    iterations: 109
+    converged: true
+  factor_scores:
+    method: rotated_projection
+    approximation: Scores are computed by projecting standardized variables onto rotated
+      loading-derived coefficients.
+  variables_proxied: []
+  methodology_note: SoVI-like uses standardized variables, PCA/factor analysis, varimax
+    rotation, recipe-driven factor orientation, and an additive sum of oriented factor
+    scores.
+  source_reference: synthetic fixed-factor SoVI-like example
+  variables_used:
+  - median_income
+  - pct_poverty
+  - pct_unemployed
+  - pct_no_high_school
+  - pct_age_65_plus
+  - pct_children
+  - pct_renter
+  - pct_mobile_homes
+  - housing_density
+  - commercial_density
+  - pct_service_employment
+  - pct_female_headed_households
+  variables_dropped: []

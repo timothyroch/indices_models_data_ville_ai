@@ -1,0 +1,546 @@
+is_valid: true
+issues:
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'physicians_per_100k' contains missing values.
+  variable: physicians_per_100k
+  details:
+    missing_count: 1
+    missing_pct: 0.01020408163265306
+    strategy: zero_imputation
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_vote_leading_party' is declared as a 0-1 proportion but falls
+    outside that range.
+  variable: pct_vote_leading_party
+  details:
+    min: 35.00003982158681
+    max: 59.79999999993461
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_vote_leading_party' may be encoded as 0-100 percent instead
+    of 0-1 proportion.
+  variable: pct_vote_leading_party
+  details:
+    max: 59.79999999993461
+- severity: warning
+  code: negative_values_for_nonnegative_variable
+  message: Variable 'net_international_migration' has negative values but is declared
+    nonnegative.
+  variable: net_international_migration
+  details:
+    min: -460.0
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_land_farms' contains missing values.
+  variable: pct_land_farms
+  details:
+    missing_count: 4
+    missing_pct: 0.04081632653061224
+    strategy: zero_imputation
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_land_farms' is declared as a 0-1 proportion but falls outside
+    that range.
+  variable: pct_land_farms
+  details:
+    min: 0.0041481308632536
+    max: 96.22051080255588
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_land_farms' may be encoded as 0-100 percent instead of 0-1
+    proportion.
+  variable: pct_land_farms
+  details:
+    max: 96.22051080255588
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_black' is declared as a 0-1 proportion but falls outside
+    that range.
+  variable: pct_black
+  details:
+    min: 0.0
+    max: 10.7
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_black' may be encoded as 0-100 percent instead of 0-1 proportion.
+  variable: pct_black
+  details:
+    max: 10.7
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_indigenous' is declared as a 0-1 proportion but falls outside
+    that range.
+  variable: pct_indigenous
+  details:
+    min: 0.8
+    max: 68.5
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_indigenous' may be encoded as 0-100 percent instead of 0-1
+    proportion.
+  variable: pct_indigenous
+  details:
+    max: 68.5
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_asian' is declared as a 0-1 proportion but falls outside
+    that range.
+  variable: pct_asian
+  details:
+    min: 0.0
+    max: 13.8
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_asian' may be encoded as 0-100 percent instead of 0-1 proportion.
+  variable: pct_asian
+  details:
+    max: 13.8
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_hispanic' is declared as a 0-1 proportion but falls outside
+    that range.
+  variable: pct_hispanic
+  details:
+    min: 0.0
+    max: 4.2
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_hispanic' may be encoded as 0-100 percent instead of 0-1
+    proportion.
+  variable: pct_hispanic
+  details:
+    max: 4.2
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_under_5' is declared as a 0-1 proportion but falls outside
+    that range.
+  variable: pct_under_5
+  details:
+    min: 3.0
+    max: 9.6
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_under_5' may be encoded as 0-100 percent instead of 0-1 proportion.
+  variable: pct_under_5
+  details:
+    max: 9.6
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_over_65' is declared as a 0-1 proportion but falls outside
+    that range.
+  variable: pct_over_65
+  details:
+    min: 9.1
+    max: 33.9
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_over_65' may be encoded as 0-100 percent instead of 0-1 proportion.
+  variable: pct_over_65
+  details:
+    max: 33.9
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_unemployed' is declared as a 0-1 proportion but falls outside
+    that range.
+  variable: pct_unemployed
+  details:
+    min: 4.0
+    max: 13.8
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_unemployed' may be encoded as 0-100 percent instead of 0-1
+    proportion.
+  variable: pct_unemployed
+  details:
+    max: 13.8
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_high_income_households' is declared as a 0-1 proportion but
+    falls outside that range.
+  variable: pct_high_income_households
+  details:
+    min: 18.5
+    max: 55.9
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_high_income_households' may be encoded as 0-100 percent instead
+    of 0-1 proportion.
+  variable: pct_high_income_households
+  details:
+    max: 55.9
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_poverty' is declared as a 0-1 proportion but falls outside
+    that range.
+  variable: pct_poverty
+  details:
+    min: 4.0
+    max: 19.3
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_poverty' may be encoded as 0-100 percent instead of 0-1 proportion.
+  variable: pct_poverty
+  details:
+    max: 19.3
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_renter' is declared as a 0-1 proportion but falls outside
+    that range.
+  variable: pct_renter
+  details:
+    min: 10.8
+    max: 60.4
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_renter' may be encoded as 0-100 percent instead of 0-1 proportion.
+  variable: pct_renter
+  details:
+    max: 60.4
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_mobile_homes' is declared as a 0-1 proportion but falls outside
+    that range.
+  variable: pct_mobile_homes
+  details:
+    min: 0.0
+    max: 10.7
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_mobile_homes' may be encoded as 0-100 percent instead of
+    0-1 proportion.
+  variable: pct_mobile_homes
+  details:
+    max: 10.7
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_no_high_school' is declared as a 0-1 proportion but falls
+    outside that range.
+  variable: pct_no_high_school
+  details:
+    min: 8.3
+    max: 43.8
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_no_high_school' may be encoded as 0-100 percent instead of
+    0-1 proportion.
+  variable: pct_no_high_school
+  details:
+    max: 43.8
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'labor_force_participation' is declared as a 0-1 proportion but
+    falls outside that range.
+  variable: labor_force_participation
+  details:
+    min: 46.2
+    max: 75.2
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'labor_force_participation' may be encoded as 0-100 percent instead
+    of 0-1 proportion.
+  variable: labor_force_participation
+  details:
+    max: 75.2
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'female_labor_force_participation' is declared as a 0-1 proportion
+    but falls outside that range.
+  variable: female_labor_force_participation
+  details:
+    min: 46.1
+    max: 74.2
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'female_labor_force_participation' may be encoded as 0-100 percent
+    instead of 0-1 proportion.
+  variable: female_labor_force_participation
+  details:
+    max: 74.2
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_extractive_employment' is declared as a 0-1 proportion but
+    falls outside that range.
+  variable: pct_extractive_employment
+  details:
+    min: 0.4
+    max: 20.4
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_extractive_employment' may be encoded as 0-100 percent instead
+    of 0-1 proportion.
+  variable: pct_extractive_employment
+  details:
+    max: 20.4
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_transport_utility_employment' is declared as a 0-1 proportion
+    but falls outside that range.
+  variable: pct_transport_utility_employment
+  details:
+    min: 3.2
+    max: 10.6
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_transport_utility_employment' may be encoded as 0-100 percent
+    instead of 0-1 proportion.
+  variable: pct_transport_utility_employment
+  details:
+    max: 10.6
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_service_employment' is declared as a 0-1 proportion but falls
+    outside that range.
+  variable: pct_service_employment
+  details:
+    min: 16.6
+    max: 30.7
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_service_employment' may be encoded as 0-100 percent instead
+    of 0-1 proportion.
+  variable: pct_service_employment
+  details:
+    max: 30.7
+- severity: warning
+  code: negative_values_for_nonnegative_variable
+  message: Variable 'pct_population_change' has negative values but is declared nonnegative.
+  variable: pct_population_change
+  details:
+    min: -13.0
+- severity: warning
+  code: percent_out_of_range
+  message: Variable 'pct_population_change' is declared as percent but falls outside
+    0-100.
+  variable: pct_population_change
+  details:
+    min: -13.0
+    max: 21.0
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_female' is declared as a 0-1 proportion but falls outside
+    that range.
+  variable: pct_female
+  details:
+    min: 48.1961727491373
+    max: 52.09138840070299
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_female' may be encoded as 0-100 percent instead of 0-1 proportion.
+  variable: pct_female
+  details:
+    max: 52.09138840070299
+- severity: warning
+  code: proportion_out_of_range
+  message: Variable 'pct_female_headed_households' is declared as a 0-1 proportion
+    but falls outside that range.
+  variable: pct_female_headed_households
+  details:
+    min: 5.4
+    max: 21.5
+- severity: warning
+  code: suspicious_percentage_scale
+  message: Variable 'pct_female_headed_households' may be encoded as 0-100 percent
+    instead of 0-1 proportion.
+  variable: pct_female_headed_households
+  details:
+    max: 21.5
+row_count: 98
+column_count: 54
+spatial_id_column: zone_id
+required_variables:
+- med_age
+- per_capita_income
+- median_home_value
+- median_rent
+- physicians_per_100k
+- pct_vote_leading_party
+- birth_rate
+- net_international_migration
+- pct_land_farms
+- pct_black
+- pct_indigenous
+- pct_asian
+- pct_hispanic
+- pct_under_5
+- pct_over_65
+- pct_unemployed
+- avg_people_per_household
+- pct_high_income_households
+- pct_poverty
+- pct_renter
+- pct_mobile_homes
+- pct_no_high_school
+- housing_unit_density
+- manufacturing_density
+- earnings_density
+- commercial_density
+- property_value_density
+- labor_force_participation
+- female_labor_force_participation
+- pct_extractive_employment
+- pct_transport_utility_employment
+- pct_service_employment
+- nursing_home_residents_per_capita
+- hospitals_per_capita
+- pct_population_change
+- pct_female
+- pct_female_headed_households
+- social_security_recipients_per_capita
+optional_variables: []
+variables_present:
+- med_age
+- per_capita_income
+- median_home_value
+- median_rent
+- physicians_per_100k
+- pct_vote_leading_party
+- birth_rate
+- net_international_migration
+- pct_land_farms
+- pct_black
+- pct_indigenous
+- pct_asian
+- pct_hispanic
+- pct_under_5
+- pct_over_65
+- pct_unemployed
+- avg_people_per_household
+- pct_high_income_households
+- pct_poverty
+- pct_renter
+- pct_mobile_homes
+- pct_no_high_school
+- housing_unit_density
+- manufacturing_density
+- earnings_density
+- commercial_density
+- property_value_density
+- labor_force_participation
+- female_labor_force_participation
+- pct_extractive_employment
+- pct_transport_utility_employment
+- pct_service_employment
+- nursing_home_residents_per_capita
+- hospitals_per_capita
+- pct_population_change
+- pct_female
+- pct_female_headed_households
+- social_security_recipients_per_capita
+variables_missing: []
+optional_variables_missing: []
+missingness:
+  med_age:
+    missing_count: 0
+    missing_pct: 0.0
+  per_capita_income:
+    missing_count: 0
+    missing_pct: 0.0
+  median_home_value:
+    missing_count: 0
+    missing_pct: 0.0
+  median_rent:
+    missing_count: 0
+    missing_pct: 0.0
+  physicians_per_100k:
+    missing_count: 1
+    missing_pct: 0.01020408163265306
+  pct_vote_leading_party:
+    missing_count: 0
+    missing_pct: 0.0
+  birth_rate:
+    missing_count: 0
+    missing_pct: 0.0
+  net_international_migration:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_land_farms:
+    missing_count: 4
+    missing_pct: 0.04081632653061224
+  pct_black:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_indigenous:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_asian:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_hispanic:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_under_5:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_over_65:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_unemployed:
+    missing_count: 0
+    missing_pct: 0.0
+  avg_people_per_household:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_high_income_households:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_poverty:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_renter:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_mobile_homes:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_no_high_school:
+    missing_count: 0
+    missing_pct: 0.0
+  housing_unit_density:
+    missing_count: 0
+    missing_pct: 0.0
+  manufacturing_density:
+    missing_count: 0
+    missing_pct: 0.0
+  earnings_density:
+    missing_count: 0
+    missing_pct: 0.0
+  commercial_density:
+    missing_count: 0
+    missing_pct: 0.0
+  property_value_density:
+    missing_count: 0
+    missing_pct: 0.0
+  labor_force_participation:
+    missing_count: 0
+    missing_pct: 0.0
+  female_labor_force_participation:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_extractive_employment:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_transport_utility_employment:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_service_employment:
+    missing_count: 0
+    missing_pct: 0.0
+  nursing_home_residents_per_capita:
+    missing_count: 0
+    missing_pct: 0.0
+  hospitals_per_capita:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_population_change:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_female:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_female_headed_households:
+    missing_count: 0
+    missing_pct: 0.0
+  social_security_recipients_per_capita:
+    missing_count: 0
+    missing_pct: 0.0

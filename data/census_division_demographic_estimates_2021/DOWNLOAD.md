@@ -1,0 +1,1 @@
+Link to download: https://www150.statcan.gc.ca/n1/pub/91-214-x/2022001/xls/CANADA_CD_DR_TOTAL_20012021.xlsx

@@ -1,0 +1,173 @@
+is_valid: true
+issues:
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_below_poverty' contains missing values.
+  variable: pct_below_poverty
+  details:
+    missing_count: 22
+    missing_pct: 0.014864864864864866
+    strategy: keep_missing_with_flags
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_unemployed' contains missing values.
+  variable: pct_unemployed
+  details:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+    strategy: keep_missing_with_flags
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'per_capita_income' contains missing values.
+  variable: per_capita_income
+  details:
+    missing_count: 22
+    missing_pct: 0.014864864864864866
+    strategy: keep_missing_with_flags
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_no_high_school' contains missing values.
+  variable: pct_no_high_school
+  details:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+    strategy: keep_missing_with_flags
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_age_65_plus' contains missing values.
+  variable: pct_age_65_plus
+  details:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+    strategy: keep_missing_with_flags
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_age_17_or_younger' contains missing values.
+  variable: pct_age_17_or_younger
+  details:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+    strategy: keep_missing_with_flags
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_single_parent_households' contains missing values.
+  variable: pct_single_parent_households
+  details:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+    strategy: keep_missing_with_flags
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_minority' contains missing values.
+  variable: pct_minority
+  details:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+    strategy: keep_missing_with_flags
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_limited_language' contains missing values.
+  variable: pct_limited_language
+  details:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+    strategy: keep_missing_with_flags
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_multiunit_structures' contains missing values.
+  variable: pct_multiunit_structures
+  details:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+    strategy: keep_missing_with_flags
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_mobile_homes' contains missing values.
+  variable: pct_mobile_homes
+  details:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+    strategy: keep_missing_with_flags
+- severity: warning
+  code: missing_values_detected
+  message: Variable 'pct_crowding' contains missing values.
+  variable: pct_crowding
+  details:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+    strategy: keep_missing_with_flags
+- severity: warning
+  code: nonpositive_population_units
+  message: SVI will apply the configured zero/invalid population rule to 10 unit(s).
+  variable: population
+  details:
+    count: 10
+row_count: 1480
+column_count: 141
+spatial_id_column: zone_id
+required_variables:
+- pct_below_poverty
+- pct_unemployed
+- per_capita_income
+- pct_no_high_school
+- pct_age_65_plus
+- pct_age_17_or_younger
+- pct_single_parent_households
+- pct_minority
+- pct_limited_language
+- pct_multiunit_structures
+- pct_mobile_homes
+- pct_crowding
+optional_variables: []
+variables_present:
+- pct_below_poverty
+- pct_unemployed
+- per_capita_income
+- pct_no_high_school
+- pct_age_65_plus
+- pct_age_17_or_younger
+- pct_single_parent_households
+- pct_minority
+- pct_limited_language
+- pct_multiunit_structures
+- pct_mobile_homes
+- pct_crowding
+variables_missing: []
+optional_variables_missing: []
+missingness:
+  pct_below_poverty:
+    missing_count: 22
+    missing_pct: 0.014864864864864866
+  pct_unemployed:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+  per_capita_income:
+    missing_count: 22
+    missing_pct: 0.014864864864864866
+  pct_no_high_school:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+  pct_age_65_plus:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+  pct_age_17_or_younger:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+  pct_single_parent_households:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+  pct_minority:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+  pct_limited_language:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+  pct_multiunit_structures:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+  pct_mobile_homes:
+    missing_count: 19
+    missing_pct: 0.012837837837837839
+  pct_crowding:
+    missing_count: 19
+    missing_pct: 0.012837837837837839

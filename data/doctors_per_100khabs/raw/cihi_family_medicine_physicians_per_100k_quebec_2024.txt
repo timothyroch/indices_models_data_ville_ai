@@ -1,0 +1,21 @@
+Province/territory,Reporting level,Region,Place or organization,Time scale,Time frame,Indicator,Crude rate,Unit of measure,Confidence interval lower limit,Confidence interval upper limit,Refresh date
+Quebec,Province/territory,-,Quebec,Calendar year,2024,"Family Medicine Physicians per 100,000 Population",129,"Per 100,000",,,2025-10-10
+Quebec,Health region,Abitibi-Témiscamingue Region (Que.),Abitibi-Témiscamingue Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",173,"Per 100,000",,,2025-10-10
+Quebec,Health region,Bas-Saint-Laurent Region (Que.),Bas-Saint-Laurent Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",154,"Per 100,000",,,2025-10-10
+Quebec,Health region,Capitale-Nationale Region (Que.),Capitale-Nationale Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",155,"Per 100,000",,,2025-10-10
+Quebec,Health region,Chaudière-Appalaches Region (Que.),Chaudière-Appalaches Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",109,"Per 100,000",,,2025-10-10
+Quebec,Health region,Côte-Nord Region (Que.),Côte-Nord Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",189,"Per 100,000",,,2025-10-10
+Quebec,Health region,Estrie Region (Que.),Estrie Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",134,"Per 100,000",,,2025-10-10
+Quebec,Health region,Gaspésie–Îles-de-la-Madeleine Region (Que.),Gaspésie–Îles-de-la-Madeleine Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",225,"Per 100,000",,,2025-10-10
+Quebec,Health region,Lanaudière Region (Que.),Lanaudière Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",98,"Per 100,000",,,2025-10-10
+Quebec,Health region,Laurentides Region (Que.),Laurentides Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",113,"Per 100,000",,,2025-10-10
+Quebec,Health region,Laval Region (Que.),Laval Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",108,"Per 100,000",,,2025-10-10
+Quebec,Health region,Mauricie et Centre-du-Québec Region (Que.),Mauricie et Centre-du-Québec Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",123,"Per 100,000",,,2025-10-10
+Quebec,Health region,Montérégie Region (Que.),Montérégie Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",106,"Per 100,000",,,2025-10-10
+Quebec,Health region,Montréal Region (Que.),Montréal Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",140,"Per 100,000",,,2025-10-10
+Quebec,Health region,Nord-du-Québec Region (Que.),Nord-du-Québec Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",259,"Per 100,000",,,2025-10-10
+Quebec,Health region,Nunavik Region (Que.),Nunavik Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",435,"Per 100,000",,,2025-10-10
+Quebec,Health region,Outaouais Region (Que.),Outaouais Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",120,"Per 100,000",,,2025-10-10
+Quebec,Health region,Saguenay–Lac-Saint-Jean Region (Que.),Saguenay–Lac-Saint-Jean Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",150,"Per 100,000",,,2025-10-10
+Quebec,Health region,Terres-Cries-de-la-Baie-James Region (Que.),Terres-Cries-de-la-Baie-James Region (Que.),Calendar year,2024,"Family Medicine Physicians per 100,000 Population",351,"Per 100,000",,,2025-10-10
+-,National,-,Canada,Calendar year,2024,"Family Medicine Physicians per 100,000 Population",119,"Per 100,000",,,2025-10-10

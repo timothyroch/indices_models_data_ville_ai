@@ -1,0 +1,17 @@
+Based on the inventory, the strongest next feature families are:
+
+age_structure_2021
+housing_type_2021
+crowding_housing_suitability_2021
+education_2021
+income_2021
+unemployment_2021
+language_2021
+visible_minority_immigration_2021
+single_parent_households_2021
+
+The weaker / unresolved ones are:
+
+disability_2021
+vehicle_access_2021
+collective_dwellings_2021

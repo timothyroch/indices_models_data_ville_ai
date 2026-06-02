@@ -1,0 +1,26 @@
+is_valid: true
+issues: []
+row_count: 5
+column_count: 4
+spatial_id_column: zone_id
+required_variables:
+- median_household_income
+- pct_65_plus
+- floodplain_pct
+optional_variables: []
+variables_present:
+- median_household_income
+- pct_65_plus
+- floodplain_pct
+variables_missing: []
+optional_variables_missing: []
+missingness:
+  median_household_income:
+    missing_count: 0
+    missing_pct: 0.0
+  pct_65_plus:
+    missing_count: 0
+    missing_pct: 0.0
+  floodplain_pct:
+    missing_count: 0
+    missing_pct: 0.0

@@ -1,0 +1,31 @@
+# Source mapping for the SoVI housing-unit-density variable.
+#
+# Scope:
+#   - Québec census divisions
+#   - 2021 SoVI-like input table
+#
+# Source block:
+#   census_division_housing_unit_density_2021/
+#
+# Clean output:
+#   census_division_housing_unit_density_2021/output/
+#   clean_census_division_housing_unit_density_2021.csv
+#
+# Method:
+#   Derived from total private dwellings and land area in the cleaned
+#   census-division spatial/population frame.
+#
+# Original SoVI variable:
+#   HODENUT90 = housing units per square mile
+
+housing_unit_density:
+  source_folder: census_division_housing_unit_density_2021
+  file_candidates:
+    - output/clean_census_division_housing_unit_density_2021.csv
+  column_candidates:
+    - housing_unit_density
+    - housing_unit_density_per_sq_mile
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: derived_density_from_clean_base_frame
+  allow_partial_coverage: false
+  note: "Maps HODENUT90 to housing units per square mile, computed as total_private_dwellings_2021 divided by land_area_km2 converted to square miles. The source inputs come from the cleaned Québec census-division spatial/population frame."

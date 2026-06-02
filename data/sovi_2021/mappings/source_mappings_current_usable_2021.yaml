@@ -1,0 +1,280 @@
+# Source mappings for currently usable census-division SoVI variables.
+#
+# This file externalizes the usable mappings that were previously hardcoded
+# inside sovi_2021/inspect_census_division_sovi_input_sources_2021.py.
+#
+# Scope:
+#   - Québec census divisions
+#   - 2021 SoVI-like input table
+#   - Variables already supported by completed transformation blocks
+#
+# Not included here:
+#   - Variables still unmapped
+#   - Variables intentionally unresolved
+#   - pct_female_headed_households, because the current household/family cleaner
+#     explicitly marks it unresolved.
+#
+# Partial inclusion:
+#   - physicians_per_100k is included because it is usable with documented partial
+#     coverage: 97/98 census divisions, with Nord-du-Québec unresolved.
+
+med_age:
+  source_folder: census_division_age_structure_2021
+  file_candidates:
+    - output/clean_census_division_age_structure_2021.csv
+  column_candidates:
+    - median_age
+  status_class: ready_full_coverage_expected
+  proxy_quality: direct_or_strong_proxy
+  allow_partial_coverage: false
+  note: "Maps MED_AGE90 to median_age from the census-division age-structure cleaner."
+
+pct_under_5:
+  source_folder: census_division_age_structure_2021
+  file_candidates:
+    - output/clean_census_division_age_structure_2021.csv
+  column_candidates:
+    - pct_under_5
+  status_class: ready_full_coverage_expected
+  proxy_quality: direct_or_strong_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTKIDS90 to pct_under_5."
+
+pct_over_65:
+  source_folder: census_division_age_structure_2021
+  file_candidates:
+    - output/clean_census_division_age_structure_2021.csv
+  column_candidates:
+    - pct_over_65
+  status_class: ready_full_coverage_expected
+  proxy_quality: direct_or_strong_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTOLD90 to pct_over_65."
+
+pct_female:
+  source_folder: census_division_age_structure_2021
+  file_candidates:
+    - output/clean_census_division_age_structure_2021.csv
+  column_candidates:
+    - pct_female
+  status_class: ready_full_coverage_expected
+  proxy_quality: direct_or_strong_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTFEM90 to derived pct_female."
+
+pct_unemployed:
+  source_folder: census_division_labour_force_2021
+  file_candidates:
+    - output/clean_census_division_labour_force_2021.csv
+  column_candidates:
+    - pct_unemployed
+  status_class: ready_full_coverage_expected
+  proxy_quality: direct_or_strong_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTVLUN91 to the Census Profile unemployment rate."
+
+labor_force_participation:
+  source_folder: census_division_labour_force_2021
+  file_candidates:
+    - output/clean_census_division_labour_force_2021.csv
+  column_candidates:
+    - labor_force_participation_rate
+  status_class: ready_full_coverage_expected
+  proxy_quality: direct_or_strong_proxy
+  allow_partial_coverage: false
+  note: "Maps CVBRPC91 to participation rate."
+
+female_labor_force_participation:
+  source_folder: census_division_labour_force_2021
+  file_candidates:
+    - output/clean_census_division_labour_force_2021.csv
+  column_candidates:
+    - female_labor_force_participation_rate
+  status_class: ready_full_coverage_expected
+  proxy_quality: direct_or_strong_proxy
+  allow_partial_coverage: false
+  note: "Maps FEMLBR90 to women+ participation rate."
+
+per_capita_income:
+  source_folder: census_division_income_2021
+  file_candidates:
+    - output/clean_census_division_income_2021.csv
+    - output/clean_census_division_income_2021.parquet
+  column_candidates:
+    - income_measure_default
+    - per_capita_income
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: income_proxy_needs_method_note
+  allow_partial_coverage: false
+  note: "Maps PERCAP89 to income_measure_default from the income cleaner. This is the selected Canadian income proxy, not necessarily a literal historical per-capita-income reproduction."
+
+pct_high_income_households:
+  source_folder: census_division_income_2021
+  file_candidates:
+    - output/clean_census_division_income_2021.csv
+  column_candidates:
+    - pct_high_income_households
+  status_class: ready_full_coverage_expected
+  proxy_quality: threshold_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTHH7589 to Canadian high-income household threshold proxy."
+
+pct_poverty:
+  source_folder: census_division_low_income_2021
+  file_candidates:
+    - output/clean_census_division_low_income_2021.csv
+  column_candidates:
+    - pct_poverty_or_low_income
+    - pct_low_income_lim_at
+  status_class: ready_full_coverage_expected
+  proxy_quality: canadian_low_income_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTPOV90 to LIM-AT low-income prevalence proxy."
+
+median_home_value:
+  source_folder: census_division_housing_tenure_costs_2021
+  file_candidates:
+    - output/clean_census_division_housing_tenure_costs_2021.csv
+  column_candidates:
+    - median_owner_occupied_housing_value
+    - median_value_of_dwellings
+  status_class: ready_full_coverage_expected
+  proxy_quality: direct_or_strong_proxy
+  allow_partial_coverage: false
+  note: "Maps MVALOO90 to median value of dwellings."
+
+median_rent:
+  source_folder: census_division_housing_tenure_costs_2021
+  file_candidates:
+    - output/clean_census_division_housing_tenure_costs_2021.csv
+  column_candidates:
+    - median_rent
+    - median_monthly_shelter_costs_rented
+  status_class: ready_full_coverage_expected
+  proxy_quality: direct_or_strong_proxy
+  allow_partial_coverage: false
+  note: "Maps MEDRENT90 to median monthly shelter costs for rented dwellings."
+
+pct_renter:
+  source_folder: census_division_housing_tenure_costs_2021
+  file_candidates:
+    - output/clean_census_division_housing_tenure_costs_2021.csv
+  column_candidates:
+    - pct_renter_occupied
+    - pct_renter_households
+  status_class: ready_full_coverage_expected
+  proxy_quality: direct_or_strong_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTRENTER90 to renter tenure rate."
+
+pct_mobile_homes:
+  source_folder: census_division_housing_type_2021
+  file_candidates:
+    - output/clean_census_division_housing_type_2021.csv
+  column_candidates:
+    - pct_mobile_homes
+    - pct_movable_dwelling
+  status_class: ready_full_coverage_expected
+  proxy_quality: movable_dwelling_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTMOBL90 to movable dwelling percentage."
+
+avg_people_per_household:
+  source_folder: census_division_household_family_2021
+  file_candidates:
+    - output/clean_census_division_household_family_2021.csv
+  column_candidates:
+    - avg_people_per_household
+    - avg_household_size
+  status_class: ready_full_coverage_expected
+  proxy_quality: direct_or_strong_proxy
+  allow_partial_coverage: false
+  note: "Maps AVGPERHH to average household size."
+
+pct_no_high_school:
+  source_folder: census_division_education_2021
+  file_candidates:
+    - output/clean_census_division_education_2021.csv
+  column_candidates:
+    - pct_no_high_school_diploma_25_64
+    - pct_no_high_school_diploma
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: age_universe_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTNOHS90 to the 25–64 no-high-school variable by preference because the SoVI/YAML concept is age-25-plus-oriented. This is a 25–64 proxy, not an exact 25+ reproduction."
+
+physicians_per_100k:
+  source_folder: doctors_per_100khabs
+  file_candidates:
+    - output/clean_census_division_doctors_per_100k_proxy_2024.csv
+    - output/clean_census_division_doctors_per_100k_proxy_2024.parquet
+  column_candidates:
+    - physicians_per_100k
+    - physicians_per_100k_health_region_proxy
+    - physicians_per_100k_health_region
+  status_class: ready_partial_with_documented_missing
+  proxy_quality: health_region_proxy_one_documented_missing
+  allow_partial_coverage: true
+  minimum_non_missing_rows: 97
+  expected_missing_note: "Nord-du-Québec is intentionally unresolved because the census division is too coarse relative to CIHI's northern health-region split."
+  note: "Maps PHYSICN90 to a CIHI health-region physicians-per-100k proxy assigned to census divisions. This is health-region-native and has one documented missing CD: Nord-du-Québec."
+
+pct_vote_leading_party:
+  source_folder: census_division_voter_turnout_2021
+  file_candidates:
+    - output/clean_census_division_voter_turnout_2021.csv
+    - output/clean_census_division_voter_turnout_2021.parquet
+  column_candidates:
+    - pct_vote_leading_party
+    - pct_vote_leading_party_federal_2021
+    - pct_vote_leading_party_federal_2021_area_weighted
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: area_weighted_federal_election_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTVOTE92 to a Canadian federal-election proxy. The source variable is the area-weighted 2021 federal electoral district leading-party/candidate vote-share proxy allocated to 2021 Québec census divisions. This is not a direct presidential-vote reproduction."
+
+nursing_home_residents_per_capita:
+  source_folder: residential_care_per_capita
+  file_candidates:
+    - output/clean_census_division_residential_care_per_100k_population_odhf_2021.csv
+    - output/clean_census_division_residential_care_per_100k_population_odhf_2021.parquet
+    - output/clean_census_division_residential_care_counts_odhf_2021.csv
+    - output/clean_census_division_residential_care_counts_odhf_2021.parquet
+  glob_patterns:
+    - output/*residential*100k*.csv
+    - output/*residential*care*.csv
+  column_candidates:
+    - residential_care_facilities_per_100k_population_odhf
+    - residential_care_facilities_per_100k_population
+    - residential_care_per_100k_population_odhf
+    - residential_care_per_100k_population
+    - residential_care_facility_count
+    - residential_care_count
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: facility_density_proxy_not_residents
+  allow_partial_coverage: false
+  note: "Maps NRRESPC91 weakly to ODHF residential-care facilities per 100k population. This is a facility-density proxy, not literal nursing-home residents per capita."
+
+hospitals_per_capita:
+  source_folder: hospitals_per_capita
+  file_candidates:
+    - output/clean_census_division_hospitals_per_100k_population_odhf_2021.csv
+    - output/clean_census_division_hospitals_per_100k_population_odhf_2021.parquet
+    - output/clean_census_division_hospital_counts_odhf_2021.csv
+    - output/clean_census_division_hospital_counts_odhf_2021.parquet
+    - output/clean_census_division_hospitals_counts_odhf_2021.csv
+    - output/clean_census_division_hospitals_counts_odhf_2021.parquet
+  glob_patterns:
+    - output/*hospital*100k*.csv
+    - output/*hospital*.csv
+  column_candidates:
+    - hospitals_per_100k_population_odhf
+    - hospitals_per_100k_population
+    - hospital_facilities_per_100k_population_odhf
+    - hospital_facilities_per_100k_population
+    - hospital_count
+    - hospitals_count
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: odhf_hospital_facility_density_proxy
+  allow_partial_coverage: false
+  note: "Maps HOSPTPC91 to ODHF hospital facilities per 100k population. This is a facility-density proxy."

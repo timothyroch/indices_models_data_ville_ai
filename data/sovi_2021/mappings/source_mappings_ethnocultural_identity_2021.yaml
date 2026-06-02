@@ -1,0 +1,67 @@
+# Source mappings for SoVI ethnocultural / Indigenous identity variables.
+#
+# Scope:
+#   - Québec census divisions
+#   - 2021 SoVI-like input table
+#   - Variables cleaned from the Statistics Canada 2021 Census Profile
+#
+# Source block:
+#   census_division_ethnocultural_identity_2021/
+#
+# Clean output:
+#   census_division_ethnocultural_identity_2021/output/
+#   clean_census_division_ethnocultural_identity_2021.csv
+#
+# Method notes:
+#   The underlying cleaner uses forced Census Profile CHARACTERISTIC_ID values
+#   to avoid false keyword matches such as Blackfoot, Chinese languages, and Tagalog.
+#
+# Variables added:
+#   PCTBLACK90      -> pct_black
+#   PCTINDIAN90     -> pct_indigenous
+#   PCTASIAN90      -> pct_asian
+#   PCTHISPANIC90   -> pct_hispanic
+
+pct_black:
+  source_folder: census_division_ethnocultural_identity_2021
+  file_candidates:
+    - output/clean_census_division_ethnocultural_identity_2021.csv
+  column_candidates:
+    - pct_black
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: visible_minority_population_group_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTBLACK90 to the Census Profile visible-minority / population-group row Black, CHARACTERISTIC_ID 1687. This explicitly avoids false matches such as Blackfoot language or ethnocultural-origin rows."
+
+pct_indigenous:
+  source_folder: census_division_ethnocultural_identity_2021
+  file_candidates:
+    - output/clean_census_division_ethnocultural_identity_2021.csv
+  column_candidates:
+    - pct_indigenous
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: indigenous_identity_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTINDIAN90 to the broad Census Profile Indigenous identity rate, CHARACTERISTIC_ID 1403. This avoids total-denominator rows, Non-Indigenous identity rows, and narrower First Nations, Métis, or Inuit component rows."
+
+pct_asian:
+  source_folder: census_division_ethnocultural_identity_2021
+  file_candidates:
+    - output/clean_census_division_ethnocultural_identity_2021.csv
+  column_candidates:
+    - pct_asian
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: derived_visible_minority_asian_group_proxy
+  allow_partial_coverage: false
+  note: "Maps PCTASIAN90 to a derived Canadian visible-minority Asian-group proxy. pct_asian is computed as the sum of Census Profile component rates for South Asian, Chinese, Filipino, Southeast Asian, West Asian, Korean, and Japanese using CHARACTERISTIC_ID values 1685, 1686, 1688, 1691, 1692, 1693, and 1694. This is not a single direct Census Profile row and intentionally avoids language rows such as Chinese languages and Tagalog."
+
+pct_hispanic:
+  source_folder: census_division_ethnocultural_identity_2021
+  file_candidates:
+    - output/clean_census_division_ethnocultural_identity_2021.csv
+  column_candidates:
+    - pct_hispanic
+  status_class: ready_full_coverage_expected_with_method_note
+  proxy_quality: latin_american_proxy_for_hispanic
+  allow_partial_coverage: false
+  note: "Maps PCTHISPANIC90 to the Census Profile Latin American visible-minority / population-group row, CHARACTERISTIC_ID 1690. This is a Canadian proxy for the U.S. Hispanic category, not an exact category reproduction."
