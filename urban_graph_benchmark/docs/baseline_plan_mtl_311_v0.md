@@ -1,0 +1,1267 @@
+# Baseline Plan — Montréal 311 Water/Drainage v0
+
+**Project:** `urban_graph_benchmark`  
+**Benchmark ID:** `mtl_311_water_v0`  
+**Document:** `urban_graph_benchmark/docs/baseline_plan_mtl_311_v0.md`  
+**Status:** First frozen baseline and evaluation plan for validated Dataset v0  
+**Scope:** Baselines, splits, leakage rules, metrics, and evaluation protocol only. No GraphSAGE/HGNN implementation in this document.
+
+---
+
+## 1. Purpose
+
+This document freezes the first baseline evaluation plan for the validated Montréal 311 water/drainage Dataset v0.
+
+Dataset v0 is now stable enough for baseline development:
+
+```text
+panel rows: 28,620
+zones: 540
+months: 53
+period: 2022-01 to 2026-05
+validation status: pass
+SVI join success: 1.0
+grid assignment success: approximately 0.9995 at unique grid-unit level
+coordinate-row assignment success: approximately 0.9997
+```
+
+The immediate scientific goal is:
+
+```text
+Evaluate whether SVI and simple non-graph baselines explain or predict reported
+water/drainage 311 burden before introducing adjacency GNNs or HGNNs.
+```
+
+The central benchmark question is:
+
+```text
+Given a validated Montréal census tract × month panel, how well can simple
+baselines, SVI, and non-graph learned models predict or rank tract-month
+water/drainage 311 burden?
+```
+
+The later graph question is:
+
+```text
+Does spatial or heterogeneous graph structure add predictive and explanatory
+value beyond SVI and feature-parity non-graph baselines?
+```
+
+This document does **not** define the HGNN architecture. It defines the benchmark ladder that any future GraphSAGE or HGNN model must eventually beat.
+
+---
+
+## 2. Dataset used
+
+The baseline plan uses the validated Dataset v0 artifacts:
+
+```text
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/tract_month_panel.parquet
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/tract_static_features.parquet
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/target_water_drainage.parquet
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/dataset_validation.json
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/dataset_report.md
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/provenance.json
+```
+
+The unit of observation is:
+
+```text
+census tract × month
+```
+
+The canonical row key is:
+
+```text
+zone_id
+period_month
+```
+
+Dataset v0 uses the derived municipal Montréal 25 m grid × month 311 feature table as the direct input and assigns grid coordinate rows to census tracts before aggregation.
+
+The target is a reported municipal service-request signal, not direct physical flood damage.
+
+Important interpretation:
+
+```text
+The benchmark target is reported municipal 311 water/drainage burden.
+It is not objective flood occurrence, true physical damage, or direct causal vulnerability.
+```
+
+---
+
+## 3. Target definitions
+
+### 3.1 Primary target: count
+
+The primary target is:
+
+```text
+water_drainage_count
+```
+
+Definition:
+
+```text
+water_drainage_count =
+    number of reported water/drainage 311 requests
+    aggregated to census tract × month
+```
+
+This is the main target for the first benchmark.
+
+Recommended model families:
+
+```text
+naive count baselines
+Poisson regression
+negative-binomial regression
+tree/boosting count regression
+quantile or distributional regression later
+```
+
+Recommended primary metrics:
+
+```text
+MAE
+RMSE
+mean Poisson deviance
+negative-binomial log-likelihood, when applicable
+Spearman correlation
+Precision@K / NDCG@K for high-burden ranking
+```
+
+### 3.2 Primary decision-support view: ranking high-burden tract-months
+
+Because the municipal use case often cares about prioritization, ranking is treated as a primary evaluation view.
+
+Ranking target:
+
+```text
+higher water_drainage_count = higher reported burden
+```
+
+Ranking metrics should be computed for:
+
+```text
+tract-month ranking
+tract-level aggregated burden ranking inside validation/test windows
+top-K high-burden tract-month detection
+top-K high-burden tract detection
+```
+
+Recommended K values:
+
+```text
+K = 25, 50, 100 tract-months
+K = top 5%, top 10% of tract-months
+K = top 25, 50 tracts for tract-level aggregation
+```
+
+The exact K values used in reported benchmark tables should be frozen in the baseline implementation metadata.
+
+### 3.3 Secondary target: binary
+
+The binary target is:
+
+```text
+water_drainage_binary = 1 if water_drainage_count > 0 else 0
+```
+
+However, Dataset v0 showed that the positive rate is approximately 85%. Therefore binary classification is **diagnostic only**, not the main benchmark target.
+
+Binary metrics may be reported, but they should not be the main evidence for model quality.
+
+Recommended metrics:
+
+```text
+AUROC
+AUPRC
+F1
+balanced accuracy
+Brier score
+calibration curve
+```
+
+### 3.4 Secondary target: magnitude class
+
+Official magnitude classes are **not stored in Dataset v0** because thresholds must be split-specific.
+
+Magnitude classes must be generated by the split/modeling pipeline using training data only.
+
+Recommended class schema:
+
+```text
+0 = no reported burden, if water_drainage_count == 0
+1 = low positive burden
+2 = moderate positive burden
+3 = high positive burden
+4 = extreme positive burden
+```
+
+Recommended initial threshold rule:
+
+```text
+class 0 = count == 0
+classes 1 to 4 = train-set quantiles among positive water_drainage_count values
+```
+
+The exact threshold rule must be written to:
+
+```text
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits/target_thresholds_<split_name>.json
+```
+
+Magnitude-class metrics:
+
+```text
+macro-F1
+weighted-F1
+quadratic weighted kappa
+mean absolute class error
+confusion matrix
+ordinal cross-entropy, if applicable
+```
+
+---
+
+## 4. Split protocol
+
+No baseline metrics should be reported without an explicit split artifact.
+
+The split builder should write:
+
+```text
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits/split_assignments.parquet
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits/split_metadata.json
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits/split_report.md
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits/target_thresholds_temporal.json
+```
+
+The split assignment file should include one row per `zone_id × period_month` and columns such as:
+
+```text
+zone_id
+period_month
+random_debug_split
+temporal_split
+spatial_block_split
+```
+
+Every baseline must use the same split artifacts. No model should define a private train/validation/test split.
+
+---
+
+## 5. Official v0 splits
+
+### 5.1 Primary split: temporal
+
+The first main scientific split is temporal.
+
+Frozen temporal split:
+
+```text
+train:      2022-01 to 2024-12
+validation: 2025-01 to 2025-08
+test:       2025-09 to 2026-05
+```
+
+This gives:
+
+```text
+train months: 36
+validation months: 8
+test months: 9
+```
+
+Motivation:
+
+```text
+The temporal split tests future-window generalization and avoids random leakage
+across time.
+```
+
+The first baseline tables should report validation and test metrics under this temporal split.
+
+### 5.2 Random split: debugging only
+
+A random tract-month split may be created for debugging.
+
+Status:
+
+```text
+allowed for implementation checks
+not acceptable as main scientific evidence
+```
+
+Reason:
+
+```text
+random tract-month splits leak spatial and temporal structure
+```
+
+Any result using the random split must be labeled:
+
+```text
+debug_only_random_split
+```
+
+### 5.3 Spatial block split: required before graph claims
+
+A spatial block split should be created before GraphSAGE/HGNN claims.
+
+Possible block definitions:
+
+```text
+borough / arrondissement, if available
+spatial clusters
+grid blocks
+administrative sectors
+```
+
+The spatial split is not required for the first SVI/A0/A2/A3 baseline implementation, but it is required before making a serious graph-generalization claim.
+
+Graph-specific leakage rule:
+
+```text
+For graph models, the evaluation must specify whether it is transductive or inductive.
+The main spatial-generalization claim should use an inductive or leakage-controlled setting.
+```
+
+Temporal split is the first official benchmark. Spatial split is required before any strong claim that graph structure generalizes spatially.
+
+---
+
+## 6. Leakage rules
+
+### 6.1 Global rule
+
+All preprocessing that learns from the target distribution must be fitted using training data only.
+
+This includes:
+
+```text
+magnitude-class thresholds
+target transformations with learned parameters
+standardization / normalization parameters
+feature selection based on target
+hyperparameter tuning
+calibration
+```
+
+### 6.2 Target leakage
+
+The following columns are target or target-derived and must not be used as input features:
+
+```text
+water_drainage_count
+water_drainage_binary
+water_drainage_requests
+share_water_drainage_requests
+```
+
+The only exception is when a model explicitly uses **lagged historical versions** of the target in a forecasting or autoregressive baseline, for example:
+
+```text
+water_drainage_count_lag_1
+water_drainage_count_lag_12
+historical_water_drainage_mean_train_only
+```
+
+Same-month target values are never allowed as features.
+
+### 6.3 Reporting-control leakage
+
+Dataset v0 contains:
+
+```text
+total_311_count_all
+total_311_count_non_water_drainage
+```
+
+Important:
+
+```text
+total_311_count_all contains the water/drainage target.
+```
+
+Therefore:
+
+```text
+total_311_count_all must not be used in strict forecasting models.
+```
+
+For retrospective/explanatory models:
+
+```text
+total_311_count_non_water_drainage
+```
+
+is the preferred same-month reporting-control proxy.
+
+Even `total_311_count_non_water_drainage` is retrospective if it is same-month. For strict forecasting, use lagged or historical versions only.
+
+### 6.4 SVI leakage
+
+SVI is static and external to the 311 target. It is allowed as a baseline and as a feature.
+
+Allowed:
+
+```text
+svi_percentile
+svi_score_raw
+svi_rank
+svi_class
+svi_missing_count
+svi_reproduction_level
+SVI component/theme columns, if available
+```
+
+Not allowed:
+
+```text
+using future 311 outcomes to alter SVI scores
+re-ranking SVI based on validation/test target outcomes
+```
+
+### 6.5 SoVI exclusion
+
+SoVI is excluded from Track A.
+
+Reason:
+
+```text
+SoVI was reproduced at census-division scale.
+Track A is Montréal census tract × month.
+Montréal is one census division / territoire équivalent, not many CDs.
+```
+
+No column containing `sovi` should appear in the Track A modeling feature matrix.
+
+### 6.6 Temporal leakage
+
+For the temporal split, features for validation/test rows must not use information from later periods.
+
+Examples of disallowed features:
+
+```text
+full-panel tract mean target
+full-panel target quantiles
+full-panel target standardization
+future total 311 activity
+future water/drainage counts
+```
+
+Allowed if computed using training history only:
+
+```text
+train-period tract historical mean
+lag-1 target
+lag-12 target, when available
+expanding-window historical mean
+month-of-year mean computed from train only
+```
+
+---
+
+## 7. Baseline ladder
+
+The first benchmark should be staged. A later model can only be claimed useful if it improves over simpler baselines under the same split and target definition.
+
+### A0 — Naive temporal/exposure baselines
+
+Purpose:
+
+```text
+Establish how much signal is explained by history, seasonality, and exposure.
+```
+
+Required A0 baselines:
+
+```text
+A0.1 global train mean
+A0.2 month-of-year train mean
+A0.3 tract train mean
+A0.4 tract × month-of-year train mean, with fallback
+A0.5 previous-month persistence
+A0.6 previous-year same-month persistence, when available
+A0.7 population exposure baseline
+A0.8 reporting-intensity exposure baseline, labeled retrospective if same-month non-water 311 is used
+```
+
+Target:
+
+```text
+water_drainage_count
+```
+
+Expected output:
+
+```text
+urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A0_naive_temporal/
+```
+
+### A1 — SVI direct ranking baseline
+
+Purpose:
+
+```text
+Evaluate whether static SVI vulnerability rankings align with observed
+water/drainage 311 burden.
+```
+
+SVI direct score options:
+
+```text
+svi_percentile, preferred if available
+svi_score_raw
+svi_rank, direction must be verified
+svi_class, ordinal/categorical diagnostic only
+```
+
+Primary A1 evaluations:
+
+```text
+1. tract-level burden ranking over validation/test windows
+2. tract-month ranking using repeated static SVI score
+3. high-burden top-K overlap
+```
+
+Recommended burden definitions:
+
+```text
+test_total_water_drainage_count_by_tract
+test_mean_water_drainage_count_by_tract_month
+test_water_drainage_rate_per_1000_population, optional diagnostic
+```
+
+SVI direct ranking must report:
+
+```text
+Spearman correlation
+Kendall tau
+NDCG@K
+Precision@K
+top-decile overlap
+tables of highest-SVI vs highest-burden tracts
+```
+
+Expected output:
+
+```text
+urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A1_svi_direct_ranking/
+```
+
+### A2 — Calibrated SVI predictor
+
+Purpose:
+
+```text
+Test whether SVI has predictive value after simple calibration and basic controls.
+```
+
+SVI is static, while the target is monthly. Therefore SVI has two fair evaluation modes:
+
+```text
+A1 direct ranking:
+    Does static SVI order high-burden tracts well?
+
+A2 calibrated SVI:
+    If SVI is calibrated to this observed target on train data only,
+    how much count/ranking/magnitude predictive value does it have?
+```
+
+Candidate models:
+
+```text
+Poisson regression:
+    water_drainage_count ~ SVI + month controls + exposure
+
+Negative-binomial regression:
+    water_drainage_count ~ SVI + month controls + exposure
+
+Linear/log-count baseline:
+    log1p(water_drainage_count) ~ SVI + month controls + exposure
+
+Ordinal model:
+    magnitude_class ~ SVI + controls, after split-specific thresholds
+
+Isotonic or monotonic calibration:
+    rank-oriented calibration of SVI to burden score
+```
+
+Minimum A2 feature sets:
+
+```text
+A2_svi_only:
+    SVI score only
+
+A2_svi_plus_calendar:
+    SVI score + month-of-year controls
+
+A2_svi_plus_static:
+    SVI score + population + land_area + density + month-of-year controls
+
+A2_svi_plus_reporting_retrospective:
+    SVI score + calendar/static controls + total_311_count_non_water_drainage
+```
+
+Important:
+
+```text
+A2_svi_plus_reporting_retrospective is not a forecasting model.
+```
+
+Expected output:
+
+```text
+urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A2_calibrated_svi/
+```
+
+### A3 — Feature-parity tabular/spatial baseline
+
+Purpose:
+
+```text
+Establish the strongest non-graph baseline before GraphSAGE/HGNN.
+```
+
+This is the most important non-graph baseline before GraphSAGE or HGNN. If a future graph model beats SVI but does not beat A3, then the scientific graph-structure claim is weak.
+
+Candidate model families:
+
+```text
+regularized linear / GLM
+negative-binomial or Poisson model
+random forest
+gradient boosting, if dependencies are available
+MLP, later optional
+GAM/spatial smooth, later optional
+```
+
+Initial required A3 baselines:
+
+```text
+A3.1 regularized regression or GLM
+A3.2 random forest or histogram gradient boosting
+```
+
+Feature sets:
+
+```text
+A3_static_svi_calendar:
+    SVI columns + static tract features + calendar features
+
+A3_static_svi_calendar_reporting_retrospective:
+    SVI columns + static tract features + calendar features
+    + total_311_count_non_water_drainage
+
+A3_lagged_forecasting:
+    SVI columns + static tract features + calendar features
+    + lagged target/reporting features only
+```
+
+Expected output:
+
+```text
+urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A3_feature_parity_tabular/
+```
+
+### A4 — GraphSAGE adjacency-only, later
+
+Not implemented in the first baseline phase.
+
+Purpose later:
+
+```text
+Test whether tract adjacency message passing improves over A3 using the same
+node features and same splits.
+```
+
+A4 cannot be evaluated until A0–A3 are implemented.
+
+### A5 — Environmental HGNN, later
+
+Not implemented in the first baseline phase.
+
+Purpose later:
+
+```text
+Test whether typed environmental relations improve over adjacency-only graphs
+and feature-parity tabular baselines.
+```
+
+A5 must include ablations and random/permuted graph controls.
+
+### A6 — Random or permuted graph controls, later
+
+If graph models are implemented, random/permuted graph controls should eventually be included.
+
+Purpose:
+
+```text
+Verify that graph performance comes from meaningful spatial/heterogeneous
+structure, not just model capacity.
+```
+
+---
+
+## 8. Feature-parity rules
+
+The benchmark must distinguish between feature advantage and graph advantage.
+
+### 8.1 General rule
+
+Whenever a graph model later receives a node feature, the strongest non-graph baseline must also receive the same feature in an equivalent flat format.
+
+Example:
+
+```text
+If GraphSAGE receives SVI + population + density + month features,
+A3 must receive SVI + population + density + month features.
+```
+
+### 8.2 Scientific claim protected by feature parity
+
+The feature-parity rule protects the main publication claim.
+
+Without feature parity, a future HGNN could appear better simply because it receives richer inputs. With feature parity, if a graph model improves over A3, the improvement is more plausibly due to spatial or heterogeneous structure.
+
+The intended interpretation is modest:
+
+```text
+A3 controls for feature content.
+A4 tests adjacency/message-passing value.
+A5 tests typed heterogeneous relation value.
+```
+
+### 8.3 Environmental features later
+
+If later HGNN versions use environmental variables such as:
+
+```text
+cuvette area
+canopy cover
+heat island area
+impervious surface
+distance to water
+elevation
+slope
+overflow structures
+```
+
+then A3 must include a flat tract-level version of those features when possible.
+
+This allows a fair test of:
+
+```text
+Does graph structure help beyond the information content of the features?
+```
+
+### 8.4 Reporting controls
+
+Reporting controls must be handled consistently.
+
+For retrospective comparisons:
+
+```text
+A2/A3 may use total_311_count_non_water_drainage.
+Graph models may use the same feature.
+```
+
+For forecasting comparisons:
+
+```text
+all models must use only lagged or historical reporting controls.
+```
+
+### 8.5 No hidden target leakage through shares
+
+Features such as:
+
+```text
+share_water_drainage_requests
+```
+
+are target-derived and must be excluded from predictive feature matrices.
+
+Other share columns may be allowed if they do not directly contain the target, but their temporal availability must be labeled.
+
+---
+
+## 9. Metrics
+
+Metrics should be computed separately on train, validation, and test splits.
+
+The main reported result should focus on validation and test.
+
+### 9.1 Count metrics
+
+Use for `water_drainage_count`.
+
+Recommended:
+
+```text
+MAE
+RMSE
+Spearman rank correlation
+Pearson correlation
+mean Poisson deviance, if numerically stable
+mean Negative Binomial log likelihood, if applicable
+```
+
+MAE and RMSE measure count accuracy.
+
+Spearman is important because municipal decision-making often cares about prioritizing higher-burden areas.
+
+### 9.2 Ranking metrics
+
+Ranking metrics should be central.
+
+Recommended:
+
+```text
+Precision@K
+Recall@K
+NDCG@K
+top-decile hit rate
+Spearman rank correlation
+Kendall tau, optional
+```
+
+The definition of top K must be frozen.
+
+Examples:
+
+```text
+K = top 10% of tract-months by observed water_drainage_count within the evaluation split
+K = top 25, 50, 100 tract-months
+K = top 25, 50 tracts for tract-level aggregation
+```
+
+Ranking metrics are especially useful for:
+
+```text
+SVI direct ranking
+municipal prioritization
+high-burden tract-month detection
+```
+
+### 9.3 Binary metrics
+
+Binary metrics are secondary because the positive rate is high.
+
+If used:
+
+```text
+AUROC
+AUPRC
+F1
+balanced accuracy
+Brier score
+calibration curve
+```
+
+These should not be the main evidence of model value.
+
+### 9.4 Ordinal/magnitude metrics
+
+For train-only magnitude classes:
+
+```text
+macro-F1
+weighted-F1
+quadratic weighted kappa
+mean absolute class error
+confusion matrix
+ordinal cross-entropy, if applicable
+```
+
+Magnitude-class thresholds must be stored as split artifacts.
+
+---
+
+## 10. Magnitude threshold protocol
+
+Magnitude thresholds must be computed using the training split only.
+
+Recommended v0 strategy:
+
+```text
+class 0: water_drainage_count == 0
+classes 1 to 4: quantiles of positive water_drainage_count in training data
+```
+
+Example:
+
+```text
+class 1: positive count up to train Q25
+class 2: train Q25 to Q50
+class 3: train Q50 to Q75
+class 4: above train Q75
+```
+
+Alternative strategies can be tested later, but every strategy must obey:
+
+```text
+fit thresholds on train only
+freeze thresholds
+apply to validation/test
+write thresholds to JSON
+```
+
+Expected artifact:
+
+```text
+target_thresholds_temporal.json
+```
+
+---
+
+## 11. Required metric tables
+
+Every baseline stage should write a standardized metrics table.
+
+Required columns:
+
+```text
+benchmark_id
+dataset_version
+split_name
+split_type
+prediction_setting
+model_stage
+model_name
+target_name
+target_type
+feature_set_name
+metric_name
+metric_value
+higher_is_better
+n_train
+n_validation
+n_test
+notes
+```
+
+Recommended output file:
+
+```text
+metrics.csv
+```
+
+Each baseline folder should also write:
+
+```text
+predictions_validation.parquet
+predictions_test.parquet
+model_metadata.json
+baseline_report.md
+```
+
+Prediction files should contain:
+
+```text
+zone_id
+period_month
+split
+observed_water_drainage_count
+predicted_water_drainage_count
+predicted_score
+model_name
+feature_set_name
+```
+
+Optional prediction columns:
+
+```text
+predicted_binary_probability
+predicted_magnitude_class
+prediction_interval_lower
+prediction_interval_upper
+```
+
+---
+
+## 12. Expected artifact structure
+
+Baseline outputs should follow this structure:
+
+```text
+urban_graph_benchmark/outputs/mtl_311_water_v0/
+  datasets/
+    tract_month_panel.parquet
+    tract_static_features.parquet
+    target_water_drainage.parquet
+    splits/
+      split_assignments.parquet
+      split_metadata.json
+      split_report.md
+      target_thresholds_temporal.json
+
+  baselines/
+    A0_naive_temporal/
+      metrics.csv
+      predictions_validation.parquet
+      predictions_test.parquet
+      model_metadata.json
+      baseline_report.md
+
+    A1_svi_direct_ranking/
+      metrics.csv
+      tract_ranking_validation.csv
+      tract_ranking_test.csv
+      topk_overlap.csv
+      baseline_report.md
+
+    A2_calibrated_svi/
+      metrics.csv
+      predictions_validation.parquet
+      predictions_test.parquet
+      model_metadata.json
+      baseline_report.md
+
+    A3_feature_parity_tabular/
+      metrics.csv
+      predictions_validation.parquet
+      predictions_test.parquet
+      feature_importance.csv
+      model_metadata.json
+      baseline_report.md
+```
+
+---
+
+## 13. Output artifacts for splits
+
+Recommended directory:
+
+```text
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits/
+```
+
+Expected files:
+
+```text
+split_assignments.parquet
+split_metadata.json
+target_thresholds_temporal.json
+split_report.md
+```
+
+`split_assignments.parquet` should include:
+
+```text
+zone_id
+period_month
+random_debug_split
+temporal_split
+spatial_block_split
+```
+
+`split_metadata.json` should include:
+
+```text
+config path
+config hash
+dataset path
+dataset hash if feasible
+generation timestamp
+split definitions
+row counts by split
+zone counts by split
+month ranges by split
+target summaries by split
+```
+
+`split_report.md` should summarize:
+
+```text
+number of rows per split
+number of zones per split
+number of months per split
+target distribution by split
+positive rate by split
+water_drainage_count quantiles by split
+whether every zone appears in train/val/test for temporal split
+```
+
+---
+
+## 14. Minimum first baseline milestone
+
+The first baseline milestone is complete when the following exist:
+
+```text
+1. split_assignments.parquet
+2. split_metadata.json
+3. split_report.md
+4. target_thresholds_temporal.json
+5. A0 metrics and predictions
+6. A1 SVI direct-ranking metrics and tract ranking tables
+7. A2 calibrated SVI metrics for at least one count model
+8. A3 feature-parity tabular metrics for at least one non-graph model
+```
+
+Graph models should not begin before A0–A3 are available.
+
+---
+
+## 15. Acceptance criteria before graph models
+
+Do not move to GraphSAGE or HGNN until the following exist:
+
+```text
+1. Validated Dataset v0
+2. Split artifacts
+3. Train-only magnitude thresholds
+4. Standardized metrics
+5. A0 naive baselines
+6. A1 SVI direct ranking baseline
+7. A2 calibrated SVI baseline
+8. A3 feature-parity non-graph baseline
+9. Standardized prediction artifacts
+10. Baseline report
+```
+
+Graph models should be introduced only after we know:
+
+```text
+how strong simple temporal baselines are
+how much signal SVI has
+how much signal a non-graph learned model can extract
+whether ranking high-burden tract-months is feasible
+```
+
+---
+
+## 16. Interpretation rules
+
+### 16.1 Target interpretation
+
+The target is:
+
+```text
+reported municipal 311 water/drainage burden
+```
+
+It is not:
+
+```text
+objective flood occurrence
+true physical damage
+true sewer failure
+causal vulnerability
+```
+
+All benchmark reports should use careful wording.
+
+### 16.2 SVI interpretation
+
+SVI is a static social vulnerability index.
+
+It is not expected to perfectly predict water/drainage reports, because the target also depends on:
+
+```text
+stormwater infrastructure
+terrain
+land cover
+reporting behavior
+service coverage
+seasonality
+maintenance patterns
+built environment
+```
+
+A weak SVI score does not invalidate SVI. It clarifies what SVI can and cannot explain.
+
+### 16.3 Reporting-bias interpretation
+
+311 requests are affected by reporting behavior.
+
+Potential reporting-bias factors:
+
+```text
+income
+language
+tenure
+trust in municipal services
+digital/phone access
+neighborhood norms
+density
+commuting/tourism
+```
+
+Therefore, baselines should report performance across vulnerability/reporting strata when possible.
+
+---
+
+## 17. Validation before reporting results
+
+Before any baseline result is reported, verify:
+
+```text
+dataset_validation.json overall_status == pass
+split files cover every panel row exactly once per split scheme
+training/validation/test periods match this document
+magnitude thresholds are train-only
+no target-derived same-month features are included
+no SoVI columns are included
+A3 feature set is at least as rich as future graph node-feature set
+all predictions include zone_id and period_month
+```
+
+---
+
+## 18. Out of scope for the baseline phase
+
+The following are out of scope for the first baseline phase:
+
+```text
+GraphSAGE
+HGNN
+road segment graph
+building-level graph
+OSM routing
+population-weighted centroids
+expert-based explainability benchmark
+GNNExplainer or graph explanation methods
+sandpile model
+SoVI comparison inside Montréal tract-level Track A
+```
+
+These are important later, but they should not block the first baseline benchmark.
+
+---
+
+## 19. Immediate next engineering step
+
+Implement the split builder:
+
+```text
+urban_graph_benchmark/src/ville_hgnn/data/build_splits.py
+urban_graph_benchmark/scripts/03_build_splits_v0.py
+```
+
+The split builder should read:
+
+```text
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/tract_month_panel.parquet
+```
+
+and write:
+
+```text
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits/split_assignments.parquet
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits/split_metadata.json
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits/split_report.md
+urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits/target_thresholds_temporal.json
+```
+
+Only after split artifacts exist should baseline metric code be implemented.
+
+---
+
+## 20. One-sentence baseline plan
+
+The first Montréal 311 benchmark will evaluate count, ranking, and split-specific magnitude prediction of reported water/drainage burden under a temporal split, comparing naive temporal baselines, SVI direct ranking, calibrated SVI predictors, and feature-parity tabular models before any graph neural network is introduced.
