@@ -1,0 +1,844 @@
+# Montréal 311 Water/Drainage Benchmark v0.1
+# Validated Dataset v0 configuration.
+#
+# This config reflects the current working Dataset v0 implementation:
+#   - derived municipal Montréal 311 grid25m-month table as direct input
+#   - upstream raw 311 file retained as provenance
+#   - census tract geometry in EPSG:3347
+#   - coordinate-row centroid-in-polygon assignment using lon/lat EPSG:4326
+#   - complete Montréal empirical 311 service-territory tract × month panel
+#   - complete SVI join for all in-scope tracts
+#
+# It is still a v0 benchmark contract, not the final HGNN config.
+
+benchmark_id: mtl_311_water_v0
+status: validated_dataset_v0
+version: "0.1.0"
+contract_path: urban_graph_benchmark/docs/benchmark_contract_mtl_311_v0.md
+
+project:
+  name: urban_graph_benchmark
+  python_package: ville_hgnn
+  description: >
+    Montréal census tract × month benchmark for reported water/drainage
+    disruption using municipal 311 service requests, tract-level SVI features,
+    temporal baselines, non-graph baselines, and later graph/HGNN models.
+
+paths:
+  # Paths are interpreted from the repository root unless otherwise specified.
+  repository_root: "."
+  benchmark_root: urban_graph_benchmark
+  data_root: data
+  output_root: urban_graph_benchmark/outputs/mtl_311_water_v0
+
+  outputs:
+    dataset_dir: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets
+    report_dir: urban_graph_benchmark/outputs/mtl_311_water_v0/reports
+    baseline_dir: urban_graph_benchmark/outputs/mtl_311_water_v0/baselines
+    graph_dir: urban_graph_benchmark/outputs/mtl_311_water_v0/graphs
+    explanation_dir: urban_graph_benchmark/outputs/mtl_311_water_v0/explanations
+
+  expected_output_files:
+    tract_month_panel: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/tract_month_panel.parquet
+    tract_static_features: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/tract_static_features.parquet
+    target_water_drainage: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/target_water_drainage.parquet
+    dataset_validation: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/dataset_validation.json
+    dataset_report: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/dataset_report.md
+    feature_dictionary: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/feature_dictionary.csv
+    missingness_report: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/missingness_report.csv
+    spatial_join_audit: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/spatial_join_audit.csv
+    provenance: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/provenance.json
+    input_inventory_json: urban_graph_benchmark/outputs/mtl_311_water_v0/reports/input_inventory.json
+    input_inventory_report: urban_graph_benchmark/outputs/mtl_311_water_v0/reports/input_inventory_report.md
+
+unit:
+  spatial: census_tract
+  temporal: month
+  row_key:
+    - zone_id
+    - period_month
+
+  study_area:
+    selected: valid_311_service_territory
+    allowed_values:
+      - ville_de_montreal
+      - montreal_agglomeration
+      - montreal_census_division
+      - valid_311_service_territory
+    rule: tracts_with_at_least_one_assigned_311_grid25m_coordinate_row
+    source_for_decision: dataset_v0_spatial_assignment
+    notes: >
+      Dataset v0 uses an empirical 311 service-territory proxy: the in-scope
+      tract set is the set of census tracts receiving at least one assigned
+      municipal 311 grid25m coordinate row. This is not yet a formal Ville de
+      Montréal or agglomeration service-boundary definition.
+
+  spatial_scope_outputs:
+    document_number_of_tracts_in_scope: true
+    document_number_of_tracts_excluded: true
+    document_reason_for_exclusion: true
+
+inputs:
+  montreal_311:
+    required: true
+
+    # Direct Dataset v0 benchmark input.
+    # This is a derived grid25m × month municipal 311 feature table.
+    raw_path: transformation/output/ville_ia_311_features_grid25m_monthly.parquet
+    raw_path_candidates:
+      - transformation/output/ville_ia_311_features_grid25m_monthly.parquet
+      - transformation/output/ville_ia_311_features_grid25m_monthly.csv
+      - transformation/output/ville_ia_311_features_grid25m_monthly.geojson
+      - transformation/requetes311.csv
+
+    source_name: montreal_311_grid25m_monthly
+    source_type: grid25m_month
+    allowed_source_types:
+      - point_records
+      - grid25m_month
+      - pre_aggregated
+      - unknown
+
+    # Upstream raw/provenance source. It is not the direct v0 benchmark input.
+    upstream_raw_source:
+      path: transformation/requetes311.csv
+      role: provenance_source
+      note: >
+        The v0 benchmark uses the derived grid25m-month feature table as its
+        direct input. The raw requetes311.csv file remains the upstream source
+        for provenance and future reproducibility checks.
+
+    encoding: null
+    delimiter: null
+
+    # Important:
+    #   - v0 spatial assignment does NOT trust x_centroid/y_centroid as EPSG:3347.
+    #   - v0 assignment uses lon_centroid/lat_centroid as EPSG:4326.
+    #   - Points are then reprojected to the tract CRS, EPSG:3347.
+    crs: null
+    coordinate_reference_systems:
+      assignment_source_crs: "EPSG:4326"
+      assignment_target_crs: "EPSG:3347"
+      lon_lat_centroid_crs: "EPSG:4326"
+      x_y_centroid_crs: unknown_not_used_for_assignment_v0
+
+    date_fields:
+      primary: period_month
+      candidates:
+        - period_month
+      parse_timezone: America/Toronto
+      expected_temporal_resolution_after_aggregation: month
+
+    category_fields:
+      primary: null
+      candidates: []
+      prefer_official_category_fields_over_free_text: true
+
+    description_fields:
+      candidates: []
+
+    id_fields:
+      request_id: null
+      grid_cell_id: unit_id
+
+    point_geometry_fields:
+      latitude: null
+      longitude: null
+      x: null
+      y: null
+
+    grid_geometry_fields:
+      grid_cell_id: unit_id
+
+      # Used for v0 spatial assignment.
+      centroid_lat: lat_centroid
+      centroid_lon: lon_centroid
+      centroid_lonlat_crs: "EPSG:4326"
+
+      # Kept for audit/provenance, but not used for v0 assignment.
+      centroid_x: x_centroid
+      centroid_y: y_centroid
+      centroid_xy_crs: unknown_not_used_for_assignment_v0
+
+      polygon_geometry_path: null
+      assignment_coordinate_key:
+        - unit_id
+        - lon_centroid
+        - lat_centroid
+
+    pre_aggregated_fields:
+      spatial_unit_column: unit_id
+      temporal_unit_column: period_month
+      count_column: water_drainage_requests
+
+  census_tract_geometry:
+    required: true
+    path: data/spatial_frame_population_2021/output/clean_quebec_census_tract_spatial_frame_with_population_2021.gpkg
+    path_candidates:
+      - data/spatial_frame_population_2021/output/clean_quebec_census_tract_spatial_frame_with_population_2021.gpkg
+      - data/spatial_frame_population_2021/output/clean_quebec_census_tract_spatial_frame_with_population_2021.geojson
+      - data/spatial_frame_population_2021/output/clean_quebec_census_tract_spatial_frame_with_population_2021.parquet
+      - data/2021-census-boundaries-file/output/clean_quebec_census_tracts_2021.gpkg
+      - data/2021-census-boundaries-file/output/clean_quebec_census_tracts_2021.geojson
+      - data/2021-census-boundaries-file/output/clean_quebec_census_tracts_2021.parquet
+
+    recursive_search:
+      enabled: true
+      search_roots:
+        - data
+        - outputs
+      filename_patterns:
+        - "*tract*geometry*.geojson"
+        - "*tract*geometry*.gpkg"
+        - "*tract*spatial*frame*.geojson"
+        - "*tract*spatial*frame*.gpkg"
+        - "*tract*spatial*frame*.parquet"
+        - "*census_tract*boundar*.geojson"
+        - "*census_tract*boundar*.gpkg"
+        - "*census_tract*boundar*.parquet"
+        - "*quebec_census_tract_spatial_frame*.gpkg"
+        - "*quebec_census_tract_spatial_frame*.geojson"
+        - "*quebec_census_tract_spatial_frame*.parquet"
+
+    crs: "EPSG:3347"
+    id_column: unit_id
+    expected_id_column_candidates:
+      - unit_id
+      - zone_id
+      - census_tract_dguid
+      - DGUID
+    required_columns:
+      - unit_id
+      - census_tract_dguid
+      - land_area_km2
+      - population_total_2021
+
+  svi:
+    required: true
+    path: outputs/svi_quebec_2021_partial12_run/svi_quebec_2021_partial12_map.csv
+    path_candidates:
+      - outputs/svi_quebec_2021_partial12_run/svi_quebec_2021_partial12_map.csv
+      - outputs/svi_quebec_2021_partial12_run/svi_quebec_2021_partial12_map.geojson
+      - outputs/svi_quebec_2021_partial12_run/svi_quebec_2021_partial12_map.gpkg
+      - outputs/svi_quebec_2021_partial12_run/svi_quebec_2021_partial12_map_web.geojson
+      - data/svi_2021/output/clean_quebec_census_tract_svi_input_2021.parquet
+      - data/svi_2021/output/clean_quebec_census_tract_svi_input_2021.csv
+      - data/svi_2021/output/clean_quebec_census_tract_svi_input_2021.geojson
+      - data/svi_2021/output/clean_quebec_census_tract_svi_input_2021.gpkg
+
+    recursive_search:
+      enabled: true
+      search_roots:
+        - data
+        - outputs
+      filename_patterns:
+        - "*svi*map*.csv"
+        - "*svi*map*.geojson"
+        - "*svi*map*.gpkg"
+        - "*svi*standard_output*.csv"
+        - "*svi*input*.csv"
+        - "*svi*input*.parquet"
+
+    id_column: unit_id
+    id_canonicalization: numeric_tract_id_to_two_decimals
+    expected_id_column_candidates:
+      - unit_id
+      - zone_id
+      - census_tract_dguid
+      - DGUID
+    expected_score_columns:
+      - svi_score
+      - score
+      - score_normalized_0_1
+      - percentile
+      - vulnerability_score
+      - svi_quebec_2021_partial12_score
+      - svi_percentile
+      - svi_score_raw
+    allow_partial_svi_adaptation: true
+    notes: >
+      The scored SVI map output is used for the SVI baseline. The clean SVI
+      input table can be used later as tract-level feature variables. The v0
+      builder canonicalizes numeric-looking tract unit IDs to two decimal
+      places to avoid joins failing because of values such as 4620001.00 vs
+      4620001.0.
+
+  weather:
+    include_in_v0: false
+    required: false
+    path: null
+    source_name: not_available_v0
+    availability_label: not_available_v0
+    allowed_availability_labels:
+      - observed_after_the_fact
+      - known_at_prediction_time
+      - forecast_available
+      - not_available_v0
+
+  environmental_layers:
+    include_in_v0: false
+    required: false
+    layers:
+      cuvettes:
+        enabled: false
+        path: null
+      heat_islands:
+        enabled: false
+        path: null
+      canopy:
+        enabled: false
+        path: null
+      impervious_or_mineralized_surface:
+        enabled: false
+        path: null
+      terrain_lidar:
+        enabled: false
+        path: null
+      overflow_structures:
+        enabled: false
+        path: null
+      water_bodies:
+        enabled: false
+        path: null
+
+target:
+  source: montreal_311
+  concept: reported_water_drainage_disruption
+  interpretation: reported_disruption_proxy_not_true_physical_flood_damage
+
+  columns:
+    source_count: water_drainage_requests
+    count: water_drainage_count
+    binary: water_drainage_binary
+    magnitude_exploratory: water_drainage_magnitude_class_exploratory
+    total_311_all: total_311_count_all
+    total_311_non_water_drainage: total_311_count_non_water_drainage
+
+  category_selection:
+    method: precomputed_aggregated_columns
+    prefer_official_category_fields: true
+    allow_free_text_keyword_matching: false
+    audit_required: false
+    output_audit_file: null
+    raw_category_reconstruction_deferred_to_future_audit: true
+
+    keyword_families:
+      # Retained only for future raw-category reconstruction audits.
+      strict_candidates:
+        - eau
+        - égout
+        - egout
+        - drainage
+        - inondation
+        - refoulement
+        - ruissellement
+        - puisard
+        - catch basin
+        - water
+        - sewer
+        - flood
+        - stormwater
+        - runoff
+      ambiguous_needs_review:
+        - bassin
+        - cuvette
+      excluded_by_default: []
+
+    audit_requirements:
+      included_categories: false
+      excluded_categories: false
+      ambiguous_categories: false
+      keyword_hits_by_field: false
+      false_positive_notes: false
+      random_sample_included_rows: false
+      random_sample_excluded_near_miss_rows: false
+
+  count_target:
+    enabled: true
+    nonnegative_integer_required: true
+
+  binary_target:
+    enabled: true
+    rule: "water_drainage_count > 0"
+    note: >
+      This target exists for convenience, but the positive rate is high
+      (about 84.9% in the validated v0 panel), so binary classification should
+      not be the primary scientific benchmark.
+
+  magnitude_target:
+    official_classes_generated_in_modeling_pipeline: true
+    store_global_class_only_as_exploratory: false
+    exploratory_column: water_drainage_magnitude_class_exploratory
+    official_column_template: water_drainage_magnitude_class__{split_name}
+    threshold_storage_template: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/target_thresholds_{split_name}.json
+    class_labels:
+      0: no_reported_disruption
+      1: low_reported_disruption
+      2: moderate_reported_disruption
+      3: high_reported_disruption
+      4: extreme_reported_disruption
+    threshold_strategy: train_only_later_modeling_pipeline
+    allowed_threshold_strategies:
+      - zero_plus_positive_quartiles_train_only
+      - zero_one_q50_q90_train_only
+      - domain_informed_train_only
+
+spatial_assignment:
+  source_geometry_type: grid25m_month
+  method: grid_centroid_in_polygon
+  operational_v0_method: coordinate_row_centroid_in_polygon
+  allowed_methods:
+    - point_in_polygon
+    - grid_largest_area_overlap
+    - grid_centroid_in_polygon
+    - coordinate_row_centroid_in_polygon
+    - pre_aggregated_join
+    - DECISION_NEEDED
+
+  point_records:
+    enabled_if_source_type: point_records
+    method: point_in_polygon
+    target_geometry: census_tract_geometry
+    audit:
+      report_total_records: true
+      report_assigned_records: true
+      report_outside_study_area: true
+      report_missing_invalid_coordinates: true
+      report_crs_used: true
+
+  grid25m_month:
+    enabled_if_source_type: grid25m_month
+    preferred_method_if_polygons_exist: grid_largest_area_overlap
+    fallback_method_if_only_centroids_exist: grid_centroid_in_polygon
+    operational_v0_method: coordinate_row_centroid_in_polygon
+    coordinate_key:
+      - unit_id
+      - lon_centroid
+      - lat_centroid
+    source_crs: "EPSG:4326"
+    target_crs: "EPSG:3347"
+    boundary_warning_enabled: true
+    boundary_warning_distance_m: 25
+    audit_columns:
+      - coordinate_row_id
+      - unit_id
+      - lon_centroid
+      - lat_centroid
+      - x_centroid
+      - y_centroid
+      - assigned_zone_id
+      - assignment_method
+      - assigned
+      - coordinate_source
+      - coordinate_source_crs
+      - coordinate_target_crs
+
+  pre_aggregated:
+    enabled_if_source_type: pre_aggregated
+    required_spatial_unit: census_tract
+    fallback_requires_revised_contract: true
+
+prediction_settings:
+  default: retrospective_explanatory_v0
+
+  retrospective_explanatory_v0:
+    enabled: true
+    description: >
+      Retrospective setting for explaining/modeling same-month reported
+      water/drainage request burden. Not a real-time forecast.
+    allow_same_month_water_drainage_count_as_feature: false
+    allow_same_month_total_311_all_as_feature: false
+    allow_same_month_total_311_non_water_drainage_as_feature: true
+    allow_same_month_citywide_total_311_as_feature: true
+    allow_same_month_observed_weather_as_feature: false
+    required_report_label: retrospective_explanatory_v0
+
+  forecasting_v0:
+    enabled: true
+    description: >
+      Forecasting setting where only static, lagged, historical, or otherwise
+      pre-target-window information is allowed.
+    allow_same_month_water_drainage_count_as_feature: false
+    allow_same_month_total_311_all_as_feature: false
+    allow_same_month_total_311_non_water_drainage_as_feature: false
+    allow_same_month_observed_weather_as_feature: false
+    allow_lagged_water_drainage_count_features: true
+    allow_lagged_total_311_features: true
+    allow_historical_reporting_features: true
+    required_report_label: forecasting_v0
+
+features:
+  include_svi: true
+  include_reporting_controls: true
+  prefer_non_water_reporting_control: true
+  include_temporal_controls: true
+  include_weather_v0: false
+  include_environmental_v0: false
+  include_sovi_in_track_a: false
+
+  feature_sets:
+    svi_score_only:
+      enabled: true
+      columns:
+        - svi_score_raw
+        - svi_percentile
+        - svi_class
+        - svi_color_value_0_1
+
+    svi_domains:
+      enabled: true
+      column_patterns:
+        - "svi_theme_*"
+        - "theme_*"
+
+    svi_variables_full:
+      enabled: false
+      column_source: svi_input_variables
+      columns: null
+      note: >
+        Full SVI input variables are not yet explicitly joined as model features
+        in Dataset v0. The scored SVI output is joined first. The clean SVI
+        input table can be added later if feature-parity baselines require it.
+
+    geographic_static:
+      enabled: true
+      columns:
+        - land_area_km2
+        - population_total_2021
+        - population_density
+        - tract_centroid_x
+        - tract_centroid_y
+        - tract_centroid_lon
+        - tract_centroid_lat
+        - population_weighted_centroid_x
+        - population_weighted_centroid_y
+        - population_weighted_centroid_source
+
+    temporal_controls:
+      enabled: true
+      columns:
+        - year
+        - month
+        - period_start
+        - period_end
+
+    reporting_controls:
+      enabled: true
+      same_month_allowed_only_in_retrospective: true
+      prefer_non_water: true
+      columns:
+        - total_311_count_all
+        - total_311_count_non_water_drainage
+      planned_lagged_columns:
+        - total_311_count_all_lag_1
+        - total_311_count_non_water_drainage_lag_1
+        - total_311_count_non_water_drainage_lag_3_mean
+        - historical_total_311_rate
+        - citywide_total_311_count_month
+        - citywide_total_311_count_non_water_drainage_month
+
+    weather_v0:
+      enabled: false
+      columns:
+        - monthly_total_precipitation_mm
+        - max_daily_precipitation_mm
+        - number_of_heavy_rain_days
+        - antecedent_7day_rainfall_mm
+        - antecedent_30day_rainfall_mm
+        - rainfall_station_distance_km
+
+    environmental_v1_planned:
+      enabled: false
+      columns:
+        - cuvette_count
+        - cuvette_area_km2
+        - cuvette_area_pct
+        - heat_island_area_pct
+        - canopy_cover_pct
+        - vegetation_index_mean
+        - impervious_surface_pct
+        - mineralized_surface_pct
+        - mean_elevation
+        - min_elevation
+        - max_elevation
+        - mean_slope
+        - distance_to_water_m
+        - overflow_structure_count
+        - distance_to_nearest_overflow_structure_m
+
+panel:
+  complete_zero_filled_panel_required: true
+  frequency: month
+  period_column: period_month
+  period_start_column: period_start
+  period_end_column: period_end
+  zero_fill_targets:
+    - water_drainage_count
+    - total_311_count_all
+    - total_311_count_non_water_drainage
+    - active_grid_cell_count
+    - active_grid_coordinate_row_count
+
+splits:
+  create_in_dataset_v0: false
+  split_artifacts_planned:
+    random: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits_random.json
+    temporal: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits_temporal.json
+    spatial_block: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/splits_spatial_block.json
+
+  random:
+    enabled: true
+    purpose: debugging_only
+    main_scientific_evidence: false
+    seed: 42
+
+  temporal:
+    enabled: true
+    train_period: DECISION_NEEDED
+    validation_period: DECISION_NEEDED
+    test_period: DECISION_NEEDED
+
+  spatial_block:
+    enabled: true
+    block_definition: DECISION_NEEDED
+    allowed_block_definitions:
+      - borough
+      - arrondissement
+      - spatial_clusters
+      - grid_blocks
+      - administrative_sectors
+    main_spatial_generalization_split: true
+
+graph_evaluation:
+  graph_models_not_in_dataset_v0: true
+  spatial_holdout_mode: DECISION_NEEDED
+  allowed_modes:
+    - transductive
+    - inductive
+    - both
+  main_spatial_generalization_requires_leakage_control: true
+  report_requirements:
+    document_test_nodes_present_during_message_passing: true
+    document_train_to_test_edges: true
+    document_target_label_or_target_derived_feature_propagation_risk: true
+    label_transductive_results_as_transductive: true
+
+model_ladder:
+  implement_after_dataset_v0: true
+  stages:
+    A0_naive_temporal:
+      enabled: true
+      models:
+        - global_monthly_mean
+        - tract_historical_mean
+        - month_of_year_mean
+        - previous_month_persistence
+        - previous_year_same_month_if_available
+
+    A1_svi_direct_ranking:
+      enabled: true
+
+    A2_calibrated_svi:
+      enabled: true
+      candidate_families:
+        - poisson
+        - negative_binomial
+        - ordinal
+        - isotonic_or_quantile_calibration_for_ranking
+
+    A3_feature_parity_non_graph:
+      enabled: true
+      candidate_families:
+        - negative_binomial
+        - zero_inflated
+        - random_forest
+        - xgboost_or_lightgbm_if_allowed
+        - mlp
+        - gam_spatial_smooth
+
+    A4_graphsage_adjacency_only:
+      enabled: false
+      depends_on:
+        - A3_feature_parity_non_graph
+
+    A5_environmental_hgnn:
+      enabled: false
+      depends_on:
+        - A4_graphsage_adjacency_only
+
+    A6_random_or_permuted_graph_controls:
+      enabled: false
+
+metrics:
+  count:
+    - MAE
+    - RMSE
+    - mean_poisson_deviance
+    - mean_negative_binomial_log_likelihood
+    - spearman_rank_correlation
+    - pearson_correlation
+
+  binary:
+    - AUROC
+    - AUPRC
+    - F1
+    - balanced_accuracy
+    - precision
+    - recall
+    - brier_score
+    - calibration_curve
+
+  ordinal:
+    - macro_F1
+    - weighted_F1
+    - quadratic_weighted_kappa
+    - ordinal_cross_entropy
+    - mean_absolute_class_error
+    - confusion_matrix
+
+  ranking:
+    - Precision_at_K
+    - Recall_at_K
+    - NDCG_at_K
+    - top_decile_hit_rate
+    - spearman_rank_correlation
+    - kendall_tau
+
+  spatial_diagnostics:
+    - morans_i_residuals
+    - error_maps
+    - borough_level_residual_summaries
+    - performance_by_vulnerability_quartile
+    - performance_by_reporting_intensity_quartile
+
+validation:
+  fail_on_error: true
+  allow_warnings: true
+
+  required_checks:
+    - one_row_per_zone_month
+    - no_duplicate_zone_month_rows
+    - all_expected_tracts_represented_in_every_month
+    - zero_filled_missing_target_rows
+    - target_counts_nonnegative_integers
+    - date_parsing_consistent
+    - spatial_assignment_success_rate_documented
+    - coordinate_row_assignment_success_rate_documented
+    - svi_join_success_rate_documented
+    - no_missing_zone_id
+    - no_sovi_columns_in_track_a
+    - forecasting_features_have_no_future_information
+    - reporting_controls_labeled_same_month_lagged_or_historical
+    - provenance_written
+
+  thresholds:
+    min_spatial_assignment_success_rate: 0.999
+    min_coordinate_row_assignment_success_rate: 0.999
+    min_svi_join_success_rate: 1.0
+    max_missing_zone_id_count: 0
+
+provenance:
+  write: true
+  output_file: urban_graph_benchmark/outputs/mtl_311_water_v0/datasets/provenance.json
+  include:
+    - benchmark_id
+    - generation_timestamp
+    - git_commit_hash
+    - config_path
+    - config_hash
+    - raw_input_paths
+    - raw_input_hashes
+    - raw_row_counts
+    - filtered_row_counts
+    - study_area_definition
+    - crs_information
+    - spatial_join_method
+    - target_category_selection_method
+    - svi_source_path
+    - svi_source_version_or_run_directory
+    - number_of_tracts
+    - number_of_months
+    - number_of_tract_month_rows
+
+inventory:
+  output_json: urban_graph_benchmark/outputs/mtl_311_water_v0/reports/input_inventory.json
+  output_report: urban_graph_benchmark/outputs/mtl_311_water_v0/reports/input_inventory_report.md
+  explicitly_mark_unknowns: true
+  do_not_build_dataset: true
+
+  checks:
+    - montreal_311_grid25m_file_exists
+    - montreal_311_source_type_detected
+    - date_or_month_column_detected
+    - coordinate_grid_or_spatial_reference_detected
+    - time_range_detected
+    - tract_geometry_exists
+    - tract_geometry_crs_detected
+    - tract_geometry_id_column_detected
+    - svi_output_exists
+    - svi_id_column_detected
+    - svi_score_and_variables_detected
+    - tract_geometry_and_svi_join_possible
+
+runtime:
+  random_seed: 42
+  write_parquet: true
+  write_csv_previews: true
+  preview_row_count: 100
+  strict_mode: true
+
+validated_reference_run:
+  generated_at_utc: "2026-06-08T13:29:45.446956+00:00"
+  validation_status: pass
+  panel:
+    n_zones: 540
+    n_months: 53
+    expected_rows: 28620
+    actual_rows: 28620
+    zero_filled_tract_month_rows: 1549
+    period_month_min: "2022-01"
+    period_month_max: "2026-05"
+
+  spatial_assignment:
+    total_unique_grid_units: 42752
+    assigned_unique_grid_units: 42731
+    unassigned_unique_grid_units: 21
+    assignment_success_rate_unique_grid_units: 0.9995087949101796
+    total_unique_coordinate_rows: 83829
+    assigned_unique_coordinate_rows: 83805
+    unassigned_unique_coordinate_rows: 24
+    assignment_success_rate_coordinate_rows: 0.9997137028951795
+    units_with_multiple_coordinate_rows: 17655
+    units_with_multiple_assigned_tracts: 538
+    assigned_grid_month_rows_used: 760591
+    unassigned_grid_month_rows_excluded: 30
+
+  svi_join:
+    static_tracts_in_scope: 540
+    svi_rows: 1480
+    matched_static_tracts: 540
+    missing_svi_rows: 0
+    svi_join_success_rate: 1.0
+
+  target_distribution:
+    water_drainage_total_source: 150425
+    water_drainage_total_panel: 150422
+    water_drainage_total_difference_due_to_unassigned_rows: 3
+    requests_total_source: 1570335
+    requests_total_panel: 1570303
+    requests_total_difference_due_to_unassigned_rows: 32
+    water_drainage_positive_rate: 0.8488819007686932
+    water_drainage_mean: 5.255835
+    water_drainage_max: 71
+
+notes:
+  - Dataset v0 builds successfully with validation status pass.
+  - Dataset v0 uses a derived municipal Montréal 311 grid25m-month table as the direct benchmark input.
+  - The upstream raw/provenance source remains transformation/requetes311.csv.
+  - 311 requests are treated as reported municipal disruption signals, not objective physical flood incidents.
+  - Spatial assignment uses coordinate-row centroid-in-polygon, not unit_id-level first-coordinate assignment.
+  - Assignment uses lon_centroid/lat_centroid in EPSG:4326 reprojected to EPSG:3347.
+  - x_centroid/y_centroid are kept for audit but are not trusted as EPSG:3347 in v0.
+  - The final panel preserves source totals up to negligible losses from unassigned coordinate rows.
+  - SVI is allowed in Montréal tract-level Track A; SoVI is not a valid within-Montréal tract-level baseline.
+  - Population-weighted centroids, OSM routing, accessibility features, and environmental layers are planned for later modules.
