@@ -26,8 +26,6 @@ __pycache__/
 *.pkl
 *.joblib
 
-# Generated benchmark outputs
-urban_graph_benchmark/outputs/
 
 # Model checkpoints / tensor artifacts
 *.pt

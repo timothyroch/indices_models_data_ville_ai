@@ -1,0 +1,124 @@
+{
+  "stage_slug": "08_index_ml_graph_benchmark",
+  "generated_at": "2026-06-12T16:33:37.356258+00:00",
+  "repo_root": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push",
+  "config_path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/configs/mtl_311_water_v0.1.yaml",
+  "output_dir": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark",
+  "preferred_test_splits": [
+    "test",
+    "spatial_block_test",
+    "temporal_test",
+    "validation"
+  ],
+  "n_comparison_rows": 12,
+  "n_long_metric_rows": 72,
+  "inputs": [
+    {
+      "input": "A0 metrics",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A0_naive_temporal/metrics.csv",
+      "exists": true,
+      "required_for_core_comparison": false,
+      "status": "available"
+    },
+    {
+      "input": "A1 SVI metrics",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A1_svi_direct_ranking/metrics.csv",
+      "exists": true,
+      "required_for_core_comparison": true,
+      "status": "available"
+    },
+    {
+      "input": "A2 calibrated SVI metrics",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A2_calibrated_svi/metrics.csv",
+      "exists": true,
+      "required_for_core_comparison": false,
+      "status": "available"
+    },
+    {
+      "input": "SoVI metrics",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A1_sovi_direct_ranking/metrics.csv",
+      "exists": false,
+      "required_for_core_comparison": false,
+      "status": "missing"
+    },
+    {
+      "input": "A3 spatial directory",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A3_feature_parity_tabular_spatial_block",
+      "exists": true,
+      "required_for_core_comparison": true,
+      "status": "available"
+    },
+    {
+      "input": "G1 spatial directory",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/G1_spatiotemporal_gnn_spatial_core_ndcg_monitor",
+      "exists": true,
+      "required_for_core_comparison": false,
+      "status": "available"
+    },
+    {
+      "input": "G1.5 validation-sweep directory",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/G1_5_validation_sweep_spatial_ndcg",
+      "exists": true,
+      "required_for_core_comparison": true,
+      "status": "available"
+    },
+    {
+      "input": "logical_row:SOVI",
+      "path": "",
+      "exists": false,
+      "required_for_core_comparison": false,
+      "status": "SoVI metrics not found at /home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A1_sovi_direct_ranking/metrics.csv. This is expected until the SoVI benchmark adapter is generated."
+    }
+  ],
+  "outputs": [
+    {
+      "artifact": "metrics_long",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/index_ml_graph_metrics_long.csv"
+    },
+    {
+      "artifact": "comparison",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/benchmark_comparison.csv"
+    },
+    {
+      "artifact": "compact",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/benchmark_comparison_compact.csv"
+    },
+    {
+      "artifact": "winners",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/metric_winners.csv"
+    },
+    {
+      "artifact": "margins",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/family_margin_table.csv"
+    },
+    {
+      "artifact": "missing",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/missing_input_audit.csv"
+    },
+    {
+      "artifact": "metadata",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/comparison_metadata.json"
+    },
+    {
+      "artifact": "report",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/benchmark_interpretation.md"
+    },
+    {
+      "artifact": "plot_mae",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/mae.png"
+    },
+    {
+      "artifact": "plot_spearman",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/spearman.png"
+    },
+    {
+      "artifact": "plot_ndcg_at_100",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/ndcg_at_100.png"
+    },
+    {
+      "artifact": "plot_top_10pct_overlap_rate",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/top_10pct_overlap_rate.png"
+    }
+  ],
+  "interpretation_policy": "Graph/neural wins over SVI/SoVI/A3 are separated from topology-specific claims. Topology-specific evidence requires graph-family rows to beat no-edge and placebo controls."
+}

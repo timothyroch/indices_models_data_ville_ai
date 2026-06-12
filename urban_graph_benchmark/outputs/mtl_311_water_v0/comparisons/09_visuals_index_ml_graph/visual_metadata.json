@@ -1,0 +1,56 @@
+{
+  "stage_slug": "09_visuals_index_ml_graph",
+  "generated_at": "2026-06-12T17:16:34.422550+00:00",
+  "comparison_dir": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark",
+  "g15_dir": "urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/G1_5_validation_sweep_spatial_ndcg",
+  "g1_dir": "urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/G1_spatiotemporal_gnn_spatial_core_ndcg_monitor",
+  "graph_dir": "urban_graph_benchmark/outputs/mtl_311_water_v0/graphs/G1_tract_month_graph",
+  "output_dir": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph",
+  "graph_sample_month": "2022-09",
+  "graph_sample_nodes": 55,
+  "graph_sample_edges": 320,
+  "dense_graph_month": "2022-09",
+  "dense_graph_nodes": 540,
+  "dense_graph_edges": 4320,
+  "full_graph_edge_mode": "both",
+  "full_graph_stats": {
+    "real": {
+      "nodes": 28620,
+      "edges": 279180
+    },
+    "artifact": {
+      "nodes": 28620,
+      "edges": 508140
+    }
+  },
+  "max_full_edges_to_draw": 600000,
+  "write_full_cyjs": true,
+  "full_cyjs_edge_limit": 700000,
+  "networkx_available": true,
+  "networkx_required": false,
+  "outputs": {
+    "fig_01_benchmark_metric_panels": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/figures/01_benchmark_metric_panels.png",
+    "fig_02_index_vs_learned_ranking_gap": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/figures/02_index_vs_learned_ranking_gap.png",
+    "fig_03_family_margin_panels": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/figures/03_family_margin_panels.png",
+    "fig_04_g1_family_comparison": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/figures/04_g1_family_comparison.png",
+    "fig_05_g1_validation_sweep_heatmap": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/figures/05_g1_validation_sweep_heatmap.png",
+    "fig_06_benchmark_pipeline_schema": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/figures/06_benchmark_pipeline_schema.png",
+    "fig_07_tract_month_graph_sample": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/figures/07_tract_month_graph_sample.png",
+    "cytoscape_nodes": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/tract_month_graph_sample_nodes.csv",
+    "cytoscape_edges": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/tract_month_graph_sample_edges.csv",
+    "cytoscape_cyjs": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/tract_month_graph_sample.cyjs",
+    "cytoscape_graphml": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/tract_month_graph_sample.graphml",
+    "fig_08_one_month_spatial_graph_dense": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/figures/08_one_month_spatial_graph_dense.png",
+    "one_month_spatial_graph_dense_nodes": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/one_month_spatial_graph_dense_nodes.csv",
+    "one_month_spatial_graph_dense_edges": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/one_month_spatial_graph_dense_edges.csv",
+    "one_month_spatial_graph_dense_cyjs": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/one_month_spatial_graph_dense.cyjs",
+    "fig_09_full_tract_month_graph_spatial_cloud": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/figures/09_full_tract_month_graph_spatial_cloud.png",
+    "full_tract_month_graph_spatial_cloud_nodes": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/full_tract_month_graph_spatial_cloud_nodes.csv",
+    "full_tract_month_graph_spatial_cloud_edges": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/full_tract_month_graph_spatial_cloud_edges.csv",
+    "full_tract_month_graph_spatial_cloud_cyjs": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/full_tract_month_graph_spatial_cloud.cyjs",
+    "fig_10_full_artifact_graph_spatial_cloud_with_placebo": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/figures/10_full_artifact_graph_spatial_cloud_with_placebo.png",
+    "full_artifact_graph_spatial_cloud_with_placebo_nodes": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/full_artifact_graph_spatial_cloud_with_placebo_nodes.csv",
+    "full_artifact_graph_spatial_cloud_with_placebo_edges": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/full_artifact_graph_spatial_cloud_with_placebo_edges.csv",
+    "full_artifact_graph_spatial_cloud_with_placebo_cyjs": "urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/09_visuals_index_ml_graph/cytoscape/full_artifact_graph_spatial_cloud_with_placebo.cyjs"
+  }
+}

@@ -1,0 +1,9 @@
+input,path,exists,required_for_core_comparison,status,source,issue
+A0 metrics,/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A0_naive_temporal/metrics.csv,True,False,available,,
+A1 SVI metrics,/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A1_svi_direct_ranking/metrics.csv,True,True,available,,
+A2 calibrated SVI metrics,/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A2_calibrated_svi/metrics.csv,True,False,available,,
+SoVI metrics,/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A1_sovi_direct_ranking/metrics.csv,False,False,missing,,
+A3 spatial directory,/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A3_feature_parity_tabular_spatial_block,True,True,available,,
+G1 spatial directory,/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/G1_spatiotemporal_gnn_spatial_core_ndcg_monitor,True,False,available,,
+G1.5 validation-sweep directory,/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/G1_5_validation_sweep_spatial_ndcg,True,True,available,,
+logical_row,,False,False,SoVI metrics not found at /home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A1_sovi_direct_ranking/metrics.csv. This is expected until the SoVI benchmark adapter is generated.,SOVI,SoVI metrics not found at /home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/baselines/A1_sovi_direct_ranking/metrics.csv. This is expected until the SoVI benchmark adapter is generated.
