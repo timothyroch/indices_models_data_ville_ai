@@ -1,8 +1,15 @@
 # Virtual environment
 .venv/
 
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
 # Spatial data and GIS sidecar files
 *.geojson
+*.gkpg
 *.gpkp
 *.dbf
 *.prj
@@ -10,11 +17,29 @@
 *.shx
 *.gpkg
 
-# Data formats (handles case sensitivity like CSV/csv)
+# Raw / generated data formats
 *.[cC][sS][vV]
 *.parquet
 *.json
 *.xml
-# Python cache
-__pycache__/
-*.pyc
+*.feather
+*.pkl
+*.joblib
+
+# Generated benchmark outputs
+urban_graph_benchmark/outputs/
+
+# Model checkpoints / tensor artifacts
+*.pt
+*.pth
+*.ckpt
+*.npy
+*.npz
+
+# Large graph exchange artifacts
+*.cyjs
+*.graphml
+
+# Local logs / temporary files
+*.log
+.DS_Store
