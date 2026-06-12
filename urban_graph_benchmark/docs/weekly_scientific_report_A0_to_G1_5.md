@@ -36,8 +36,6 @@ The evaluation emphasizes two distinct questions:
 
 The ranking metrics are particularly important for municipal decision support because the practical question is often not only “what exact count will occur?”, but also “which tract-months should be prioritized?” This distinction became important when comparing A3 and G1/G1.5: the graph/neural layer is more promising on high-risk ranking than on average count calibration.
 
-A caveat is that some early index baselines are currently evaluated under temporal-test conditions, whereas the strongest A3/G1/G1.5 comparisons are spatial-block tests. This is acceptable for the current internal benchmark summary, but the next clean benchmark consolidation should place SVI and SoVI on the same spatial-block comparison whenever possible.
-
 ---
 
 ## 3. Benchmark layers produced this week
@@ -62,7 +60,7 @@ The retrospective A2 result is useful diagnostically: reporting history and cali
 
 ### 3.4 A3 — feature-parity tabular ML
 
-A3 is the strongest non-graph supervised baseline. It uses forecasting-safe tabular features, including lagged reporting features and spatial/static covariates, while avoiding same-month target leakage. This is the key baseline that makes the graph comparison scientifically serious.
+A3 is the strongest non-graph supervised baseline. It uses forecasting-safe tabular features, including lagged reporting features and spatial/static covariates, while avoiding same-month target leakage.
 
 The best spatial-block A3 model is a histogram gradient boosting Poisson model using lagged reporting features. It performs strongly on both count and ranking metrics and is currently the strongest non-graph tabular baseline.
 
@@ -152,7 +150,6 @@ Several safeguards were added to avoid over-interpreting early results:
 - **Ranking-oriented metrics.** NDCG@100 and top-10% overlap are reported alongside MAE and Spearman because municipal prioritization is partly a ranking problem.
 - **Explicit interpretation boundary.** The current results support learned benchmarking and graph/neural exploration, but not yet a strong claim that the current spatial topology is the source of improvement.
 
-One methodological caveat remains: not every benchmark row is currently evaluated under the exact same split scheme. The clean next step is to place SVI and SoVI baselines under the same spatial-block comparison as A3/G1/G1.5.
 
 ---
 
@@ -171,14 +168,6 @@ The current results raise several technical questions where feedback would be us
 
 The immediate next steps are:
 
-1. **Add a SoVI-style benchmark row.** This should be integrated into the same comparison table as SVI, A3, and G1/G1.5.
-2. **Harmonize split comparisons.** SVI and SoVI should be evaluated on the same spatial-block test setting when possible.
-3. **Freeze the first benchmark layer.** A0–G1/G1.5 now provides a useful baseline ladder from static indices to learned models.
-4. **Move toward a more advanced graph model.** The next graph model should focus less on generic architecture tuning and more on better graph construction or learned dependencies.
-5. **Preserve control results in the report.** The no-edge and placebo controls should remain visible because they make the analysis more credible and clarify what the current graph does and does not prove.
-
----
-
-## 9. Proposed concise conclusion
-
-This week’s work produced a complete first benchmark ladder from static vulnerability indices to tabular ML and graph/neural models. The main conclusion is that raw SVI-style composite scores are not competitive as direct predictors or rankers of tract-month water/drainage 311 burden, whereas learned models are substantially stronger. A3 provides a strong tabular baseline, and G1/G1.5 shows that graph/neural models can improve high-risk ranking, particularly NDCG@100. However, because no-edge and random-placebo controls remain very strong, the current spatial graph topology should be interpreted as an initial graph construction rather than a validated final topology. The benchmark is now strong enough to justify moving forward, with the next priority being SoVI integration and a more advanced graph model with improved urban-dependency structure.
+1. **Add a SoVI-style benchmark row.**
+2. **Freeze the first benchmark layer.** 
+3. **Move toward a more advanced graph model.**
