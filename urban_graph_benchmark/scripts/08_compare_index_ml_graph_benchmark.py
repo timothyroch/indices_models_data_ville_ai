@@ -89,7 +89,16 @@ CANONICAL_METRICS = [
     "rmse",
     "mean_poisson_deviance",
     "spearman",
+    "kendall",
+    "ndcg_at_10",
+    "ndcg_at_25",
+    "ndcg_at_50",
     "ndcg_at_100",
+    "top10_overlap_rate",
+    "top25_overlap_rate",
+    "top50_overlap_rate",
+    "top100_overlap_rate",
+    "top_5pct_overlap_rate",
     "top_10pct_overlap_rate",
 ]
 
@@ -99,7 +108,15 @@ METRIC_LABELS = {
     "mean_poisson_deviance": "Poisson deviance",
     "spearman": "Spearman",
     "kendall": "Kendall",
+    "ndcg_at_10": "NDCG@10",
+    "ndcg_at_25": "NDCG@25",
+    "ndcg_at_50": "NDCG@50",
     "ndcg_at_100": "NDCG@100",
+    "top10_overlap_rate": "Top-10 overlap",
+    "top25_overlap_rate": "Top-25 overlap",
+    "top50_overlap_rate": "Top-50 overlap",
+    "top100_overlap_rate": "Top-100 overlap",
+    "top_5pct_overlap_rate": "Top-5% overlap",
     "top_10pct_overlap_rate": "Top-10% overlap",
 }
 
@@ -109,7 +126,15 @@ METRIC_DIRECTIONS = {
     "mean_poisson_deviance": False,
     "spearman": True,
     "kendall": True,
+    "ndcg_at_10": True,
+    "ndcg_at_25": True,
+    "ndcg_at_50": True,
     "ndcg_at_100": True,
+    "top10_overlap_rate": True,
+    "top25_overlap_rate": True,
+    "top50_overlap_rate": True,
+    "top100_overlap_rate": True,
+    "top_5pct_overlap_rate": True,
     "top_10pct_overlap_rate": True,
 }
 
@@ -120,7 +145,15 @@ DISPLAY_TO_CANONICAL = {
     "count_prediction__mean_poisson_deviance": "mean_poisson_deviance",
     "tract_month_ranking__spearman_corr": "spearman",
     "tract_month_ranking__kendall_corr": "kendall",
+    "tract_month_ranking__ndcg_at_10": "ndcg_at_10",
+    "tract_month_ranking__ndcg_at_25": "ndcg_at_25",
+    "tract_month_ranking__ndcg_at_50": "ndcg_at_50",
     "tract_month_ranking__ndcg_at_100": "ndcg_at_100",
+    "tract_month_ranking__top10_overlap_rate": "top10_overlap_rate",
+    "tract_month_ranking__top25_overlap_rate": "top25_overlap_rate",
+    "tract_month_ranking__top50_overlap_rate": "top50_overlap_rate",
+    "tract_month_ranking__top100_overlap_rate": "top100_overlap_rate",
+    "tract_month_ranking__top_5pct_overlap_rate": "top_5pct_overlap_rate",
     "tract_month_ranking__top_10pct_overlap_rate": "top_10pct_overlap_rate",
     "tract_month_ranking__top_10pct_overlap_precision": "top_10pct_overlap_rate",
 }
@@ -131,7 +164,15 @@ G15_TO_CANONICAL = {
     "test_mean_poisson_deviance": "mean_poisson_deviance",
     "test_spearman": "spearman",
     "test_kendall": "kendall",
+    "test_ndcg_at_10": "ndcg_at_10",
+    "test_ndcg_at_25": "ndcg_at_25",
+    "test_ndcg_at_50": "ndcg_at_50",
     "test_ndcg_at_100": "ndcg_at_100",
+    "test_top10_overlap_rate": "top10_overlap_rate",
+    "test_top25_overlap_rate": "top25_overlap_rate",
+    "test_top50_overlap_rate": "top50_overlap_rate",
+    "test_top100_overlap_rate": "top100_overlap_rate",
+    "test_top_5pct_overlap_rate": "top_5pct_overlap_rate",
     "test_top_10pct_overlap_rate": "top_10pct_overlap_rate",
 }
 
@@ -677,15 +718,7 @@ def load_g1_selected_from_dir(g1_dir: Path, preferred_splits: Sequence[str]) -> 
             "is_graph_family": bool(is_graph),
             "is_control_family": bool(is_control),
         }
-        mapping = {
-            "test_mae": "mae",
-            "test_rmse": "rmse",
-            "test_mean_poisson_deviance": "mean_poisson_deviance",
-            "test_spearman": "spearman",
-            "test_ndcg_at_100": "ndcg_at_100",
-            "test_top_10pct_overlap_rate": "top_10pct_overlap_rate",
-        }
-        for src, dst in mapping.items():
+        for src, dst in G15_TO_CANONICAL.items():
             row[dst] = pd.to_numeric(pd.Series([item.get(src, math.nan)]), errors="coerce").iloc[0]
         rows.append(row)
 
@@ -707,11 +740,20 @@ def load_g1_5_from_dir(g1_5_dir: Path) -> tuple[list[dict[str, Any]], list[str]]
 
     rows: list[dict[str, Any]] = []
     for _, item in final.iterrows():
-        family = str(item.get("family", ""))
-        role = str(item.get("comparison_role", ""))
-        if family.lower() == "nan" or family == "":
-            # Usually the A3 row from G1.5. Keep it out to avoid duplicate A3 rows;
-            # A3 is loaded from the frozen A3 directory directly.
+        family = str(item.get("family", "")).strip()
+        role = str(item.get("comparison_role", "")).strip()
+        source = str(item.get("source", "")).strip()
+
+        # The G1.5 final_comparison.csv may carry the frozen A3 reference row
+        # used during the sweep comparison. Script 08 already loads A3 directly
+        # from the frozen A3 spatial-block directory, so this embedded reference
+        # must not be counted as a G1.5 graph/neural family.
+        if (
+            family.lower() in {"", "nan", "a3_frozen", "a3", "a3_tabular", "a3 tabular ml"}
+            or source.lower().startswith("a3")
+            or "a3_frozen" in role.lower()
+            or "a3 frozen" in role.lower()
+        ):
             continue
         if family == "no_edges":
             label = "G1.5 selected no-edge neural control"
@@ -808,10 +850,7 @@ def compact_comparison(comparison: pd.DataFrame) -> pd.DataFrame:
         "family",
         "selection_policy",
         "split_name",
-        "mae",
-        "spearman",
-        "ndcg_at_100",
-        "top_10pct_overlap_rate",
+        *CANONICAL_METRICS,
         "role",
     ]
     cols = [c for c in cols if c in comparison.columns]
@@ -822,7 +861,7 @@ def metric_winners(comparison: pd.DataFrame) -> pd.DataFrame:
     """Winners among comparison rows for core metrics."""
 
     rows: list[dict[str, Any]] = []
-    for metric in ["mae", "spearman", "ndcg_at_100", "top_10pct_overlap_rate"]:
+    for metric in CANONICAL_METRICS:
         if metric not in comparison.columns:
             continue
         tmp = comparison.copy()
@@ -887,7 +926,7 @@ def build_family_margin_table(comparison: pd.DataFrame) -> pd.DataFrame:
         ("best_graph_family", "best_control_family", "Graph family vs no-edge/placebo controls"),
         ("best_control_family", "A3_tabular", "Control family vs A3 tabular ML"),
     ]
-    for metric in ["mae", "spearman", "ndcg_at_100", "top_10pct_overlap_rate"]:
+    for metric in CANONICAL_METRICS:
         for left_key, right_key, description in comparisons:
             left = best_row_by_group(comparison, predicates[left_key], metric)
             right = best_row_by_group(comparison, predicates[right_key], metric)
@@ -971,13 +1010,7 @@ def render_interpretation_report(
 
     lines.append("## Compact comparison\n")
     display = compact.copy()
-    rename = {
-        "mae": "MAE",
-        "spearman": "Spearman",
-        "ndcg_at_100": "NDCG@100",
-        "top_10pct_overlap_rate": "Top-10% overlap",
-    }
-    display = display.rename(columns=rename)
+    display = display.rename(columns=METRIC_LABELS)
     lines.append(dataframe_to_markdown(display, max_rows=120))
     lines.append("")
 
@@ -1123,10 +1156,8 @@ def make_plots(comparison: pd.DataFrame, plots_dir: Path) -> list[dict[str, str]
     if plt is None:
         return []
     specs = [
-        ("mae", "MAE by benchmark row", False),
-        ("spearman", "Spearman by benchmark row", True),
-        ("ndcg_at_100", "NDCG@100 by benchmark row", True),
-        ("top_10pct_overlap_rate", "Top-10% overlap by benchmark row", True),
+        (metric, f"{METRIC_LABELS.get(metric, metric)} by benchmark row", METRIC_DIRECTIONS.get(metric, True))
+        for metric in CANONICAL_METRICS
     ]
     outputs: list[dict[str, str]] = []
     for metric, title, higher in specs:

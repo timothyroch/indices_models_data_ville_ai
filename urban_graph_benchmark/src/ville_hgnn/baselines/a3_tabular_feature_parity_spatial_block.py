@@ -1688,7 +1688,16 @@ def compact_metrics_summary(metrics: pd.DataFrame, selected_models: Sequence[str
         "count__rmse",
         "count__mean_poisson_deviance",
         "ranking__spearman_corr",
+        "ranking__kendall_corr",
+        "ranking__ndcg_at_10",
+        "ranking__ndcg_at_25",
+        "ranking__ndcg_at_50",
         "ranking__ndcg_at_100",
+        "ranking__top10_overlap_rate",
+        "ranking__top25_overlap_rate",
+        "ranking__top50_overlap_rate",
+        "ranking__top100_overlap_rate",
+        "ranking__top_5pct_overlap_rate",
         "ranking__top_10pct_overlap_rate",
     ]
 

@@ -446,19 +446,12 @@ Interpretation:
 
 ### 10.1 Purpose
 
-G1.5 was introduced as a neutral, research-grade architecture selection step:
 
 ```text
 G1.5 = validation-selected G1 architecture sweep
 primary selection metric = validation NDCG@100
 final comparison = spatial-block test metrics
 controls = A3, no_edges MLP, random spatial placebo
-```
-
-The term “rescue” was deliberately avoided in repository/public language. The correct public framing is:
-
-```text
-validation-selected architecture sweep
 ```
 
 ### 10.2 Files
@@ -775,7 +768,6 @@ This shows one monthly spatial layer:
 4,320 spatial kNN edges
 ```
 
-This figure is interpretable and research-grade. It uses geographic-like tract coordinates, subtle spatial edges, node color for `log1p(water_drainage_count)`, and red rings for high-burden tracts.
 
 #### Full real graph hairball / spatial-cloud views
 

@@ -1,17 +1,61 @@
 comparison,metric,metric_label,higher_is_better,left_label,left_value,right_label,right_value,positive_margin_means_left_better
-Graph family vs composite/calibrated index,mae,MAE,False,G1.5 selected A3_frozen,2.339043068235915,A2 calibrated SVI retrospective,2.5224338736748293,0.1833908054389144
-Graph family vs A3 tabular ML,mae,MAE,False,G1.5 selected A3_frozen,2.339043068235915,A3 selected tabular ML,2.339043068235915,0.0
-Graph family vs no-edge/placebo controls,mae,MAE,False,G1.5 selected A3_frozen,2.339043068235915,G1.5 selected random spatial placebo,2.293356554003595,-0.04568651423231973
-Control family vs A3 tabular ML,mae,MAE,False,G1.5 selected random spatial placebo,2.293356554003595,A3 selected tabular ML,2.339043068235915,0.04568651423231973
+Graph family vs composite/calibrated index,mae,MAE,False,G1 pilot spatial_temporal,2.681485102477404,A2 calibrated SVI retrospective,2.5224338736748293,-0.1590512288025745
+Graph family vs A3 tabular ML,mae,MAE,False,G1 pilot spatial_temporal,2.681485102477404,A3 selected tabular ML,2.339043068235915,-0.3424420342414889
+Graph family vs no-edge/placebo controls,mae,MAE,False,G1 pilot spatial_temporal,2.681485102477404,G1.5 selected no-edge neural control,2.411409161670876,-0.27007594080652764
+Control family vs A3 tabular ML,mae,MAE,False,G1.5 selected no-edge neural control,2.411409161670876,A3 selected tabular ML,2.339043068235915,-0.07236609343496125
+Graph family vs composite/calibrated index,rmse,RMSE,False,G1.5 selected temporal graph,4.525746194217037,A2 calibrated SVI retrospective,3.6631992369586586,-0.8625469572583784
+Graph family vs A3 tabular ML,rmse,RMSE,False,G1.5 selected temporal graph,4.525746194217037,A3 selected tabular ML,3.691093019032263,-0.8346531751847741
+Graph family vs no-edge/placebo controls,rmse,RMSE,False,G1.5 selected temporal graph,4.525746194217037,G1.5 selected no-edge neural control,3.9519407638216695,-0.5738054303953675
+Control family vs A3 tabular ML,rmse,RMSE,False,G1.5 selected no-edge neural control,3.9519407638216695,A3 selected tabular ML,3.691093019032263,-0.26084774478940664
+Graph family vs composite/calibrated index,mean_poisson_deviance,Poisson deviance,False,G1.5 selected temporal graph,2.96634447318247,A2 calibrated SVI retrospective,2.522685308158086,-0.4436591650243842
+Graph family vs A3 tabular ML,mean_poisson_deviance,Poisson deviance,False,G1.5 selected temporal graph,2.96634447318247,A3 selected tabular ML,2.07692748228459,-0.88941699089788
+Graph family vs no-edge/placebo controls,mean_poisson_deviance,Poisson deviance,False,G1.5 selected temporal graph,2.96634447318247,G1.5 selected no-edge neural control,2.368276595632518,-0.5980678775499522
+Control family vs A3 tabular ML,mean_poisson_deviance,Poisson deviance,False,G1.5 selected no-edge neural control,2.368276595632518,A3 selected tabular ML,2.07692748228459,-0.2913491133479278
 Graph family vs composite/calibrated index,spearman,Spearman,True,G1.5 selected temporal graph,0.7660716586751268,A2 calibrated SVI retrospective,0.6717356179949928,0.09433604068013401
 Graph family vs A3 tabular ML,spearman,Spearman,True,G1.5 selected temporal graph,0.7660716586751268,A3 selected tabular ML,0.7623804894038384,0.0036911692712884303
-Graph family vs no-edge/placebo controls,spearman,Spearman,True,G1.5 selected temporal graph,0.7660716586751268,G1.5 selected random spatial placebo,0.7771730769863643,-0.011101418311237454
-Control family vs A3 tabular ML,spearman,Spearman,True,G1.5 selected random spatial placebo,0.7771730769863643,A3 selected tabular ML,0.7623804894038384,0.014792587582525885
-Graph family vs composite/calibrated index,ndcg_at_100,NDCG@100,True,G1 pilot spatial_temporal,0.8059698282233841,A2 calibrated SVI retrospective,0.7025077782253104,0.10346204999807374
-Graph family vs A3 tabular ML,ndcg_at_100,NDCG@100,True,G1 pilot spatial_temporal,0.8059698282233841,A3 selected tabular ML,0.7847889601242838,0.02118086809910036
-Graph family vs no-edge/placebo controls,ndcg_at_100,NDCG@100,True,G1 pilot spatial_temporal,0.8059698282233841,G1.5 selected no-edge neural control,0.8057676838118324,0.00020214441155175233
+Graph family vs no-edge/placebo controls,spearman,Spearman,True,G1.5 selected temporal graph,0.7660716586751268,G1.5 selected no-edge neural control,0.7637837007561793,0.0022879579189475363
+Control family vs A3 tabular ML,spearman,Spearman,True,G1.5 selected no-edge neural control,0.7637837007561793,A3 selected tabular ML,0.7623804894038384,0.001403211352340894
+Graph family vs composite/calibrated index,kendall,Kendall,True,G1.5 selected temporal graph,0.5966653418819627,A2 calibrated SVI retrospective,0.5086248671727982,0.08804047470916454
+Graph family vs A3 tabular ML,kendall,Kendall,True,G1.5 selected temporal graph,0.5966653418819627,A3 selected tabular ML,0.5944173128175957,0.002248029064367052
+Graph family vs no-edge/placebo controls,kendall,Kendall,True,G1.5 selected temporal graph,0.5966653418819627,G1.5 selected no-edge neural control,0.5946833243135345,0.001982017568428196
+Control family vs A3 tabular ML,kendall,Kendall,True,G1.5 selected no-edge neural control,0.5946833243135345,A3 selected tabular ML,0.5944173128175957,0.000266011495938856
+Graph family vs composite/calibrated index,ndcg_at_10,NDCG@10,True,G1.5 selected spatial-temporal graph,0.5999792118301839,A2 calibrated SVI retrospective,0.7469565511824083,-0.14697733935222446
+Graph family vs A3 tabular ML,ndcg_at_10,NDCG@10,True,G1.5 selected spatial-temporal graph,0.5999792118301839,A3 selected tabular ML,0.5472302172626053,0.05274899456757853
+Graph family vs no-edge/placebo controls,ndcg_at_10,NDCG@10,True,G1.5 selected spatial-temporal graph,0.5999792118301839,G1.5 selected random spatial placebo,0.66810203437255,-0.06812282254236612
+Control family vs A3 tabular ML,ndcg_at_10,NDCG@10,True,G1.5 selected random spatial placebo,0.66810203437255,A3 selected tabular ML,0.5472302172626053,0.12087181710994466
+Graph family vs composite/calibrated index,ndcg_at_25,NDCG@25,True,G1.5 selected temporal graph,0.6660590097231069,A2 calibrated SVI retrospective,0.6914347022534293,-0.025375692530322347
+Graph family vs A3 tabular ML,ndcg_at_25,NDCG@25,True,G1.5 selected temporal graph,0.6660590097231069,A3 selected tabular ML,0.6342331900934612,0.0318258196296457
+Graph family vs no-edge/placebo controls,ndcg_at_25,NDCG@25,True,G1.5 selected temporal graph,0.6660590097231069,G1.5 selected random spatial placebo,0.7062994362283026,-0.04024042650519566
+Control family vs A3 tabular ML,ndcg_at_25,NDCG@25,True,G1.5 selected random spatial placebo,0.7062994362283026,A3 selected tabular ML,0.6342331900934612,0.07206624613484136
+Graph family vs composite/calibrated index,ndcg_at_50,NDCG@50,True,G1.5 selected temporal graph,0.7388805453778329,A2 calibrated SVI retrospective,0.7061043705736528,0.03277617480418005
+Graph family vs A3 tabular ML,ndcg_at_50,NDCG@50,True,G1.5 selected temporal graph,0.7388805453778329,A3 selected tabular ML,0.7519444314074359,-0.013063886029603067
+Graph family vs no-edge/placebo controls,ndcg_at_50,NDCG@50,True,G1.5 selected temporal graph,0.7388805453778329,G1.5 selected no-edge neural control,0.7670521377272117,-0.028171592349378827
+Control family vs A3 tabular ML,ndcg_at_50,NDCG@50,True,G1.5 selected no-edge neural control,0.7670521377272117,A3 selected tabular ML,0.7519444314074359,0.01510770631977576
+Graph family vs composite/calibrated index,ndcg_at_100,NDCG@100,True,G1.5 selected spatial-temporal graph,0.8056457767599435,A2 calibrated SVI retrospective,0.7025077782253104,0.10313799853463312
+Graph family vs A3 tabular ML,ndcg_at_100,NDCG@100,True,G1.5 selected spatial-temporal graph,0.8056457767599435,A3 selected tabular ML,0.7847889601242838,0.020856816635659747
+Graph family vs no-edge/placebo controls,ndcg_at_100,NDCG@100,True,G1.5 selected spatial-temporal graph,0.8056457767599435,G1.5 selected no-edge neural control,0.8057676838118324,-0.00012190705188885875
 Control family vs A3 tabular ML,ndcg_at_100,NDCG@100,True,G1.5 selected no-edge neural control,0.8057676838118324,A3 selected tabular ML,0.7847889601242838,0.020978723687548606
-Graph family vs composite/calibrated index,top_10pct_overlap_rate,Top-10% overlap,True,G1.5 selected temporal graph,0.6280193236714976,A2 calibrated SVI retrospective,0.4629629629629629,0.1650563607085347
-Graph family vs A3 tabular ML,top_10pct_overlap_rate,Top-10% overlap,True,G1.5 selected temporal graph,0.6280193236714976,A3 selected tabular ML,0.6183574879227053,0.009661835748792313
-Graph family vs no-edge/placebo controls,top_10pct_overlap_rate,Top-10% overlap,True,G1.5 selected temporal graph,0.6280193236714976,G1.5 selected random spatial placebo,0.642512077294686,-0.01449275362318836
-Control family vs A3 tabular ML,top_10pct_overlap_rate,Top-10% overlap,True,G1.5 selected random spatial placebo,0.642512077294686,A3 selected tabular ML,0.6183574879227053,0.024154589371980673
+Graph family vs composite/calibrated index,top10_overlap_rate,Top-10 overlap,True,G1.5 selected temporal graph,0.1,A2 calibrated SVI retrospective,0.3,-0.19999999999999998
+Graph family vs A3 tabular ML,top10_overlap_rate,Top-10 overlap,True,G1.5 selected temporal graph,0.1,A3 selected tabular ML,0.0,0.1
+Graph family vs no-edge/placebo controls,top10_overlap_rate,Top-10 overlap,True,G1.5 selected temporal graph,0.1,G1.5 selected random spatial placebo,0.2,-0.1
+Control family vs A3 tabular ML,top10_overlap_rate,Top-10 overlap,True,G1.5 selected random spatial placebo,0.2,A3 selected tabular ML,0.0,0.2
+Graph family vs composite/calibrated index,top25_overlap_rate,Top-25 overlap,True,G1.5 selected temporal graph,0.28,A2 calibrated SVI retrospective,0.28,0.0
+Graph family vs A3 tabular ML,top25_overlap_rate,Top-25 overlap,True,G1.5 selected temporal graph,0.28,A3 selected tabular ML,0.12,0.16000000000000003
+Graph family vs no-edge/placebo controls,top25_overlap_rate,Top-25 overlap,True,G1.5 selected temporal graph,0.28,G1.5 selected no-edge neural control,0.32,-0.03999999999999998
+Control family vs A3 tabular ML,top25_overlap_rate,Top-25 overlap,True,G1.5 selected no-edge neural control,0.32,A3 selected tabular ML,0.12,0.2
+Graph family vs composite/calibrated index,top50_overlap_rate,Top-50 overlap,True,G1.5 selected temporal graph,0.52,A2 calibrated SVI retrospective,0.4,0.12
+Graph family vs A3 tabular ML,top50_overlap_rate,Top-50 overlap,True,G1.5 selected temporal graph,0.52,A3 selected tabular ML,0.54,-0.020000000000000018
+Graph family vs no-edge/placebo controls,top50_overlap_rate,Top-50 overlap,True,G1.5 selected temporal graph,0.52,G1.5 selected no-edge neural control,0.58,-0.05999999999999994
+Control family vs A3 tabular ML,top50_overlap_rate,Top-50 overlap,True,G1.5 selected no-edge neural control,0.58,A3 selected tabular ML,0.54,0.039999999999999925
+Graph family vs composite/calibrated index,top100_overlap_rate,Top-100 overlap,True,G1 pilot spatial_temporal,0.68,A2 calibrated SVI retrospective,0.34,0.34
+Graph family vs A3 tabular ML,top100_overlap_rate,Top-100 overlap,True,G1 pilot spatial_temporal,0.68,A3 selected tabular ML,0.66,0.020000000000000018
+Graph family vs no-edge/placebo controls,top100_overlap_rate,Top-100 overlap,True,G1 pilot spatial_temporal,0.68,G1.5 selected no-edge neural control,0.68,0.0
+Control family vs A3 tabular ML,top100_overlap_rate,Top-100 overlap,True,G1.5 selected no-edge neural control,0.68,A3 selected tabular ML,0.66,0.020000000000000018
+Graph family vs composite/calibrated index,top_5pct_overlap_rate,Top-5% overlap,True,G1.5 selected temporal graph,0.6923076923076923,A2 calibrated SVI retrospective,0.3703703703703703,0.321937321937322
+Graph family vs A3 tabular ML,top_5pct_overlap_rate,Top-5% overlap,True,G1.5 selected temporal graph,0.6923076923076923,A3 selected tabular ML,0.6634615384615384,0.028846153846153855
+Graph family vs no-edge/placebo controls,top_5pct_overlap_rate,Top-5% overlap,True,G1.5 selected temporal graph,0.6923076923076923,G1.5 selected no-edge neural control,0.6634615384615384,0.028846153846153855
+Control family vs A3 tabular ML,top_5pct_overlap_rate,Top-5% overlap,True,G1.5 selected no-edge neural control,0.6634615384615384,A3 selected tabular ML,0.6634615384615384,0.0
+Graph family vs composite/calibrated index,top_10pct_overlap_rate,Top-10% overlap,True,G1 pilot spatial_temporal,0.6280193236714976,A2 calibrated SVI retrospective,0.4629629629629629,0.1650563607085347
+Graph family vs A3 tabular ML,top_10pct_overlap_rate,Top-10% overlap,True,G1 pilot spatial_temporal,0.6280193236714976,A3 selected tabular ML,0.6183574879227053,0.009661835748792313
+Graph family vs no-edge/placebo controls,top_10pct_overlap_rate,Top-10% overlap,True,G1 pilot spatial_temporal,0.6280193236714976,G1.5 selected no-edge neural control,0.6280193236714976,0.0
+Control family vs A3 tabular ML,top_10pct_overlap_rate,Top-10% overlap,True,G1.5 selected no-edge neural control,0.6280193236714976,A3 selected tabular ML,0.6183574879227053,0.009661835748792313

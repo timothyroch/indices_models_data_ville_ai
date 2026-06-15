@@ -91,7 +91,7 @@ ZONE_COL = "zone_id"
 PERIOD_COL = "period_month"
 POPULATION_COL = "population_total_2021"
 
-ABSOLUTE_K_VALUES = (25, 50, 100)
+ABSOLUTE_K_VALUES = (10, 25, 50, 100)
 FRACTION_K_VALUES = (0.05, 0.10)
 
 # These are SVI metadata, quality, availability, or status columns.
@@ -765,9 +765,16 @@ def compact_metrics_summary(metrics: pd.DataFrame) -> pd.DataFrame:
     keep_patterns = [
         "spearman_corr",
         "kendall_corr",
+        "ndcg_at_10",
+        "ndcg_at_25",
+        "ndcg_at_50",
         "ndcg_at_100",
-        "top_10pct_overlap_rate",
+        "top10_overlap_rate",
+        "top25_overlap_rate",
+        "top50_overlap_rate",
         "top100_overlap_rate",
+        "top_5pct_overlap_rate",
+        "top_10pct_overlap_rate",
     ]
 
     mask = metrics["metric_name"].apply(

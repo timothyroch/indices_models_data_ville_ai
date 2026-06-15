@@ -203,9 +203,20 @@ METRIC_HIGHER_IS_BETTER = {
     "count__mean_poisson_deviance": False,
     "ranking__spearman_corr": True,
     "ranking__kendall_corr": True,
+    "ranking__ndcg_at_10": True,
+    "ranking__ndcg_at_25": True,
+    "ranking__ndcg_at_50": True,
     "ranking__ndcg_at_100": True,
+    "ranking__top10_overlap_rate": True,
+    "ranking__top25_overlap_rate": True,
+    "ranking__top50_overlap_rate": True,
+    "ranking__top100_overlap_rate": True,
+    "ranking__top_5pct_overlap_rate": True,
     "ranking__top_10pct_overlap_rate": True,
 }
+
+RANKING_K_VALUES = (10, 25, 50, 100)
+RANKING_FRACTIONS = (0.05, 0.10)
 
 EPS = 1e-8
 
@@ -949,6 +960,23 @@ def ndcg_at_k(y_true: np.ndarray, y_score: np.ndarray, k: int = 100) -> float:
     return float(dcg / ideal)
 
 
+
+def top_k_overlap_rate(y_true: np.ndarray, y_score: np.ndarray, k: int) -> float:
+    """Overlap between fixed top-k predicted and observed sets."""
+
+    y, s = _finite_arrays(y_true, y_score)
+    if len(y) == 0:
+        return np.nan
+
+    k_eff = min(int(k), len(y))
+    if k_eff <= 0:
+        return np.nan
+
+    pred_top = set(np.argsort(-s, kind="mergesort")[:k_eff].tolist())
+    true_top = set(np.argsort(-y, kind="mergesort")[:k_eff].tolist())
+    return float(len(pred_top & true_top) / k_eff)
+
+
 def top_fraction_overlap(y_true: np.ndarray, y_score: np.ndarray, fraction: float = 0.10) -> float:
     """Overlap between top-fraction predicted and observed sets."""
 
@@ -978,9 +1006,19 @@ def compute_metric_rows(
         "count__mean_poisson_deviance": mean_poisson_deviance(y_true, y_pred),
         "ranking__spearman_corr": spearman_corr(y_true, y_pred),
         "ranking__kendall_corr": kendall_corr(y_true, y_pred),
-        "ranking__ndcg_at_100": ndcg_at_k(y_true, y_pred, k=100),
-        "ranking__top_10pct_overlap_rate": top_fraction_overlap(y_true, y_pred, fraction=0.10),
     }
+
+    for k in RANKING_K_VALUES:
+        values[f"ranking__ndcg_at_{k}"] = ndcg_at_k(y_true, y_pred, k=k)
+        values[f"ranking__top{k}_overlap_rate"] = top_k_overlap_rate(y_true, y_pred, k=k)
+
+    for fraction in RANKING_FRACTIONS:
+        pct_label = int(round(float(fraction) * 100))
+        values[f"ranking__top_{pct_label}pct_overlap_rate"] = top_fraction_overlap(
+            y_true,
+            y_pred,
+            fraction=float(fraction),
+        )
 
     rows = []
     for metric_name, metric_value in values.items():
@@ -1682,7 +1720,16 @@ def build_model_selection_audit(
         )
         row["validation_spearman"] = metric_lookup(metrics, model_name, "validation", "ranking__spearman_corr")
         row["validation_kendall"] = metric_lookup(metrics, model_name, "validation", "ranking__kendall_corr")
-        row["validation_ndcg_at_100"] = metric_lookup(metrics, model_name, "validation", "ranking__ndcg_at_100")
+        for k in RANKING_K_VALUES:
+            row[f"validation_ndcg_at_{k}"] = metric_lookup(
+                metrics, model_name, "validation", f"ranking__ndcg_at_{k}"
+            )
+            row[f"validation_top{k}_overlap_rate"] = metric_lookup(
+                metrics, model_name, "validation", f"ranking__top{k}_overlap_rate"
+            )
+        row["validation_top_5pct_overlap_rate"] = metric_lookup(
+            metrics, model_name, "validation", "ranking__top_5pct_overlap_rate"
+        )
         row["validation_top_10pct_overlap_rate"] = metric_lookup(
             metrics, model_name, "validation", "ranking__top_10pct_overlap_rate"
         )
@@ -1694,7 +1741,16 @@ def build_model_selection_audit(
         )
         row["test_spearman"] = metric_lookup(metrics, model_name, "test", "ranking__spearman_corr")
         row["test_kendall"] = metric_lookup(metrics, model_name, "test", "ranking__kendall_corr")
-        row["test_ndcg_at_100"] = metric_lookup(metrics, model_name, "test", "ranking__ndcg_at_100")
+        for k in RANKING_K_VALUES:
+            row[f"test_ndcg_at_{k}"] = metric_lookup(
+                metrics, model_name, "test", f"ranking__ndcg_at_{k}"
+            )
+            row[f"test_top{k}_overlap_rate"] = metric_lookup(
+                metrics, model_name, "test", f"ranking__top{k}_overlap_rate"
+            )
+        row["test_top_5pct_overlap_rate"] = metric_lookup(
+            metrics, model_name, "test", "ranking__top_5pct_overlap_rate"
+        )
         row["test_top_10pct_overlap_rate"] = metric_lookup(
             metrics, model_name, "test", "ranking__top_10pct_overlap_rate"
         )
@@ -1757,7 +1813,16 @@ def compact_metric_table(metrics: pd.DataFrame, selection: pd.DataFrame) -> pd.D
         "count__rmse",
         "count__mean_poisson_deviance",
         "ranking__spearman_corr",
+        "ranking__kendall_corr",
+        "ranking__ndcg_at_10",
+        "ranking__ndcg_at_25",
+        "ranking__ndcg_at_50",
         "ranking__ndcg_at_100",
+        "ranking__top10_overlap_rate",
+        "ranking__top25_overlap_rate",
+        "ranking__top50_overlap_rate",
+        "ranking__top100_overlap_rate",
+        "ranking__top_5pct_overlap_rate",
         "ranking__top_10pct_overlap_rate",
     ]
     out = metrics[
@@ -1830,9 +1895,16 @@ def render_report(
     selection_cols = [
         "model_name", "split_scheme", "feature_regime", "edge_regime", "edge_mask_regime",
         "selection_metric", "selection_metric_value",
-        "validation_mae", "validation_spearman", "validation_ndcg_at_100",
-        "validation_top_10pct_overlap_rate",
-        "test_mae", "test_spearman", "test_ndcg_at_100", "test_top_10pct_overlap_rate",
+        "validation_mae", "validation_spearman",
+        "validation_ndcg_at_10", "validation_ndcg_at_25", "validation_ndcg_at_50", "validation_ndcg_at_100",
+        "validation_top10_overlap_rate", "validation_top25_overlap_rate",
+        "validation_top50_overlap_rate", "validation_top100_overlap_rate",
+        "validation_top_5pct_overlap_rate", "validation_top_10pct_overlap_rate",
+        "test_mae", "test_spearman",
+        "test_ndcg_at_10", "test_ndcg_at_25", "test_ndcg_at_50", "test_ndcg_at_100",
+        "test_top10_overlap_rate", "test_top25_overlap_rate",
+        "test_top50_overlap_rate", "test_top100_overlap_rate",
+        "test_top_5pct_overlap_rate", "test_top_10pct_overlap_rate",
         "selected_overall_for_split", "selected_for_feature_regime", "selected_for_test_summary",
     ]
     lines.append(dataframe_to_markdown(model_selection_audit[[c for c in selection_cols if c in model_selection_audit.columns]], max_rows=120))

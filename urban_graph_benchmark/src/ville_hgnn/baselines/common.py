@@ -582,7 +582,7 @@ def evaluate_prediction_frame(
     binary_score_col: str | None = None,
     ranking_score_col: str | None = None,
     eval_partitions: Sequence[str] = EVAL_PARTITIONS,
-    ranking_k_values: Sequence[int] = (25, 50, 100),
+    ranking_k_values: Sequence[int] = (10, 25, 50, 100),
     ranking_fractions: Sequence[float] = (0.05, 0.10),
 ) -> pd.DataFrame:
     """Evaluate predictions on validation/test partitions and return a metrics table."""

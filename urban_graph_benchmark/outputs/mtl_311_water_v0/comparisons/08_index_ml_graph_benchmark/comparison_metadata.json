@@ -1,6 +1,6 @@
 {
   "stage_slug": "08_index_ml_graph_benchmark",
-  "generated_at": "2026-06-12T16:33:37.356258+00:00",
+  "generated_at": "2026-06-15T18:48:16.843520+00:00",
   "repo_root": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push",
   "config_path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/configs/mtl_311_water_v0.1.yaml",
   "output_dir": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark",
@@ -10,8 +10,8 @@
     "temporal_test",
     "validation"
   ],
-  "n_comparison_rows": 12,
-  "n_long_metric_rows": 72,
+  "n_comparison_rows": 11,
+  "n_long_metric_rows": 165,
   "inputs": [
     {
       "input": "A0 metrics",
@@ -108,12 +108,56 @@
       "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/mae.png"
     },
     {
+      "artifact": "plot_rmse",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/rmse.png"
+    },
+    {
+      "artifact": "plot_mean_poisson_deviance",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/mean_poisson_deviance.png"
+    },
+    {
       "artifact": "plot_spearman",
       "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/spearman.png"
     },
     {
+      "artifact": "plot_kendall",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/kendall.png"
+    },
+    {
+      "artifact": "plot_ndcg_at_10",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/ndcg_at_10.png"
+    },
+    {
+      "artifact": "plot_ndcg_at_25",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/ndcg_at_25.png"
+    },
+    {
+      "artifact": "plot_ndcg_at_50",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/ndcg_at_50.png"
+    },
+    {
       "artifact": "plot_ndcg_at_100",
       "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/ndcg_at_100.png"
+    },
+    {
+      "artifact": "plot_top10_overlap_rate",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/top10_overlap_rate.png"
+    },
+    {
+      "artifact": "plot_top25_overlap_rate",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/top25_overlap_rate.png"
+    },
+    {
+      "artifact": "plot_top50_overlap_rate",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/top50_overlap_rate.png"
+    },
+    {
+      "artifact": "plot_top100_overlap_rate",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/top100_overlap_rate.png"
+    },
+    {
+      "artifact": "plot_top_5pct_overlap_rate",
+      "path": "/home/tim/Documents/ville_ai/indices_BACKUP_before_clean_push/urban_graph_benchmark/outputs/mtl_311_water_v0/comparisons/08_index_ml_graph_benchmark/plots/top_5pct_overlap_rate.png"
     },
     {
       "artifact": "plot_top_10pct_overlap_rate",

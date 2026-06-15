@@ -1,6 +1,6 @@
 # A2 Calibrated SVI Predictors — Montréal 311 Water/Drainage v0
 
-Generated at: `2026-06-09T14:38:24.398802+00:00`
+Generated at: `2026-06-15T17:27:14.358864+00:00`
 
 Split scheme: `temporal`
 
@@ -79,122 +79,122 @@ temporal_validation               forecasting_v0                         A2_svi_
 temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only                     count__rmse      5.528800             False    4320
 temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only    count__mean_poisson_deviance      5.441169             False    4320
 temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only          ranking__spearman_corr      0.156450              True    4320
+temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only           ranking__kendall_corr      0.107169              True    4320
+temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only     ranking__top10_overlap_rate      0.000000              True    4320
+temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only             ranking__ndcg_at_10      0.147259              True    4320
+temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only     ranking__top25_overlap_rate      0.000000              True    4320
+temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only             ranking__ndcg_at_25      0.201063              True    4320
+temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only     ranking__top50_overlap_rate      0.000000              True    4320
+temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only             ranking__ndcg_at_50      0.189843              True    4320
+temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only    ranking__top100_overlap_rate      0.020000              True    4320
 temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only            ranking__ndcg_at_100      0.193465              True    4320
+temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only  ranking__top_5pct_overlap_rate      0.027778              True    4320
 temporal_validation               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only ranking__top_10pct_overlap_rate      0.067130              True    4320
       temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only                      count__mae      3.475547             False    4860
       temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only                     count__rmse      4.938114             False    4860
       temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only    count__mean_poisson_deviance      4.801117             False    4860
       temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only          ranking__spearman_corr      0.159008              True    4860
+      temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only           ranking__kendall_corr      0.109861              True    4860
+      temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only     ranking__top10_overlap_rate      0.000000              True    4860
+      temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only             ranking__ndcg_at_10      0.188418              True    4860
+      temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only     ranking__top25_overlap_rate      0.000000              True    4860
+      temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only             ranking__ndcg_at_25      0.254751              True    4860
+      temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only     ranking__top50_overlap_rate      0.000000              True    4860
+      temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only             ranking__ndcg_at_50      0.238587              True    4860
+      temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only    ranking__top100_overlap_rate      0.000000              True    4860
       temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only            ranking__ndcg_at_100      0.220560              True    4860
+      temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only  ranking__top_5pct_overlap_rate      0.016461              True    4860
       temporal_test               forecasting_v0                         A2_svi_only__svi_percentile                         A2_svi_only ranking__top_10pct_overlap_rate      0.057613              True    4860
 temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar                      count__mae      3.599660             False    4320
 temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar                     count__rmse      5.362666             False    4320
 temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar    count__mean_poisson_deviance      5.008630             False    4320
 temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar          ranking__spearman_corr      0.283787              True    4320
+temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar           ranking__kendall_corr      0.198151              True    4320
+temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar     ranking__top10_overlap_rate      0.000000              True    4320
+temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar             ranking__ndcg_at_10      0.179974              True    4320
+temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar     ranking__top25_overlap_rate      0.000000              True    4320
+temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar             ranking__ndcg_at_25      0.176115              True    4320
+temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar     ranking__top50_overlap_rate      0.000000              True    4320
+temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar             ranking__ndcg_at_50      0.191167              True    4320
+temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar    ranking__top100_overlap_rate      0.020000              True    4320
 temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar            ranking__ndcg_at_100      0.221594              True    4320
+temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar  ranking__top_5pct_overlap_rate      0.064815              True    4320
 temporal_validation               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar ranking__top_10pct_overlap_rate      0.134259              True    4320
       temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar                      count__mae      3.535689             False    4860
       temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar                     count__rmse      5.040499             False    4860
       temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar    count__mean_poisson_deviance      5.119893             False    4860
       temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar          ranking__spearman_corr      0.127134              True    4860
+      temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar           ranking__kendall_corr      0.088190              True    4860
+      temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar     ranking__top10_overlap_rate      0.000000              True    4860
+      temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar             ranking__ndcg_at_10      0.075673              True    4860
+      temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar     ranking__top25_overlap_rate      0.000000              True    4860
+      temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar             ranking__ndcg_at_25      0.074060              True    4860
+      temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar     ranking__top50_overlap_rate      0.000000              True    4860
+      temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar             ranking__ndcg_at_50      0.089767              True    4860
+      temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar    ranking__top100_overlap_rate      0.000000              True    4860
       temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar            ranking__ndcg_at_100      0.121777              True    4860
+      temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar  ranking__top_5pct_overlap_rate      0.016461              True    4860
       temporal_test               forecasting_v0                A2_svi_plus_calendar__svi_percentile                A2_svi_plus_calendar ranking__top_10pct_overlap_rate      0.069959              True    4860
 temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static                      count__mae      3.483931             False    4320
 temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static                     count__rmse      5.242381             False    4320
 temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static    count__mean_poisson_deviance      4.793326             False    4320
 temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static          ranking__spearman_corr      0.369378              True    4320
+temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static           ranking__kendall_corr      0.262361              True    4320
+temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static     ranking__top10_overlap_rate      0.000000              True    4320
+temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static             ranking__ndcg_at_10      0.183795              True    4320
+temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static     ranking__top25_overlap_rate      0.040000              True    4320
+temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static             ranking__ndcg_at_25      0.218124              True    4320
+temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static     ranking__top50_overlap_rate      0.020000              True    4320
+temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static             ranking__ndcg_at_50      0.245400              True    4320
+temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static    ranking__top100_overlap_rate      0.050000              True    4320
 temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static            ranking__ndcg_at_100      0.293624              True    4320
+temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static  ranking__top_5pct_overlap_rate      0.125000              True    4320
 temporal_validation               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static ranking__top_10pct_overlap_rate      0.240741              True    4320
       temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static                      count__mae      3.434751             False    4860
       temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static                     count__rmse      4.936054             False    4860
       temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static    count__mean_poisson_deviance      4.952062             False    4860
       temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static          ranking__spearman_corr      0.236370              True    4860
+      temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static           ranking__kendall_corr      0.166096              True    4860
+      temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static     ranking__top10_overlap_rate      0.000000              True    4860
+      temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static             ranking__ndcg_at_10      0.099924              True    4860
+      temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static     ranking__top25_overlap_rate      0.040000              True    4860
+      temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static             ranking__ndcg_at_25      0.160197              True    4860
+      temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static     ranking__top50_overlap_rate      0.020000              True    4860
+      temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static             ranking__ndcg_at_50      0.173550              True    4860
+      temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static    ranking__top100_overlap_rate      0.020000              True    4860
       temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static            ranking__ndcg_at_100      0.193140              True    4860
+      temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static  ranking__top_5pct_overlap_rate      0.049383              True    4860
       temporal_test               forecasting_v0                  A2_svi_plus_static__svi_percentile                  A2_svi_plus_static ranking__top_10pct_overlap_rate      0.121399              True    4860
 temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective                      count__mae      2.610554             False    4320
 temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective                     count__rmse      3.996411             False    4320
 temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective    count__mean_poisson_deviance      2.441922             False    4320
 temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective          ranking__spearman_corr      0.711523              True    4320
+temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective           ranking__kendall_corr      0.544894              True    4320
+temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective     ranking__top10_overlap_rate      0.200000              True    4320
+temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective             ranking__ndcg_at_10      0.520649              True    4320
+temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective     ranking__top25_overlap_rate      0.240000              True    4320
+temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective             ranking__ndcg_at_25      0.613654              True    4320
+temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective     ranking__top50_overlap_rate      0.280000              True    4320
+temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective             ranking__ndcg_at_50      0.613709              True    4320
+temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective    ranking__top100_overlap_rate      0.390000              True    4320
 temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective            ranking__ndcg_at_100      0.641888              True    4320
+temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective  ranking__top_5pct_overlap_rate      0.444444              True    4320
 temporal_validation retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective ranking__top_10pct_overlap_rate      0.509259              True    4320
       temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective                      count__mae      2.522434             False    4860
       temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective                     count__rmse      3.663199             False    4860
       temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective    count__mean_poisson_deviance      2.522685             False    4860
       temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective          ranking__spearman_corr      0.671736              True    4860
+      temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective           ranking__kendall_corr      0.508625              True    4860
+      temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective     ranking__top10_overlap_rate      0.300000              True    4860
+      temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective             ranking__ndcg_at_10      0.746957              True    4860
+      temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective     ranking__top25_overlap_rate      0.280000              True    4860
+      temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective             ranking__ndcg_at_25      0.691435              True    4860
+      temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective     ranking__top50_overlap_rate      0.400000              True    4860
+      temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective             ranking__ndcg_at_50      0.706104              True    4860
+      temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective    ranking__top100_overlap_rate      0.340000              True    4860
       temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective            ranking__ndcg_at_100      0.702508              True    4860
+      temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective  ranking__top_5pct_overlap_rate      0.370370              True    4860
       temporal_test retrospective_explanatory_v0 A2_svi_plus_reporting_retrospective__svi_percentile A2_svi_plus_reporting_retrospective ranking__top_10pct_overlap_rate      0.462963              True    4860
-temporal_validation               forecasting_v0                          A2_svi_only__svi_score_raw                         A2_svi_only                      count__mae      3.720264             False    4320
-temporal_validation               forecasting_v0                          A2_svi_only__svi_score_raw                         A2_svi_only                     count__rmse      5.541045             False    4320
-temporal_validation               forecasting_v0                          A2_svi_only__svi_score_raw                         A2_svi_only    count__mean_poisson_deviance      5.473238             False    4320
-temporal_validation               forecasting_v0                          A2_svi_only__svi_score_raw                         A2_svi_only          ranking__spearman_corr      0.156464              True    4320
-temporal_validation               forecasting_v0                          A2_svi_only__svi_score_raw                         A2_svi_only            ranking__ndcg_at_100      0.193465              True    4320
-temporal_validation               forecasting_v0                          A2_svi_only__svi_score_raw                         A2_svi_only ranking__top_10pct_overlap_rate      0.067130              True    4320
-      temporal_test               forecasting_v0                          A2_svi_only__svi_score_raw                         A2_svi_only                      count__mae      3.486610             False    4860
-      temporal_test               forecasting_v0                          A2_svi_only__svi_score_raw                         A2_svi_only                     count__rmse      4.952153             False    4860
-      temporal_test               forecasting_v0                          A2_svi_only__svi_score_raw                         A2_svi_only    count__mean_poisson_deviance      4.834633             False    4860
-      temporal_test               forecasting_v0                          A2_svi_only__svi_score_raw                         A2_svi_only          ranking__spearman_corr      0.159019              True    4860
-      temporal_test               forecasting_v0                          A2_svi_only__svi_score_raw                         A2_svi_only            ranking__ndcg_at_100      0.220560              True    4860
-      temporal_test               forecasting_v0                          A2_svi_only__svi_score_raw                         A2_svi_only ranking__top_10pct_overlap_rate      0.057613              True    4860
-temporal_validation               forecasting_v0                 A2_svi_plus_calendar__svi_score_raw                A2_svi_plus_calendar                      count__mae      3.607856             False    4320
-temporal_validation               forecasting_v0                 A2_svi_plus_calendar__svi_score_raw                A2_svi_plus_calendar                     count__rmse      5.375903             False    4320
-temporal_validation               forecasting_v0                 A2_svi_plus_calendar__svi_score_raw                A2_svi_plus_calendar    count__mean_poisson_deviance      5.039918             False    4320
-temporal_validation               forecasting_v0                 A2_svi_plus_calendar__svi_score_raw                A2_svi_plus_calendar          ranking__spearman_corr      0.279234              True    4320
-temporal_validation               forecasting_v0                 A2_svi_plus_calendar__svi_score_raw                A2_svi_plus_calendar            ranking__ndcg_at_100      0.212026              True    4320
-temporal_validation               forecasting_v0                 A2_svi_plus_calendar__svi_score_raw                A2_svi_plus_calendar ranking__top_10pct_overlap_rate      0.134259              True    4320
-      temporal_test               forecasting_v0                 A2_svi_plus_calendar__svi_score_raw                A2_svi_plus_calendar                      count__mae      3.545252             False    4860
-      temporal_test               forecasting_v0                 A2_svi_plus_calendar__svi_score_raw                A2_svi_plus_calendar                     count__rmse      5.053910             False    4860
-      temporal_test               forecasting_v0                 A2_svi_plus_calendar__svi_score_raw                A2_svi_plus_calendar    count__mean_poisson_deviance      5.154349             False    4860
-      temporal_test               forecasting_v0                 A2_svi_plus_calendar__svi_score_raw                A2_svi_plus_calendar          ranking__spearman_corr      0.113222              True    4860
-      temporal_test               forecasting_v0                 A2_svi_plus_calendar__svi_score_raw                A2_svi_plus_calendar            ranking__ndcg_at_100      0.120880              True    4860
-      temporal_test               forecasting_v0                 A2_svi_plus_calendar__svi_score_raw                A2_svi_plus_calendar ranking__top_10pct_overlap_rate      0.084362              True    4860
-temporal_validation               forecasting_v0                   A2_svi_plus_static__svi_score_raw                  A2_svi_plus_static                      count__mae      3.484898             False    4320
-temporal_validation               forecasting_v0                   A2_svi_plus_static__svi_score_raw                  A2_svi_plus_static                     count__rmse      5.248224             False    4320
-temporal_validation               forecasting_v0                   A2_svi_plus_static__svi_score_raw                  A2_svi_plus_static    count__mean_poisson_deviance      4.810630             False    4320
-temporal_validation               forecasting_v0                   A2_svi_plus_static__svi_score_raw                  A2_svi_plus_static          ranking__spearman_corr      0.370049              True    4320
-temporal_validation               forecasting_v0                   A2_svi_plus_static__svi_score_raw                  A2_svi_plus_static            ranking__ndcg_at_100      0.307473              True    4320
-temporal_validation               forecasting_v0                   A2_svi_plus_static__svi_score_raw                  A2_svi_plus_static ranking__top_10pct_overlap_rate      0.231481              True    4320
-      temporal_test               forecasting_v0                   A2_svi_plus_static__svi_score_raw                  A2_svi_plus_static                      count__mae      3.438431             False    4860
-      temporal_test               forecasting_v0                   A2_svi_plus_static__svi_score_raw                  A2_svi_plus_static                     count__rmse      4.942759             False    4860
-      temporal_test               forecasting_v0                   A2_svi_plus_static__svi_score_raw                  A2_svi_plus_static    count__mean_poisson_deviance      4.991985             False    4860
-      temporal_test               forecasting_v0                   A2_svi_plus_static__svi_score_raw                  A2_svi_plus_static          ranking__spearman_corr      0.230229              True    4860
-      temporal_test               forecasting_v0                   A2_svi_plus_static__svi_score_raw                  A2_svi_plus_static            ranking__ndcg_at_100      0.188147              True    4860
-      temporal_test               forecasting_v0                   A2_svi_plus_static__svi_score_raw                  A2_svi_plus_static ranking__top_10pct_overlap_rate      0.123457              True    4860
-temporal_validation retrospective_explanatory_v0  A2_svi_plus_reporting_retrospective__svi_score_raw A2_svi_plus_reporting_retrospective                      count__mae      2.611218             False    4320
-temporal_validation retrospective_explanatory_v0  A2_svi_plus_reporting_retrospective__svi_score_raw A2_svi_plus_reporting_retrospective                     count__rmse      3.996675             False    4320
-temporal_validation retrospective_explanatory_v0  A2_svi_plus_reporting_retrospective__svi_score_raw A2_svi_plus_reporting_retrospective    count__mean_poisson_deviance      2.443276             False    4320
-temporal_validation retrospective_explanatory_v0  A2_svi_plus_reporting_retrospective__svi_score_raw A2_svi_plus_reporting_retrospective          ranking__spearman_corr      0.711119              True    4320
-temporal_validation retrospective_explanatory_v0  A2_svi_plus_reporting_retrospective__svi_score_raw A2_svi_plus_reporting_retrospective            ranking__ndcg_at_100      0.646822              True    4320
-temporal_validation retrospective_explanatory_v0  A2_svi_plus_reporting_retrospective__svi_score_raw A2_svi_plus_reporting_retrospective ranking__top_10pct_overlap_rate      0.504630              True    4320
-      temporal_test retrospective_explanatory_v0  A2_svi_plus_reporting_retrospective__svi_score_raw A2_svi_plus_reporting_retrospective                      count__mae      2.524465             False    4860
-      temporal_test retrospective_explanatory_v0  A2_svi_plus_reporting_retrospective__svi_score_raw A2_svi_plus_reporting_retrospective                     count__rmse      3.664711             False    4860
-      temporal_test retrospective_explanatory_v0  A2_svi_plus_reporting_retrospective__svi_score_raw A2_svi_plus_reporting_retrospective    count__mean_poisson_deviance      2.524697             False    4860
-      temporal_test retrospective_explanatory_v0  A2_svi_plus_reporting_retrospective__svi_score_raw A2_svi_plus_reporting_retrospective          ranking__spearman_corr      0.671258              True    4860
-      temporal_test retrospective_explanatory_v0  A2_svi_plus_reporting_retrospective__svi_score_raw A2_svi_plus_reporting_retrospective            ranking__ndcg_at_100      0.705331              True    4860
-      temporal_test retrospective_explanatory_v0  A2_svi_plus_reporting_retrospective__svi_score_raw A2_svi_plus_reporting_retrospective ranking__top_10pct_overlap_rate      0.462963              True    4860
-temporal_validation               forecasting_v0               A2_svi_only__svi_rank__diagnostic_svi                         A2_svi_only                      count__mae      3.704128             False    4320
-temporal_validation               forecasting_v0               A2_svi_only__svi_rank__diagnostic_svi                         A2_svi_only                     count__rmse      5.516761             False    4320
-temporal_validation               forecasting_v0               A2_svi_only__svi_rank__diagnostic_svi                         A2_svi_only    count__mean_poisson_deviance      5.409548             False    4320
-temporal_validation               forecasting_v0               A2_svi_only__svi_rank__diagnostic_svi                         A2_svi_only          ranking__spearman_corr      0.167490              True    4320
-temporal_validation               forecasting_v0               A2_svi_only__svi_rank__diagnostic_svi                         A2_svi_only            ranking__ndcg_at_100      0.193465              True    4320
-temporal_validation               forecasting_v0               A2_svi_only__svi_rank__diagnostic_svi                         A2_svi_only ranking__top_10pct_overlap_rate      0.067130              True    4320
-      temporal_test               forecasting_v0               A2_svi_only__svi_rank__diagnostic_svi                         A2_svi_only                      count__mae      3.466399             False    4860
-      temporal_test               forecasting_v0               A2_svi_only__svi_rank__diagnostic_svi                         A2_svi_only                     count__rmse      4.926365             False    4860
-      temporal_test               forecasting_v0               A2_svi_only__svi_rank__diagnostic_svi                         A2_svi_only    count__mean_poisson_deviance      4.772599             False    4860
-      temporal_test               forecasting_v0               A2_svi_only__svi_rank__diagnostic_svi                         A2_svi_only          ranking__spearman_corr      0.169765              True    4860
-      temporal_test               forecasting_v0               A2_svi_only__svi_rank__diagnostic_svi                         A2_svi_only            ranking__ndcg_at_100      0.220560              True    4860
-      temporal_test               forecasting_v0               A2_svi_only__svi_rank__diagnostic_svi                         A2_svi_only ranking__top_10pct_overlap_rate      0.057613              True    4860
-temporal_validation               forecasting_v0      A2_svi_plus_calendar__svi_rank__diagnostic_svi                A2_svi_plus_calendar                      count__mae      3.589516             False    4320
-temporal_validation               forecasting_v0      A2_svi_plus_calendar__svi_rank__diagnostic_svi                A2_svi_plus_calendar                     count__rmse      5.349837             False    4320
-temporal_validation               forecasting_v0      A2_svi_plus_calendar__svi_rank__diagnostic_svi                A2_svi_plus_calendar    count__mean_poisson_deviance      4.978100             False    4320
-temporal_validation               forecasting_v0      A2_svi_plus_calendar__svi_rank__diagnostic_svi                A2_svi_plus_calendar          ranking__spearman_corr      0.292492              True    4320
-temporal_validation               forecasting_v0      A2_svi_plus_calendar__svi_rank__diagnostic_svi                A2_svi_plus_calendar            ranking__ndcg_at_100      0.221594              True    4320
-temporal_validation               forecasting_v0      A2_svi_plus_calendar__svi_rank__diagnostic_svi                A2_svi_plus_calendar ranking__top_10pct_overlap_rate      0.134259              True    4320
-      temporal_test               forecasting_v0      A2_svi_plus_calendar__svi_rank__diagnostic_svi                A2_svi_plus_calendar                      count__mae      3.526431             False    4860
-      temporal_test               forecasting_v0      A2_svi_plus_calendar__svi_rank__diagnostic_svi                A2_svi_plus_calendar                     count__rmse      5.028900             False    4860
-      temporal_test               forecasting_v0      A2_svi_plus_calendar__svi_rank__diagnostic_svi                A2_svi_plus_calendar    count__mean_poisson_deviance      5.090171             False    4860
-      temporal_test               forecasting_v0      A2_svi_plus_calendar__svi_rank__diagnostic_svi                A2_svi_plus_calendar          ranking__spearman_corr      0.144592              True    4860
-      temporal_test               forecasting_v0      A2_svi_plus_calendar__svi_rank__diagnostic_svi                A2_svi_plus_calendar            ranking__ndcg_at_100      0.121777              True    4860
-      temporal_test               forecasting_v0      A2_svi_plus_calendar__svi_rank__diagnostic_svi                A2_svi_plus_calendar ranking__top_10pct_overlap_rate      0.074074              True    4860
 ```
 
 ## Static-score audit

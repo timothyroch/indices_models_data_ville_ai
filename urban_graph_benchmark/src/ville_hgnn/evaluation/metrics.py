@@ -475,7 +475,7 @@ def top_decile_overlap(y_true: Any, y_score: Any) -> dict[str, Any]:
 def evaluate_ranking_metrics(
     y_true: Any,
     y_score: Any,
-    k_values: Sequence[int] = (25, 50, 100),
+    k_values: Sequence[int] = (10, 25, 50, 100),
     fractions: Sequence[float] = (0.05, 0.10),
 ) -> list[MetricResult]:
     """Compute shared ranking/prioritization metrics."""
@@ -802,7 +802,7 @@ def evaluate_predictions_bundle(
     *,
     y_true_binary: Any | None = None,
     y_pred_binary_score: Any | None = None,
-    ranking_k_values: Sequence[int] = (25, 50, 100),
+    ranking_k_values: Sequence[int] = (10, 25, 50, 100),
     ranking_fractions: Sequence[float] = (0.05, 0.10),
 ) -> dict[str, list[MetricResult]]:
     """
