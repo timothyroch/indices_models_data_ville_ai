@@ -1698,58 +1698,6 @@ class CompiledHazardRelationPriors:
     def num_relations(self) -> int:
         return len(self.relation_names)
 
-    @property
-    def hazard_index_by_name(self) -> Mapping[str, int]:
-        """Read-only mapping from canonical hazard name to dense row index."""
-
-        return MappingProxyType(
-            {
-                name: index
-                for index, name in enumerate(self.hazard_names)
-            }
-        )
-
-    @property
-    def relation_index_by_name(self) -> Mapping[str, int]:
-        """Read-only mapping from relation name to dense column index."""
-
-        return MappingProxyType(
-            {
-                name: index
-                for index, name in enumerate(self.relation_names)
-            }
-        )
-
-    def hazard_index(
-        self,
-        hazard: HazardKind | str,
-    ) -> int:
-        """Return the dense row index for a compiled canonical hazard."""
-
-        hazard_name = _hazard(hazard).value
-
-        try:
-            return self.hazard_index_by_name[hazard_name]
-        except KeyError as exc:
-            raise KeyError(
-                f"Hazard {hazard_name!r} is not compiled."
-            ) from exc
-
-    def relation_index(
-        self,
-        relation_name: str,
-    ) -> int:
-        """Return the dense column index for a compiled relation."""
-
-        _require_nonempty_string("relation_name", relation_name)
-
-        try:
-            return self.relation_index_by_name[relation_name]
-        except KeyError as exc:
-            raise KeyError(
-                f"Relation {relation_name!r} is not compiled."
-            ) from exc
-
     def validate(self) -> None:
         if not self.hazard_names or not self.relation_names:
             raise ValueError(
@@ -2306,8 +2254,8 @@ DEFAULT_RELATION_PRIOR_PROFILES: Final[
     _profile(
         C.REL_TEMPORAL_MEMORY,
         default=_provisional_cell(
-            PriorStrength.MEDIUM_HIGH,
-            0.35,
+            PriorStrength.HIGH,
+            0.40,
             "Historical persistence, antecedent conditions, and seasonality "
             "may matter across urban hazards.",
         ),
@@ -2319,24 +2267,22 @@ DEFAULT_RELATION_PRIOR_PROFILES: Final[
                 "wetness, and seasonal persistence.",
             ),
             HazardKind.PLUVIAL_FLOOD: _provisional_cell(
-                PriorStrength.HIGH,
-                0.40,
+                PriorStrength.VERY_HIGH,
+                0.60,
                 "Antecedent rainfall, drainage saturation, and repeated local "
-                "ponding may matter, but the richer persistent urban-state "
-                "mechanism remains a V3 research target.",
+                "ponding are expected to matter strongly.",
             ),
             HazardKind.HEAT: _provisional_cell(
-                PriorStrength.HIGH,
-                0.45,
-                "Heat burden may exhibit temporal persistence and accumulated "
-                "exposure, without assuming the full V3 antecedent-state "
-                "mechanism is already implemented.",
+                PriorStrength.VERY_HIGH,
+                0.60,
+                "Heat consequences depend on accumulated thermal load, hot "
+                "nights, and incomplete recovery from preceding days.",
             ),
             HazardKind.WINTER_STORM: _provisional_cell(
                 PriorStrength.HIGH,
                 0.50,
-                "Snow accumulation and freeze-thaw history create antecedent-"
-                "condition dependence.",
+                "Snow accumulation and freeze-thaw history create strong "
+                "antecedent-state dependence.",
             ),
             HazardKind.SNOWSTORM: _provisional_cell(
                 PriorStrength.HIGH,
@@ -2345,10 +2291,10 @@ DEFAULT_RELATION_PRIOR_PROFILES: Final[
                 "current disruption.",
             ),
             HazardKind.FREEZING_RAIN: _provisional_cell(
-                PriorStrength.HIGH,
-                0.35,
+                PriorStrength.VERY_HIGH,
+                0.55,
                 "Preceding temperature, melt, precipitation, and refreezing "
-                "history may influence ice burden; this remains provisional.",
+                "history may strongly influence ice burden.",
             ),
             HazardKind.CIVIL_SECURITY_EVENT: _provisional_cell(
                 PriorStrength.HIGH,
@@ -2701,7 +2647,7 @@ DEFAULT_RELATION_PRIOR_PROFILES: Final[
             ),
             HazardKind.PLUVIAL_FLOOD: _provisional_cell(
                 PriorStrength.VERY_HIGH,
-                0.70,
+                0.75,
                 "Drainage and sewer capacity are direct pluvial-flood pathways.",
             ),
             HazardKind.ROAD_DISRUPTION: _provisional_cell(
