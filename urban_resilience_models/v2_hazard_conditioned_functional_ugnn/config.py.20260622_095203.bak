@@ -221,38 +221,6 @@ CANONICAL_UNKNOWN_ID_POLICIES: tuple[str, ...] = (
     UNKNOWN_ID_POLICY_USE_UNKNOWN_EMBEDDING,
 )
 
-HAZARD_EMBEDDING_MODE_LEARNED: str = "learned"
-HAZARD_EMBEDDING_MODE_FIXED: str = "fixed"
-HAZARD_EMBEDDING_MODE_FIXED_PLUS_RESIDUAL: str = (
-    "fixed_plus_residual"
-)
-
-CANONICAL_HAZARD_EMBEDDING_MODES: tuple[str, ...] = (
-    HAZARD_EMBEDDING_MODE_LEARNED,
-    HAZARD_EMBEDDING_MODE_FIXED,
-    HAZARD_EMBEDDING_MODE_FIXED_PLUS_RESIDUAL,
-)
-
-HAZARD_EMBEDDING_INIT_NORMAL: str = "normal"
-HAZARD_EMBEDDING_INIT_ZERO: str = "zero"
-HAZARD_EMBEDDING_INIT_XAVIER_UNIFORM: str = "xavier_uniform"
-
-CANONICAL_HAZARD_EMBEDDING_INITIALIZATIONS: tuple[str, ...] = (
-    HAZARD_EMBEDDING_INIT_NORMAL,
-    HAZARD_EMBEDDING_INIT_ZERO,
-    HAZARD_EMBEDDING_INIT_XAVIER_UNIFORM,
-)
-
-UNKNOWN_EMBEDDING_POLICY_ERROR: str = "error"
-UNKNOWN_EMBEDDING_POLICY_ZERO_FIXED: str = "zero_fixed"
-UNKNOWN_EMBEDDING_POLICY_LEARNED: str = "learned"
-
-CANONICAL_UNKNOWN_EMBEDDING_POLICIES: tuple[str, ...] = (
-    UNKNOWN_EMBEDDING_POLICY_ERROR,
-    UNKNOWN_EMBEDDING_POLICY_ZERO_FIXED,
-    UNKNOWN_EMBEDDING_POLICY_LEARNED,
-)
-
 NODE_FUSION_CONCAT_PROJECTION: str = "concat_projection"
 NODE_FUSION_PROJECTED_SUM: str = "projected_sum"
 NODE_FUSION_GATED: str = "gated_fusion"
@@ -289,11 +257,6 @@ CANONICAL_PRECISIONS: tuple[str, ...] = (
 def _require_nonempty_string(name: str, value: str) -> None:
     if not isinstance(value, str) or not value.strip():
         raise ValueError(f"{name} must be a non-empty string.")
-
-
-def _require_boolean(name: str, value: bool) -> None:
-    if not isinstance(value, bool):
-        raise TypeError(f"{name} must be a Boolean.")
 
 
 def _require_choice(
@@ -869,225 +832,24 @@ class MemoryConfig(ConfigMixin):
 
 
 @dataclass(slots=True, frozen=True)
-class HazardEmbeddingConfig(ConfigMixin):
-    """Controls hazard-vocabulary construction and embedding lookup."""
-
-    embedding_dim: int = 32
-    mode: str = HAZARD_EMBEDDING_MODE_LEARNED
-
-    unknown_input_policy: str = UNKNOWN_ID_POLICY_ERROR
-    unknown_embedding_policy: str = UNKNOWN_EMBEDDING_POLICY_ERROR
-
-    include_fallback_hazard: bool = False
-    include_unknown_row: bool = False
-
-    initialization: str = HAZARD_EMBEDDING_INIT_NORMAL
-    initialization_seed: int = 42
-    initialization_std: float = 0.02
-
-    fixed_artifact_reference: str | None = None
-    fixed_artifact_fingerprint: str | None = None
-
-    fixed_scale: float = 1.0
-    residual_scale: float = 1.0
-    freeze_learned_embeddings: bool = False
-
-    require_training_supported_hazards: bool = True
-    allow_partially_data_backed_for_training: bool = False
-
-    require_queryable_hazards_for_inference: bool = True
-    allow_fallback_hazard_for_inference: bool = False
-
-    allow_planned_hazard_counterfactuals: bool = False
-
-    def __post_init__(self) -> None:
-        self.validate()
-
-    @property
-    def uses_fixed_artifact(self) -> bool:
-        return self.mode in (
-            HAZARD_EMBEDDING_MODE_FIXED,
-            HAZARD_EMBEDDING_MODE_FIXED_PLUS_RESIDUAL,
-        )
-
-    @property
-    def uses_learned_parameters(self) -> bool:
-        return self.mode in (
-            HAZARD_EMBEDDING_MODE_LEARNED,
-            HAZARD_EMBEDDING_MODE_FIXED_PLUS_RESIDUAL,
-        )
-
-    def validate(self) -> None:
-        _require_positive_int("hazard embedding_dim", self.embedding_dim)
-        _require_choice(
-            "hazard embedding mode",
-            self.mode,
-            CANONICAL_HAZARD_EMBEDDING_MODES,
-        )
-        _require_choice(
-            "unknown_input_policy",
-            self.unknown_input_policy,
-            CANONICAL_UNKNOWN_ID_POLICIES,
-        )
-        _require_choice(
-            "unknown_embedding_policy",
-            self.unknown_embedding_policy,
-            CANONICAL_UNKNOWN_EMBEDDING_POLICIES,
-        )
-        _require_choice(
-            "hazard embedding initialization",
-            self.initialization,
-            CANONICAL_HAZARD_EMBEDDING_INITIALIZATIONS,
-        )
-
-        _require_nonnegative_int(
-            "hazard embedding initialization_seed",
-            self.initialization_seed,
-        )
-        _require_nonnegative_float(
-            "hazard embedding initialization_std",
-            self.initialization_std,
-        )
-        _require_nonnegative_float(
-            "hazard embedding fixed_scale",
-            self.fixed_scale,
-        )
-        _require_nonnegative_float(
-            "hazard embedding residual_scale",
-            self.residual_scale,
-        )
-
-        for name, value in (
-            ("include_fallback_hazard", self.include_fallback_hazard),
-            ("include_unknown_row", self.include_unknown_row),
-            ("freeze_learned_embeddings", self.freeze_learned_embeddings),
-            (
-                "require_training_supported_hazards",
-                self.require_training_supported_hazards,
-            ),
-            (
-                "allow_partially_data_backed_for_training",
-                self.allow_partially_data_backed_for_training,
-            ),
-            (
-                "require_queryable_hazards_for_inference",
-                self.require_queryable_hazards_for_inference,
-            ),
-            (
-                "allow_fallback_hazard_for_inference",
-                self.allow_fallback_hazard_for_inference,
-            ),
-            (
-                "allow_planned_hazard_counterfactuals",
-                self.allow_planned_hazard_counterfactuals,
-            ),
-        ):
-            _require_boolean(name, value)
-
-        if self.unknown_input_policy == UNKNOWN_ID_POLICY_ERROR:
-            if self.include_unknown_row:
-                raise ValueError(
-                    "unknown_input_policy='error' requires "
-                    "include_unknown_row=False."
-                )
-            if self.unknown_embedding_policy != UNKNOWN_EMBEDDING_POLICY_ERROR:
-                raise ValueError(
-                    "unknown_input_policy='error' requires "
-                    "unknown_embedding_policy='error'."
-                )
-        else:
-            if not self.include_unknown_row:
-                raise ValueError(
-                    "unknown_input_policy='use_unknown_embedding' requires "
-                    "include_unknown_row=True."
-                )
-            if self.unknown_embedding_policy not in (
-                UNKNOWN_EMBEDDING_POLICY_ZERO_FIXED,
-                UNKNOWN_EMBEDDING_POLICY_LEARNED,
-            ):
-                raise ValueError(
-                    "unknown_input_policy='use_unknown_embedding' requires "
-                    "unknown_embedding_policy='zero_fixed' or 'learned'."
-                )
-
-        if self.fixed_artifact_reference is not None:
-            _require_nonempty_string(
-                "fixed_artifact_reference",
-                self.fixed_artifact_reference,
-            )
-        if self.fixed_artifact_fingerprint is not None:
-            _require_nonempty_string(
-                "fixed_artifact_fingerprint",
-                self.fixed_artifact_fingerprint,
-            )
-
-        if self.mode == HAZARD_EMBEDDING_MODE_LEARNED:
-            if self.fixed_artifact_reference is not None:
-                raise ValueError(
-                    "Learned hazard embeddings cannot specify a fixed "
-                    "artifact reference."
-                )
-            if self.fixed_artifact_fingerprint is not None:
-                raise ValueError(
-                    "Learned hazard embeddings cannot specify a fixed "
-                    "artifact fingerprint."
-                )
-        elif self.fixed_artifact_reference is None:
-            raise ValueError(
-                "Fixed and fixed-plus-residual hazard embeddings require "
-                "fixed_artifact_reference."
-            )
-
-        if (
-            self.uses_learned_parameters
-            and self.initialization == HAZARD_EMBEDDING_INIT_NORMAL
-        ):
-            _require_positive_float(
-                "hazard embedding initialization_std",
-                self.initialization_std,
-            )
-
-        if (
-            self.allow_fallback_hazard_for_inference
-            and not self.include_fallback_hazard
-        ):
-            raise ValueError(
-                "allow_fallback_hazard_for_inference=True requires "
-                "include_fallback_hazard=True."
-            )
-
-    def assert_construction_ready(self) -> None:
-        if not self.uses_fixed_artifact:
-            return
-        if self.fixed_artifact_reference is None:
-            raise ValueError(
-                "fixed_artifact_reference must be resolved before fixed "
-                "hazard-embedding construction."
-            )
-        if self.fixed_artifact_fingerprint is None:
-            raise ValueError(
-                "fixed_artifact_fingerprint must be resolved before fixed "
-                "hazard-embedding construction."
-            )
-
-
-@dataclass(slots=True, frozen=True)
 class HazardConfig(ConfigMixin):
-    """Controls hazard-query and scenario conditioning."""
+    """Controls hazard identity, scenario context, and conditioning mode."""
 
     conditioning_mode: str = HAZARD_CONDITIONING_NONE
+
     hazard_scope: str = SCOPE_GRAPH
     scenario_scope: str = SCOPE_GRAPH
 
-    embedding: HazardEmbeddingConfig = field(
-        default_factory=HazardEmbeddingConfig
-    )
+    embedding_dim: int = 32
     output_dim: int = 64
 
     use_hazard_features: bool = False
     hazard_feature_dim: int | None = None
+
     use_scenario_features: bool = False
     scenario_feature_dim: int | None = None
+
+    unknown_hazard_policy: str = UNKNOWN_ID_POLICY_ERROR
 
     def __post_init__(self) -> None:
         self.validate()
@@ -1102,16 +864,30 @@ class HazardConfig(ConfigMixin):
             self.conditioning_mode,
             CANONICAL_HAZARD_CONDITIONING_MODES,
         )
-        _require_choice("hazard_scope", self.hazard_scope, CANONICAL_SCOPES)
+        _require_choice(
+            "hazard_scope",
+            self.hazard_scope,
+            CANONICAL_SCOPES,
+        )
         _require_choice(
             "scenario_scope",
             self.scenario_scope,
             CANONICAL_SCOPES,
         )
-        if not isinstance(self.embedding, HazardEmbeddingConfig):
-            raise TypeError("embedding must be a HazardEmbeddingConfig.")
-        self.embedding.validate()
-        _require_positive_int("hazard output_dim", self.output_dim)
+        _require_choice(
+            "unknown_hazard_policy",
+            self.unknown_hazard_policy,
+            CANONICAL_UNKNOWN_ID_POLICIES,
+        )
+
+        _require_positive_int(
+            "hazard embedding_dim",
+            self.embedding_dim,
+        )
+        _require_positive_int(
+            "hazard output_dim",
+            self.output_dim,
+        )
 
         if self.use_hazard_features:
             if self.hazard_feature_dim is None:
@@ -1146,7 +922,8 @@ class HazardConfig(ConfigMixin):
             )
 
         if (
-            self.conditioning_mode == HAZARD_CONDITIONING_EMBEDDING_SCENARIO
+            self.conditioning_mode
+            == HAZARD_CONDITIONING_EMBEDDING_SCENARIO
             and not self.use_scenario_features
         ):
             raise ValueError(
@@ -1156,7 +933,10 @@ class HazardConfig(ConfigMixin):
 
         if (
             self.conditioning_mode == HAZARD_CONDITIONING_NONE
-            and (self.use_hazard_features or self.use_scenario_features)
+            and (
+                self.use_hazard_features
+                or self.use_scenario_features
+            )
         ):
             raise ValueError(
                 "Hazard/scenario features cannot be enabled while hazard "
@@ -1169,11 +949,6 @@ class HazardConfig(ConfigMixin):
             self.conditioning_mode,
             V2_0_IMPLEMENTED_HAZARD_CONDITIONING_MODES,
         )
-
-    def assert_construction_ready(self) -> None:
-        if not self.enabled:
-            return
-        self.embedding.assert_construction_ready()
 
 
 @dataclass(slots=True, frozen=True)
@@ -2406,8 +2181,6 @@ class ModelConfig(ConfigMixin):
         self.reporting_bias.assert_implemented()
 
     def assert_dimensions_resolved(self) -> None:
-        self.hazard.assert_construction_ready()
-
         if (
             self.fusion.include_static_state
             and self.static_input_dim is None
@@ -2793,10 +2566,6 @@ class ExperimentConfig(ConfigMixin):
 
         payload["dataset"].pop("artifact_root", None)
 
-        hazard_embedding = payload["model"]["hazard"].get("embedding")
-        if isinstance(hazard_embedding, dict):
-            hazard_embedding.pop("fixed_artifact_reference", None)
-
         payload["data"].pop("num_workers", None)
         payload["data"].pop("pin_memory", None)
 
@@ -3084,24 +2853,7 @@ class ExperimentConfig(ConfigMixin):
                     ),
                     hazard_scope=SCOPE_GRAPH,
                     scenario_scope=SCOPE_GRAPH,
-                    embedding=HazardEmbeddingConfig(
-                        embedding_dim=32,
-                        mode=HAZARD_EMBEDDING_MODE_LEARNED,
-                        unknown_input_policy=UNKNOWN_ID_POLICY_ERROR,
-                        unknown_embedding_policy=(
-                            UNKNOWN_EMBEDDING_POLICY_ERROR
-                        ),
-                        include_fallback_hazard=False,
-                        include_unknown_row=False,
-                        initialization=HAZARD_EMBEDDING_INIT_NORMAL,
-                        initialization_seed=42,
-                        initialization_std=0.02,
-                        require_training_supported_hazards=True,
-                        allow_partially_data_backed_for_training=True,
-                        require_queryable_hazards_for_inference=True,
-                        allow_fallback_hazard_for_inference=False,
-                        allow_planned_hazard_counterfactuals=True,
-                    ),
+                    embedding_dim=32,
                     output_dim=64,
                 ),
                 fusion=NodeStateFusionConfig(
@@ -3318,78 +3070,13 @@ def _build_memory_config(
     )
 
 
-def _build_hazard_embedding_config(
-    payload: Mapping[str, Any],
-) -> HazardEmbeddingConfig:
-    return _build_simple_config(HazardEmbeddingConfig, payload)
-
-
-def _migrate_legacy_hazard_embedding_config(
-    *,
-    embedding_dim: Any,
-    unknown_hazard_policy: Any,
-) -> HazardEmbeddingConfig:
-    """Migrate the former flat HazardConfig embedding fields."""
-
-    _require_choice(
-        "legacy unknown_hazard_policy",
-        unknown_hazard_policy,
-        CANONICAL_UNKNOWN_ID_POLICIES,
-    )
-
-    if unknown_hazard_policy == UNKNOWN_ID_POLICY_ERROR:
-        return HazardEmbeddingConfig(
-            embedding_dim=embedding_dim,
-            unknown_input_policy=UNKNOWN_ID_POLICY_ERROR,
-            unknown_embedding_policy=UNKNOWN_EMBEDDING_POLICY_ERROR,
-            include_unknown_row=False,
-        )
-
-    # The former config had no fixed-zero unknown-row policy. Mapping its
-    # use_unknown_embedding branch to a learned synthetic row preserves the
-    # ordinary trainable-row behavior rather than silently changing it.
-    return HazardEmbeddingConfig(
-        embedding_dim=embedding_dim,
-        unknown_input_policy=UNKNOWN_ID_POLICY_USE_UNKNOWN_EMBEDDING,
-        unknown_embedding_policy=UNKNOWN_EMBEDDING_POLICY_LEARNED,
-        include_unknown_row=True,
-    )
-
-
 def _build_hazard_config(
     payload: Mapping[str, Any],
 ) -> HazardConfig:
-    mapping = dict(_require_mapping("HazardConfig", payload))
-
-    legacy_fields = {"embedding_dim", "unknown_hazard_policy"}
-    observed_legacy_fields = legacy_fields & set(mapping)
-
-    if "embedding" in mapping and observed_legacy_fields:
-        raise ValueError(
-            "HazardConfig cannot mix nested embedding configuration "
-            f"with legacy fields {sorted(observed_legacy_fields)}."
-        )
-
-    if observed_legacy_fields:
-        legacy_embedding_dim = mapping.pop("embedding_dim", 32)
-        legacy_unknown_policy = mapping.pop(
-            "unknown_hazard_policy",
-            UNKNOWN_ID_POLICY_ERROR,
-        )
-        mapping["embedding"] = _migrate_legacy_hazard_embedding_config(
-            embedding_dim=legacy_embedding_dim,
-            unknown_hazard_policy=legacy_unknown_policy,
-        )
-    elif "embedding" in mapping:
-        mapping["embedding"] = _build_hazard_embedding_config(
-            _require_mapping(
-                "HazardConfig.embedding",
-                mapping["embedding"],
-            )
-        )
-
-    _reject_unknown_fields(HazardConfig, mapping)
-    return HazardConfig(**mapping)
+    return _build_simple_config(
+        HazardConfig,
+        payload,
+    )
 
 
 def _build_fusion_config(
@@ -3632,20 +3319,4 @@ __all__ = (
     "SchedulerConfig",
     "TrainingConfig",
     "UncertaintyConfig",
-    "CANONICAL_HAZARD_EMBEDDING_INITIALIZATIONS",
-    "CANONICAL_HAZARD_EMBEDDING_MODES",
-    "CANONICAL_UNKNOWN_EMBEDDING_POLICIES",
-    "CANONICAL_UNKNOWN_ID_POLICIES",
-    "HAZARD_EMBEDDING_INIT_NORMAL",
-    "HAZARD_EMBEDDING_INIT_XAVIER_UNIFORM",
-    "HAZARD_EMBEDDING_INIT_ZERO",
-    "HAZARD_EMBEDDING_MODE_FIXED",
-    "HAZARD_EMBEDDING_MODE_FIXED_PLUS_RESIDUAL",
-    "HAZARD_EMBEDDING_MODE_LEARNED",
-    "HazardEmbeddingConfig",
-    "UNKNOWN_EMBEDDING_POLICY_ERROR",
-    "UNKNOWN_EMBEDDING_POLICY_LEARNED",
-    "UNKNOWN_EMBEDDING_POLICY_ZERO_FIXED",
-    "UNKNOWN_ID_POLICY_ERROR",
-    "UNKNOWN_ID_POLICY_USE_UNKNOWN_EMBEDDING",
 )

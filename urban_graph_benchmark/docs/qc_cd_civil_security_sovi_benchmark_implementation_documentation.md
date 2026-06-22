@@ -684,7 +684,7 @@ It implements:
 
 Message passing occurs between CDs within the same origin month.
 
-### Why B4 is research-level
+### What makes it rigorous
 
 B4 isolates graph value through controlled comparisons:
 
@@ -839,7 +839,7 @@ PYTHONPATH=urban_graph_benchmark/src python \
   --dry-run
 ```
 
-### Why the suite is research-level
+### Why the suite is rigorous
 
 The suite:
 

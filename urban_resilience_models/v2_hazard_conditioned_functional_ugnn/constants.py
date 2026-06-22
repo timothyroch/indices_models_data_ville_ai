@@ -663,7 +663,10 @@ V2_0_TARGET_RELATION_TRANSFORM_TYPES: Final[tuple[str, ...]] = (
 
 V2_0_IMPLEMENTED_RELATION_TRANSFORM_TYPES: Final[
     tuple[str, ...]
-] = ()
+] = (
+    RELATION_TRANSFORM_SHARED,
+    RELATION_TRANSFORM_PER_RELATION,
+)
 
 
 # =============================================================================
@@ -698,7 +701,9 @@ V2_0_TARGET_AGGREGATION_TYPES: Final[tuple[str, ...]] = (
     AGGREGATION_DEGREE_NORMALIZED_SUM,
 )
 
-V2_0_IMPLEMENTED_AGGREGATION_TYPES: Final[tuple[str, ...]] = ()
+V2_0_IMPLEMENTED_AGGREGATION_TYPES: Final[tuple[str, ...]] = (
+    AGGREGATION_MEAN,
+)
 
 
 # =============================================================================
@@ -737,7 +742,9 @@ V2_0_TARGET_EDGE_NORMALIZATION_TYPES: Final[tuple[str, ...]] = (
 
 V2_0_IMPLEMENTED_EDGE_NORMALIZATION_TYPES: Final[
     tuple[str, ...]
-] = ()
+] = (
+    EDGE_NORMALIZATION_NONE,
+)
 
 
 # =============================================================================
