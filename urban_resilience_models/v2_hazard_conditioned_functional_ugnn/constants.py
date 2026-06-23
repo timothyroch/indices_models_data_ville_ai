@@ -517,7 +517,9 @@ V2_0_TARGET_RELATION_GATE_SCOPES: Final[tuple[str, ...]] = (
 
 V2_0_IMPLEMENTED_RELATION_GATE_SCOPES: Final[
     tuple[str, ...]
-] = ()
+] = (
+    RELATION_GATE_SCOPE_TARGET_NODE,
+)
 
 
 # =============================================================================
@@ -546,7 +548,9 @@ V2_0_TARGET_RELATION_GATE_ACTIVATIONS: Final[tuple[str, ...]] = (
 
 V2_0_IMPLEMENTED_RELATION_GATE_ACTIVATIONS: Final[
     tuple[str, ...]
-] = ()
+] = (
+    RELATION_GATE_ACTIVATION_SIGMOID,
+)
 
 
 # =============================================================================
