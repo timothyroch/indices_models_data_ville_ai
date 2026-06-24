@@ -63,8 +63,10 @@ from urban_resilience_models.v2_hazard_conditioned_functional_ugnn.functional_me
     EDGE_NORMALIZATION_OUTPUT_SCHEMA_VERSION,
     FMP_INTERMEDIATES_SCHEMA_VERSION,
     FMP_LAYER_OUTPUT_SCHEMA_VERSION,
+    FMP_NODE_STATE_SOURCE_LAYER_OUTPUT,
     FMP_STACK_OUTPUT_SCHEMA_VERSION,
     FUNCTIONAL_MESSAGE_PASSING_INPUT_SCHEMA_VERSION,
+    FUNCTIONAL_MESSAGE_PASSING_NODE_STATE_SCHEMA_VERSION,
     RELATION_FAMILY_ALIGNMENT_SCHEMA_VERSION,
     RELATION_GATE_OUTPUT_SCHEMA_VERSION,
     RELATION_TRANSFORM_OUTPUT_SCHEMA_VERSION,
@@ -74,6 +76,7 @@ from urban_resilience_models.v2_hazard_conditioned_functional_ugnn.functional_me
     FunctionalMessagePassingInputs,
     FunctionalMessagePassingIntermediates,
     FunctionalMessagePassingLayerOutput,
+    FunctionalMessagePassingNodeState,
     FunctionalMessagePassingStackOutput,
     RelationFamilyAlignment,
     RelationGateOutput,
@@ -238,6 +241,33 @@ class FakeAlignment:
     node_batch_index: torch.Tensor | None
     graph_count: int | None
 
+    @property
+    def item_count(self) -> int:
+        return len(self.item_ids)
+
+    def fingerprint(self) -> str:
+        membership = (
+            None
+            if self.node_batch_index is None
+            else tuple(
+                int(value)
+                for value in (
+                    self.node_batch_index
+                    .detach()
+                    .cpu()
+                    .tolist()
+                )
+            )
+        )
+
+        return repr(
+            (
+                self.item_ids,
+                membership,
+                self.graph_count,
+            )
+        )
+
 
 class FakeNodeStateFusionOutput:
     def __init__(
@@ -399,6 +429,11 @@ def _patch_upstream_contracts(
         fmp_schemas,
         "UrbanGraphBatch",
         FakeUrbanGraphBatch,
+    )
+    monkeypatch.setattr(
+        fmp_schemas,
+        "NodeAlignment",
+        FakeAlignment,
     )
     monkeypatch.setattr(
         fmp_schemas,
@@ -621,6 +656,42 @@ def _node_state(
     )
 
 
+
+def _stack_node_state(
+    *,
+    state: torch.Tensor | None = None,
+    source_layer_index: int = 0,
+    alignment: FakeAlignment | None = None,
+) -> FunctionalMessagePassingNodeState:
+    initial = _node_state()
+
+    return FunctionalMessagePassingNodeState(
+        state=(
+            initial.fused_state
+            if state is None
+            else state
+        ),
+        alignment=(
+            initial.alignment
+            if alignment is None
+            else alignment
+        ),
+        source_kind=(
+            FMP_NODE_STATE_SOURCE_LAYER_OUTPUT
+        ),
+        source_layer_index=source_layer_index,
+        source_architecture_fingerprint=(
+            f"layer-architecture-{source_layer_index}"
+        ),
+        source_lineage_fingerprint=(
+            f"layer-lineage-{source_layer_index}"
+        ),
+        source_parameter_fingerprint=(
+            f"layer-parameters-{source_layer_index}"
+        ),
+    )
+
+
 def _registry(
     *,
     fingerprint: str = "compiled-registry",
@@ -679,7 +750,11 @@ def _families(
 def _inputs(
     *,
     graph: FakeUrbanGraphBatch | None = None,
-    node_state: FakeNodeStateFusionOutput | None = None,
+    node_state: (
+        FakeNodeStateFusionOutput
+        | FunctionalMessagePassingNodeState
+        | None
+    ) = None,
     registry: FakeCompiledRelationRegistry | None = None,
     relation_families: RelationFamilyAlignment | None = None,
     hazard_query: FakeHazardQueryEncoding | None = None,
@@ -1105,6 +1180,7 @@ def test_all_schema_versions_are_nonempty() -> None:
     versions = (
         RELATION_FAMILY_ALIGNMENT_SCHEMA_VERSION,
         FUNCTIONAL_MESSAGE_PASSING_INPUT_SCHEMA_VERSION,
+        FUNCTIONAL_MESSAGE_PASSING_NODE_STATE_SCHEMA_VERSION,
         RELATION_TRANSFORM_OUTPUT_SCHEMA_VERSION,
         EDGE_NORMALIZATION_OUTPUT_SCHEMA_VERSION,
         RELATION_GATE_OUTPUT_SCHEMA_VERSION,
@@ -1466,6 +1542,157 @@ def test_relation_family_rejects_blank_fingerprint_fields(
         match="non-empty",
     ):
         RelationFamilyAlignment(**kwargs)
+
+
+# =============================================================================
+# FunctionalMessagePassingNodeState
+# =============================================================================
+
+
+def test_functional_message_passing_node_state_valid_contract() -> None:
+    state = torch.randn(
+        NODES,
+        HIDDEN_DIM,
+    )
+    alignment = _node_state().alignment
+
+    node_state = _stack_node_state(
+        state=state,
+        source_layer_index=2,
+        alignment=alignment,
+    )
+
+    assert node_state.state is state
+    assert node_state.fused_state is state
+    assert node_state.alignment is alignment
+    assert node_state.item_count == NODES
+    assert node_state.output_dim == HIDDEN_DIM
+    assert node_state.device == state.device
+    assert node_state.dtype == state.dtype
+    assert node_state.source_layer_index == 2
+    assert (
+        node_state.encoder_architecture_fingerprint
+        == "layer-architecture-2"
+    )
+    assert isinstance(
+        node_state.lineage_fingerprint,
+        str,
+    )
+    assert node_state.lineage_fingerprint
+
+
+def test_functional_message_passing_node_state_fingerprints_are_deterministic() -> None:
+    state = torch.randn(
+        NODES,
+        HIDDEN_DIM,
+    )
+    alignment = _node_state().alignment
+
+    first = _stack_node_state(
+        state=state,
+        alignment=alignment,
+    )
+    second = _stack_node_state(
+        state=state.clone(),
+        alignment=alignment,
+    )
+
+    assert first.lineage_fingerprint == (
+        second.lineage_fingerprint
+    )
+    assert first.value_fingerprint() == (
+        second.value_fingerprint()
+    )
+
+
+def test_functional_message_passing_node_state_rejects_invalid_source_kind() -> None:
+    base = _stack_node_state()
+
+    with pytest.raises(
+        ValueError,
+        match="layer_output",
+    ):
+        FunctionalMessagePassingNodeState(
+            state=base.state,
+            alignment=base.alignment,
+            source_kind="fusion",
+            source_layer_index=0,
+            source_architecture_fingerprint=(
+                "architecture"
+            ),
+            source_lineage_fingerprint=(
+                "lineage"
+            ),
+        )
+
+
+@pytest.mark.parametrize(
+    "source_layer_index",
+    (
+        -1,
+        True,
+        1.5,
+    ),
+)
+def test_functional_message_passing_node_state_rejects_invalid_layer_index(
+    source_layer_index: Any,
+) -> None:
+    base = _stack_node_state()
+
+    with pytest.raises(
+        ValueError,
+        match="nonnegative integer",
+    ):
+        FunctionalMessagePassingNodeState(
+            state=base.state,
+            alignment=base.alignment,
+            source_kind=(
+                FMP_NODE_STATE_SOURCE_LAYER_OUTPUT
+            ),
+            source_layer_index=source_layer_index,
+            source_architecture_fingerprint=(
+                "architecture"
+            ),
+            source_lineage_fingerprint=(
+                "lineage"
+            ),
+        )
+
+
+def test_inputs_accepts_functional_message_passing_node_state() -> None:
+    node_state = _stack_node_state()
+    inputs = _inputs(
+        node_state=node_state,
+    )
+
+    assert inputs.node_state is node_state
+    assert (
+        inputs.node_state.fused_state
+        is node_state.state
+    )
+    assert inputs.hidden_dim == HIDDEN_DIM
+    assert inputs.num_nodes == NODES
+
+
+def test_functional_message_passing_node_state_rejects_alignment_row_mismatch() -> None:
+    wrong_alignment = FakeAlignment(
+        item_ids=_node_ids(
+            NODES - 1
+        ),
+        node_batch_index=torch.tensor(
+            [0, 0, 0, 1],
+            dtype=torch.long,
+        ),
+        graph_count=GRAPHS,
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="item_count",
+    ):
+        _stack_node_state(
+            alignment=wrong_alignment,
+        )
 
 
 # =============================================================================

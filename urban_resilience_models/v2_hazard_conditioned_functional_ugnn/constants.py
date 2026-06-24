@@ -1170,6 +1170,51 @@ CANONICAL_IMPLEMENTATION_STATES: Final[tuple[str, ...]] = (
 )
 
 
+
+# =============================================================================
+# Stack vocabulary
+# =============================================================================
+
+
+STACK_SHARING_INDEPENDENT: Final[str] = "independent"
+STACK_SHARING_FULLY_SHARED: Final[str] = "fully_shared"
+
+CANONICAL_STACK_SHARING_POLICIES: Final[
+    tuple[str, ...]
+] = (
+    STACK_SHARING_INDEPENDENT,
+    STACK_SHARING_FULLY_SHARED,
+)
+
+V2_0_IMPLEMENTED_STACK_SHARING_POLICIES: Final[
+    tuple[str, ...]
+] = (
+    STACK_SHARING_INDEPENDENT,
+    STACK_SHARING_FULLY_SHARED,
+)
+
+
+STACK_RETENTION_NONE: Final[str] = "none"
+STACK_RETENTION_FINAL_LAYER: Final[str] = "final_layer"
+STACK_RETENTION_ALL_LAYERS: Final[str] = "all_layers"
+
+CANONICAL_STACK_RETENTION_POLICIES: Final[
+    tuple[str, ...]
+] = (
+    STACK_RETENTION_NONE,
+    STACK_RETENTION_FINAL_LAYER,
+    STACK_RETENTION_ALL_LAYERS,
+)
+
+V2_0_IMPLEMENTED_STACK_RETENTION_POLICIES: Final[
+    tuple[str, ...]
+] = (
+    STACK_RETENTION_NONE,
+    STACK_RETENTION_FINAL_LAYER,
+    STACK_RETENTION_ALL_LAYERS,
+)
+
+
 # =============================================================================
 # Notes for validators
 # =============================================================================

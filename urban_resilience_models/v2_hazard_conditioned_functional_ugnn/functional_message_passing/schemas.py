@@ -68,7 +68,10 @@ from ..constants import (
     RELATION_GATE_ACTIVATION_SIGMOID,
     RELATION_GATE_SCOPE_TARGET_NODE,
 )
-from ..fusion.schemas import NodeStateFusionOutput
+from ..fusion.schemas import (
+    NodeAlignment,
+    NodeStateFusionOutput,
+)
 from ..hazard.hazard_embeddings import (
     HazardEmbeddingLookup,
     NodeAlignedHazardEmbeddingLookup,
@@ -90,6 +93,7 @@ from ..schemas import UrbanGraphBatch
 
 
 RELATION_FAMILY_ALIGNMENT_SCHEMA_VERSION: Final[str] = "0.1"
+FUNCTIONAL_MESSAGE_PASSING_NODE_STATE_SCHEMA_VERSION: Final[str] = "0.1"
 FUNCTIONAL_MESSAGE_PASSING_INPUT_SCHEMA_VERSION: Final[str] = "0.1"
 RELATION_TRANSFORM_OUTPUT_SCHEMA_VERSION: Final[str] = "0.1"
 EDGE_NORMALIZATION_OUTPUT_SCHEMA_VERSION: Final[str] = "0.1"
@@ -801,6 +805,180 @@ class RelationFamilyAlignment:
         )
 
 
+
+# =============================================================================
+# Functional message-passing node state
+# =============================================================================
+
+
+FMP_NODE_STATE_SOURCE_LAYER_OUTPUT: Final[str] = "layer_output"
+
+
+@dataclass(slots=True, frozen=True)
+class FunctionalMessagePassingNodeState:
+    """
+    Node state produced by a completed functional message-passing layer.
+
+    This contract lets a later stack depth consume an evolved node state
+    without pretending that the tensor was produced by node-state fusion.
+    """
+
+    state: torch.Tensor
+    alignment: NodeAlignment
+
+    source_kind: str
+    source_layer_index: int
+
+    source_architecture_fingerprint: str
+    source_lineage_fingerprint: str
+    source_parameter_fingerprint: str | None = None
+
+    schema_version: str = (
+        FUNCTIONAL_MESSAGE_PASSING_NODE_STATE_SCHEMA_VERSION
+    )
+
+    def __post_init__(self) -> None:
+        _require_float_tensor(
+            "state",
+            self.state,
+            ndim=2,
+        )
+
+        if int(self.state.shape[0]) <= 0:
+            raise ValueError(
+                "state must contain at least one node."
+            )
+
+        if int(self.state.shape[1]) <= 0:
+            raise ValueError(
+                "state must contain at least one hidden feature."
+            )
+
+        if not isinstance(
+            self.alignment,
+            NodeAlignment,
+        ):
+            raise TypeError(
+                "alignment must be a NodeAlignment."
+            )
+
+        if self.alignment.item_count != self.item_count:
+            raise ValueError(
+                "alignment.item_count must match the number of state rows."
+            )
+
+        if self.alignment.node_batch_index is None:
+            raise ValueError(
+                "alignment must preserve node_batch_index."
+            )
+
+        if (
+            self.alignment.node_batch_index.device
+            != self.state.device
+        ):
+            raise ValueError(
+                "state and alignment.node_batch_index must share one "
+                "device."
+            )
+
+        _require_nonempty_string(
+            "source_kind",
+            self.source_kind,
+        )
+
+        if self.source_kind != (
+            FMP_NODE_STATE_SOURCE_LAYER_OUTPUT
+        ):
+            raise ValueError(
+                "source_kind must be 'layer_output'."
+            )
+
+        _require_nonnegative_int(
+            "source_layer_index",
+            self.source_layer_index,
+        )
+
+        _require_nonempty_string(
+            "source_architecture_fingerprint",
+            self.source_architecture_fingerprint,
+        )
+        _require_nonempty_string(
+            "source_lineage_fingerprint",
+            self.source_lineage_fingerprint,
+        )
+        _require_optional_nonempty_string(
+            "source_parameter_fingerprint",
+            self.source_parameter_fingerprint,
+        )
+        _require_nonempty_string(
+            "schema_version",
+            self.schema_version,
+        )
+
+    @property
+    def fused_state(self) -> torch.Tensor:
+        return self.state
+
+    @property
+    def item_count(self) -> int:
+        return int(self.state.shape[0])
+
+    @property
+    def output_dim(self) -> int:
+        return int(self.state.shape[1])
+
+    @property
+    def device(self) -> torch.device:
+        return self.state.device
+
+    @property
+    def dtype(self) -> torch.dtype:
+        return self.state.dtype
+
+    @property
+    def encoder_architecture_fingerprint(
+        self,
+    ) -> str:
+        return self.source_architecture_fingerprint
+
+    def lineage_dict(
+        self,
+    ) -> dict[str, Any]:
+        return {
+            "schema_version": self.schema_version,
+            "source_kind": self.source_kind,
+            "source_layer_index": (
+                self.source_layer_index
+            ),
+            "source_architecture_fingerprint": (
+                self.source_architecture_fingerprint
+            ),
+            "source_parameter_fingerprint": (
+                self.source_parameter_fingerprint
+            ),
+            "source_lineage_fingerprint": (
+                self.source_lineage_fingerprint
+            ),
+            "alignment_fingerprint": (
+                self.alignment.fingerprint()
+            ),
+        }
+
+    @property
+    def lineage_fingerprint(self) -> str:
+        return _fingerprint(
+            self.lineage_dict()
+        )
+
+    def value_fingerprint(self) -> str:
+        return _tensor_fingerprint(
+            {
+                "state": self.state,
+            }
+        )
+    
+
+
 # =============================================================================
 # Functional message-passing inputs
 # =============================================================================
@@ -821,7 +999,10 @@ class FunctionalMessagePassingInputs:
     """
 
     source_graph: UrbanGraphBatch
-    node_state: NodeStateFusionOutput
+    node_state: (
+        NodeStateFusionOutput
+        | FunctionalMessagePassingNodeState
+    )
     compiled_relation_registry: CompiledRelationRegistry
 
     relation_families: (
@@ -870,10 +1051,14 @@ class FunctionalMessagePassingInputs:
 
         if not isinstance(
             self.node_state,
-            NodeStateFusionOutput,
+            (
+                NodeStateFusionOutput,
+                FunctionalMessagePassingNodeState,
+            ),
         ):
             raise TypeError(
-                "node_state must be a NodeStateFusionOutput."
+                "node_state must be a NodeStateFusionOutput or "
+                "FunctionalMessagePassingNodeState."
             )
 
         if not isinstance(
@@ -3215,8 +3400,10 @@ __all__ = (
     "EDGE_NORMALIZATION_OUTPUT_SCHEMA_VERSION",
     "FMP_INTERMEDIATES_SCHEMA_VERSION",
     "FMP_LAYER_OUTPUT_SCHEMA_VERSION",
+    "FMP_NODE_STATE_SOURCE_LAYER_OUTPUT",
     "FMP_STACK_OUTPUT_SCHEMA_VERSION",
     "FUNCTIONAL_MESSAGE_PASSING_INPUT_SCHEMA_VERSION",
+    "FUNCTIONAL_MESSAGE_PASSING_NODE_STATE_SCHEMA_VERSION",
     "RELATION_FAMILY_ALIGNMENT_SCHEMA_VERSION",
     "RELATION_GATE_OUTPUT_SCHEMA_VERSION",
     "RELATION_TRANSFORM_OUTPUT_SCHEMA_VERSION",
@@ -3226,6 +3413,7 @@ __all__ = (
     "FunctionalMessagePassingInputs",
     "FunctionalMessagePassingIntermediates",
     "FunctionalMessagePassingLayerOutput",
+    "FunctionalMessagePassingNodeState",
     "FunctionalMessagePassingStackOutput",
     "RelationFamilyAlignment",
     "RelationGateOutput",

@@ -11,7 +11,7 @@ Target path:
 This package implements the complete enabled edge-attention subsystem for the
 bounded V2.0 hazard-conditioned functional UGNN.
 
-Scientific decomposition
+Decomposition
 ------------------------
 The package preserves three distinct operations:
 
@@ -42,7 +42,7 @@ The complete orchestrator exposes:
 
     score -> normalize -> reduce -> EdgeAttentionOutput
 
-Scientific separation from relation gating
+Separation from relation gating
 ------------------------------------------
 Edge attention and relation gating are intentionally different mechanisms.
 
@@ -279,7 +279,7 @@ __all__ = (
     "ATTENTION_MULTIHEAD_SCHEMA_VERSION",
     "EDGE_ATTENTION_ORCHESTRATOR_SCHEMA_VERSION",
     # ------------------------------------------------------------------
-    # Scientific vocabularies and formulas
+    # Vocabularies and formulas
     # ------------------------------------------------------------------
     "EDGE_ATTENTION_SCHEMA_MODES",
     "EDGE_ATTENTION_SCORE_MODES",
