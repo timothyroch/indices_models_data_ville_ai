@@ -470,7 +470,7 @@ def make_norm(kind: str, dim: int) -> nn.Module:
 
 
 def reset_parameters(module: nn.Module) -> None:
-    """Research-friendly default initialization for linear layers."""
+    """Default initialization for linear layers."""
 
     for sub in module.modules():
         if isinstance(sub, nn.Linear):
